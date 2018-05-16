@@ -1,0 +1,18 @@
+main {
+	padding: 40px;
+	padding-top: 80px;
+}
+
+.pt-callout {
+	margin-top: 10px;
+}
+
+.app-row {
+	display: flex;
+	flex-wrap: wrap;
+	margin-top: 10px;
+}
+
+.pt-tag-input .pt-input-ghost {
+	width: 120px;
+}
