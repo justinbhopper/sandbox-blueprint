@@ -1,7 +1,8 @@
 import * as React from 'react';
 
 import { Notification } from '../common/notifications'
-import { ConnectedTagInputExample, TagInputExample } from './tagInputExample'
+import { TagInputExample } from './tagInputExample'
+import { ConnectedTagInputExample } from './tagInputExampleConnected'
 
 import {
 	Button,

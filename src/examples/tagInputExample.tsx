@@ -1,28 +1,17 @@
-import * as React from 'react';
-import { connect } from 'react-redux'
-
 import { Button, TagInput } from '@blueprintjs/core';
+import * as React from 'react';
 
 export interface ITagInputExampleProps {
-	large?: boolean;
-	values?: React.ReactNode[];
+	large: boolean;
+	selectedPeople: string[];
+	onPeopleSelected: (selectedPeople: string[]) => void;
 }
 
-interface ITagInputExampleState {
-	selectedPeople?: React.ReactNode[]
-}
-
-const mapStateToProps = (state: ITagInputExampleState) => {
-	return {
-		values: state.selectedPeople
-	}
-}
-
-export class TagInputExample extends React.Component<ITagInputExampleProps, ITagInputExampleState> {
+export class TagInputExample extends React.Component<ITagInputExampleProps> {
 	public render() {
 		const { large } = this.props;
 
-		const values: React.ReactNode[] = this.props.values || [];
+		const values: string[] = this.props.selectedPeople || [];
 
 		const clearButton = (
 			values.length > 0 
@@ -43,11 +32,12 @@ export class TagInputExample extends React.Component<ITagInputExampleProps, ITag
 		);
 	}
 
-	private handleChange = (selectedPeople: React.ReactNode[]) => {
-		this.setState({ selectedPeople });
-	};
+	private handleChange = (selectedPeople: string[]) => {
+		if (this.props.onPeopleSelected)
+		{
+			this.props.onPeopleSelected(selectedPeople);
+		}
+	}
 	
-	private handleClear = () => this.handleChange([]);
+	private handleClear = () => this.handleChange([])
 }
-
-export const ConnectedTagInputExample = connect(mapStateToProps)(TagInputExample)
