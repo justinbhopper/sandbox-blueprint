@@ -1,4 +1,4 @@
-import { AnyAction, combineReducers } from "redux";
+import { combineReducers } from "redux";
 import { IApplicationState } from "./application";
 import { RootAction } from './root-action'
 
@@ -8,6 +8,6 @@ export interface IRootState {
 	application: IApplicationState;
 }
 
-export const rootReducer = combineReducers<IRootState>({
+export const rootReducer = combineReducers<IRootState, RootAction>({
 	application
 });

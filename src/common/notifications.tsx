@@ -30,8 +30,7 @@ export const Notification: IToaster = {
 	 */
 	show(props: IToastProps, key?: string): string
 	{
-		if (key === undefined)
-		{
+		if (key === undefined) {
 			key = 'notification-'+ toastId++;
 		}
 
@@ -39,23 +38,18 @@ export const Notification: IToaster = {
 		props.onDismiss = (didTimeoutExpire: boolean) => {
 			const next = toastQueue.shift();
 
-			if (next !== undefined)
-			{
+			if (next !== undefined) {
 				toaster.show(next.props, next.key);
 			}
 		
-			if (originalOnDismissHandler !== undefined)
-			{
+			if (originalOnDismissHandler) {
 				originalOnDismissHandler(didTimeoutExpire);
 			}
 		}
 		
-		if (this.getToasts().length < toastLimit)
-		{
+		if (this.getToasts().length < toastLimit) {
 			toaster.show(props, key);
-		}
-		else
-		{
+		} else {
 			toastQueue.push({ props, key });
 		}
 

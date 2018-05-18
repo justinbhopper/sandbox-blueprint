@@ -1,4 +1,7 @@
+import { createAction } from 'typesafe-actions';
 
 export const ApplicationActions = {
-	setSelectedPeople: (selectedPeople: string[]) => ({ selectedPeople, type: 'SET_SELECTED_PEOPLE' })
+	setSelectedPeople: createAction('SET_SELECTED_PEOPLE', resolve => {
+		return (selectedPeople: string[]) => resolve(selectedPeople)
+	})
 };
