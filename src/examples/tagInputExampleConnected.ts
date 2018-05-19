@@ -1,12 +1,21 @@
 import { connect } from 'react-redux'
 import { IRootState } from '../redux';
-import { ApplicationActions } from '../redux/application';
-import { TagInputExample } from './tagInputExample';
+import { applicationActions } from '../redux/application';
+import { ITagInputExampleProps, TagInputExample } from './tagInputExample';
 
-const mapStateToProps = (state: IRootState) => ({
+interface IStateFromProps {
+	selectedPeople?: string[];
+}
+
+interface IDispatchFromProps {
+	onPeopleSelected?: (selectedPeople: string[]) => void;
+}
+
+const mapStateToProps = (state: IRootState, ownProps: ITagInputExampleProps) => ({
+	large: ownProps.large,
 	selectedPeople: state.application.selectedPeople
 });
 
-export const ConnectedTagInputExample = connect(mapStateToProps, {
-	onPeopleSelected: ApplicationActions.setSelectedPeople
+export const ConnectedTagInputExample = connect<IStateFromProps, IDispatchFromProps>(mapStateToProps, {
+	onPeopleSelected: applicationActions.setSelectedPeople
 })(TagInputExample)

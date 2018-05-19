@@ -8,7 +8,9 @@ import {
 	Button,
 	ButtonGroup,
 	Callout,
+	Card,
 	Classes,
+	Elevation,
 	FormGroup,
 	InputGroup,
 	Intent,
@@ -16,22 +18,23 @@ import {
 	MenuItem,
 	Popover,
 	Position,
-	Switch
+	Switch,
+	Tag
 } from '@blueprintjs/core';
-
-interface ITagInputExampleState {
-	selectedPeople?: React.ReactNode[]
-}
 
 let notificationCount = 0;
 
-export class FormExample1 extends React.PureComponent<any, ITagInputExampleState> {
-	public state = {
+interface IFormExample1State {
+	selectedPeople: string[];
+}
+
+export class FormExample1 extends React.Component<any, IFormExample1State> {
+	public state: IFormExample1State = {
 		selectedPeople: []
 	}
 
 	public render() {
-		const { selectedPeople } = this.props;
+		const { selectedPeople } = this.state;
 
 		const moreOptionsMenu = (
 			<Menu>
@@ -86,13 +89,15 @@ export class FormExample1 extends React.PureComponent<any, ITagInputExampleState
 					</div>
 				</FormGroup>
 				<div className="app-row">
-					<ConnectedTagInputExample large={true} />
-				</div>
-				<div className="app-row">
-					<p>{(selectedPeople ? selectedPeople.length : 0)} people selected</p>
-				</div>
-				<div className="app-row">
-					<TagInputExample large={false} />
+					<Card elevation={Elevation.TWO}>
+						<div className="app-row">
+							<ConnectedTagInputExample large={false} />
+							<Tag>{(selectedPeople ? selectedPeople.length : 0)} people selected</Tag>
+						</div>
+						<div className="app-row">
+							<TagInputExample large={false} />
+						</div>
+					</Card>
 				</div>
 				<div className="app-row">
 					<h2><span className="pt-skeleton">Header Here</span></h2>

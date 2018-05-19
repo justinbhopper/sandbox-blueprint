@@ -1,17 +1,27 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux'
 import App from './App';
+import DevTools from "./containers/DevTools";
 import './index.css';
-import rootReducer from './reducers'
+import { IRootState } from './redux'
 import registerServiceWorker from './registerServiceWorker';
+import configureStore from './store/configureStore';
 
-const store = createStore(rootReducer)
+const initialState: IRootState = {
+	application: {
+		selectedPeople: []
+	}
+}
+
+const store = configureStore(initialState)
 
 ReactDOM.render(
 	<Provider store={store}>
-		<App />
+		<div>
+			<App />
+			<DevTools />
+		</div>
 	</Provider>,
 	document.getElementById('root') as HTMLElement
 );

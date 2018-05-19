@@ -2,7 +2,8 @@ import "@blueprintjs/core/lib/css/blueprint.css";
 import "@blueprintjs/icons/lib/css/blueprint-icons.css";
 import * as React from 'react';
 import './App.css'
-import { FormExample1 } from './examples/formExample1'
+import { ConnectedFormExample1 } from './examples/formExample1Connected'
+import { IRootState } from "./redux";
 
 import {
 	Alignment,
@@ -25,7 +26,7 @@ import {
 	Tooltip
 } from '@blueprintjs/core';
 
-class App extends React.Component {
+class App extends React.Component<any, IRootState> {
 	public render() {
 		const contentMenu = (
 			<Menu>
@@ -61,7 +62,7 @@ class App extends React.Component {
 				<main>
 					<Card elevation={Elevation.ONE}>
 						<Tabs id="tabs" selectedTabId="search" large={true}>
-							<Tab id="search" title="Search Medications" panel={<FormExample1 />} />
+							<Tab id="search" title="Search Medications" panel={<ConnectedFormExample1 />} />
 							<Tab id="details" title="Enter Details" />
 							<Tab id="send" title="Review / Send" />
 						</Tabs>

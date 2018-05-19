@@ -1,6 +1,6 @@
 import { ActionType } from 'typesafe-actions';
-import { ApplicationActions } from './application/actions';
+import { applicationActions } from './application/actions';
 
-export type ApplicationActions = ActionType<typeof ApplicationActions>;
+export type ApplicationActions = ActionType<typeof applicationActions>;
 
 export type RootAction = ApplicationActions;

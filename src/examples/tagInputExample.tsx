@@ -3,15 +3,22 @@ import * as React from 'react';
 
 export interface ITagInputExampleProps {
 	large: boolean;
-	selectedPeople: string[];
-	onPeopleSelected: (selectedPeople: string[]) => void;
+	onPeopleSelected?: (selectedPeople: string[]) => void;
 }
 
-export class TagInputExample extends React.Component<ITagInputExampleProps> {
+export interface ITagInputExampleState {
+	selectedPeople?: string[];
+}
+
+export class TagInputExample extends React.Component<ITagInputExampleProps, ITagInputExampleState> {
+	public state: ITagInputExampleState = {
+		selectedPeople: []
+	}
+
 	public render() {
 		const { large } = this.props;
 
-		const values: string[] = this.props.selectedPeople || [];
+		const values: string[] = this.state.selectedPeople || [];
 
 		const clearButton = (
 			values.length > 0 
@@ -33,6 +40,8 @@ export class TagInputExample extends React.Component<ITagInputExampleProps> {
 	}
 
 	private handleChange = (selectedPeople: string[]) => {
+		this.setState({ selectedPeople });
+
 		if (this.props.onPeopleSelected)
 		{
 			this.props.onPeopleSelected(selectedPeople);

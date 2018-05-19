@@ -10,9 +10,17 @@ main {
 .app-row {
 	display: flex;
 	flex-wrap: wrap;
+	align-items: center;
+}
+
+.app-row + .app-row {
 	margin-top: 10px;
 }
 
 .pt-tag-input .pt-input-ghost {
 	width: 120px;
+}
+
+.pt-input + .pt-tag {
+	margin-left: 5px;
 }
