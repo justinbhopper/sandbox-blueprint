@@ -1,6 +1,4 @@
-import { ActionType } from 'typesafe-actions';
-import { applicationActions } from './application/actions';
+import { ApplicationActions } from './application/actions';
+import { FormExampleActions } from './application/formExample';
 
-export type ApplicationActions = ActionType<typeof applicationActions>;
-
-export type RootAction = ApplicationActions;
+export type RootAction = ApplicationActions | FormExampleActions;

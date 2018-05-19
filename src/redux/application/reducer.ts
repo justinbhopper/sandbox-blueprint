@@ -1,21 +1,13 @@
-import { combineReducers } from 'redux';
-import { getType } from 'typesafe-actions';
-import { RootAction } from '..';
-import { applicationActions } from './actions'
+import { ApplicationActions } from './actions'
 
-export interface IApplicationState 
-{
-	readonly selectedPeople: string[];
+export interface IApplicationState {
+	count: number;
 }
 
-export const reducer = combineReducers<IApplicationState, RootAction>({
-	selectedPeople: (selectedPeople: string[] = [], action: RootAction) => {
-		switch (action.type) {
-			case getType(applicationActions.setSelectedPeople):
-				return action.payload;
+const initialState: IApplicationState = {
+	count: 5
+};
 
-			default:
-				return selectedPeople;
-		}
-	}
-});
+export const reducer = (state: IApplicationState = initialState, action: ApplicationActions): IApplicationState => {
+	return state;
+};

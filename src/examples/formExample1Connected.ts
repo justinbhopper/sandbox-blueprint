@@ -7,7 +7,7 @@ interface IStateFromProps {
 }
 
 const mapStateToProps = (state: IRootState) => ({
-	selectedPeople: state.application.selectedPeople
+	selectedPeople: state.formExample.selectedPeople
 });
 
 export const ConnectedFormExample1 = connect<IStateFromProps>(mapStateToProps)(FormExample1)

@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import { Notification } from '../common/notifications'
+import store from '../store';
 import { TagInputExample } from './tagInputExample'
 import { ConnectedTagInputExample } from './tagInputExampleConnected'
 
@@ -24,17 +25,9 @@ import {
 
 let notificationCount = 0;
 
-interface IFormExample1State {
-	selectedPeople: string[];
-}
-
-export class FormExample1 extends React.Component<any, IFormExample1State> {
-	public state: IFormExample1State = {
-		selectedPeople: []
-	}
-
+export class FormExample1 extends React.Component {
 	public render() {
-		const { selectedPeople } = this.state;
+		const { selectedPeople } = store.getState().formExample;
 
 		const moreOptionsMenu = (
 			<Menu>
