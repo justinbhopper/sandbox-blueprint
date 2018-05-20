@@ -1,6 +1,8 @@
 import * as React from 'react';
 
+import { connect } from 'react-redux';
 import { Notification } from '../common/notifications'
+import { IRootState } from '../redux';
 import store from '../store';
 import { TagInputExample } from './tagInputExample'
 import { ConnectedTagInputExample } from './tagInputExampleConnected'
@@ -25,10 +27,10 @@ import {
 
 let notificationCount = 0;
 
-export class FormExample1 extends React.Component {
+class FormExampleComponent extends React.Component {
 	public render() {
 		const { selectedPeople } = store.getState().formExample;
-
+		
 		const moreOptionsMenu = (
 			<Menu>
 				<MenuItem text="Refresh" icon="refresh" />
@@ -135,3 +137,9 @@ export class FormExample1 extends React.Component {
 		})
 	}
 }
+
+const mapStateToProps = (state: IRootState) => ({
+	selectedPeople: state.formExample.selectedPeople || []
+});
+
+export const FormExample = connect(mapStateToProps)(FormExampleComponent)

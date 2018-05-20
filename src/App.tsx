@@ -2,7 +2,7 @@ import "@blueprintjs/core/lib/css/blueprint.css";
 import "@blueprintjs/icons/lib/css/blueprint-icons.css";
 import * as React from 'react';
 import './App.css'
-import { ConnectedFormExample1 } from './examples/formExample1Connected'
+import { FormExample } from "./examples/formExample";
 import { IRootState } from "./redux";
 
 import {
@@ -62,7 +62,7 @@ class App extends React.Component<any, IRootState> {
 				<main>
 					<Card elevation={Elevation.ONE}>
 						<Tabs id="tabs" selectedTabId="search" large={true}>
-							<Tab id="search" title="Search Medications" panel={<ConnectedFormExample1 />} />
+							<Tab id="search" title="Search Medications" panel={<FormExample />} />
 							<Tab id="details" title="Enter Details" />
 							<Tab id="send" title="Review / Send" />
 						</Tabs>

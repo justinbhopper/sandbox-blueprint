@@ -6,6 +6,7 @@ export interface ITagInputExampleProps {
 	selectedPeople?: string[];
 	onPeopleSelected?: (selectedPeople: string[]) => void;
 }
+
 export class TagInputExample extends React.Component<ITagInputExampleProps> {
 	public render() {
 		const { large } = this.props;

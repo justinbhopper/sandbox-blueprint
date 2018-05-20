@@ -12,4 +12,11 @@ function configureStore(initialState?: IRootState) {
 	return createStore(rootReducer, initialState!, enhancer);
 }
 
-export default configureStore();
+export default configureStore({
+	application: {
+		count: 2
+	},
+	formExample: {
+		selectedPeople: ["Justin"]
+	}
+});
