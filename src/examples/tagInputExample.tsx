@@ -1,20 +1,20 @@
 import { Button, TagInput } from '@blueprintjs/core';
+import { observer } from 'mobx-react'
 import * as React from 'react';
+import { PeopleStore } from './PeopleStore';
 
 export interface ITagInputExampleProps {
 	large: boolean;
-	selectedPeople?: string[];
-	onPeopleSelected?: (selectedPeople: string[]) => void;
+	store: PeopleStore;
 }
 
+@observer
 export class TagInputExample extends React.Component<ITagInputExampleProps> {
 	public render() {
-		const { large } = this.props;
-
-		const values: string[] = this.props.selectedPeople || [];
+		const { large, store } = this.props;
 
 		const clearButton = (
-			values.length > 0 
+			store.count > 0 
 			? <Button icon="cross" minimal={true} onClick={this.handleClear} />
 			: undefined
 		);
@@ -26,20 +26,22 @@ export class TagInputExample extends React.Component<ITagInputExampleProps> {
 				placeholder="Search people..."
 				addOnBlur={true}
 				fill={false}
-				onChange={this.handleChange}
+				onAdd={this.handleAdd}
+				onRemove={this.handleRemove}
 				rightElement={clearButton}
-				values={values} />
+				values={store.people} />
 		);
 	}
 
-	private handleChange = (selectedPeople: string[]) => {
-		this.setState({ selectedPeople });
+	private handleAdd = (people: string[]) => {
+		this.props.store.addMany(people);
+	}
 
-		if (this.props.onPeopleSelected)
-		{
-			this.props.onPeopleSelected(selectedPeople);
-		}
+	private handleRemove= (person: string) => {
+		this.props.store.remove(person);
 	}
 	
-	private handleClear = () => this.handleChange([])
+	private handleClear= () => {
+		this.props.store.update([]);
+	}
 }

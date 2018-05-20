@@ -3,7 +3,6 @@ import "@blueprintjs/icons/lib/css/blueprint-icons.css";
 import * as React from 'react';
 import './App.css'
 import { FormExample } from "./examples/formExample";
-import { IRootState } from "./redux";
 
 import {
 	Alignment,
@@ -26,7 +25,7 @@ import {
 	Tooltip
 } from '@blueprintjs/core';
 
-class App extends React.Component<any, IRootState> {
+class App extends React.Component {
 	public render() {
 		const contentMenu = (
 			<Menu>

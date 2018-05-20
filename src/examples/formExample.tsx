@@ -1,11 +1,8 @@
 import * as React from 'react';
 
-import { connect } from 'react-redux';
+import { observer } from 'mobx-react';
 import { Notification } from '../common/notifications'
-import { IRootState } from '../redux';
-import store from '../store';
 import { TagInputExample } from './tagInputExample'
-import { ConnectedTagInputExample } from './tagInputExampleConnected'
 
 import {
 	Button,
@@ -24,13 +21,20 @@ import {
 	Switch,
 	Tag
 } from '@blueprintjs/core';
+import { PeopleStore } from './PeopleStore';
 
 let notificationCount = 0;
 
-class FormExampleComponent extends React.Component {
+@observer
+export class FormExample extends React.Component {
+	public store: PeopleStore;
+
+	constructor(props: any) {
+		super(props);
+		this.store = new PeopleStore();
+	}
+
 	public render() {
-		const { selectedPeople } = store.getState().formExample;
-		
 		const moreOptionsMenu = (
 			<Menu>
 				<MenuItem text="Refresh" icon="refresh" />
@@ -86,11 +90,8 @@ class FormExampleComponent extends React.Component {
 				<div className="app-row">
 					<Card elevation={Elevation.TWO}>
 						<div className="app-row">
-							<ConnectedTagInputExample large={false} />
-							<Tag>{(selectedPeople ? selectedPeople.length : 0)} people selected</Tag>
-						</div>
-						<div className="app-row">
-							<TagInputExample large={false} />
+							<TagInputExample large={false} store={this.store} />
+							<Tag>{this.store.count} people selected</Tag>
 						</div>
 					</Card>
 				</div>
@@ -137,9 +138,3 @@ class FormExampleComponent extends React.Component {
 		})
 	}
 }
-
-const mapStateToProps = (state: IRootState) => ({
-	selectedPeople: state.formExample.selectedPeople || []
-});
-
-export const FormExample = connect(mapStateToProps)(FormExampleComponent)
