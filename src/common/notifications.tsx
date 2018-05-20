@@ -8,8 +8,7 @@ import {
 	Toaster
 } from '@blueprintjs/core'
 
-interface IQueuedToast
-{
+interface IQueuedToast {
 	props: IToastProps;
 	key?: string;
 }
@@ -23,9 +22,8 @@ const toaster = Toaster.create({
 	position: Position.TOP
 });
 
-function getDefaultTimeout(): number
-{
-	return Math.max(1000, 5000 - (toaster.getToasts().length * 1000));
+function getDefaultTimeout(): number {
+	return Math.max(2000, 5000 - (toaster.getToasts().length * 1000));
 }
 
 let silenced = false;
@@ -33,18 +31,16 @@ let silenced = false;
 let autoDismiss: NodeJS.Timer;
 const NotificationSuppresser = {
 	toaster: Toaster.create({
-		position: Position.TOP_RIGHT
+		position: Position.BOTTOM_RIGHT
 	}),
 
-	onToastShown()
-	{
+	onToastShown() {
 		if (toastQueue.length === 0) {
 			return;
 		}
 
 		if (this.toaster.getToasts().length === 0) {
-			if (autoDismiss)
-			{
+			if (autoDismiss) {
 				clearTimeout(autoDismiss);
 			}
 
@@ -63,14 +59,12 @@ const NotificationSuppresser = {
 		}
 	},
 
-	onToastDismissed()
-	{
+	onToastDismissed() {
 		if (toastQueue.length > 0 || toaster.getToasts().length > 1 || this.toaster.getToasts().length === 0) {
 			return;
 		}
 
-		if (autoDismiss)
-		{
+		if (autoDismiss) {
 			clearTimeout(autoDismiss);
 		}
 		
@@ -129,20 +123,17 @@ export const Notification: IToaster = {
 	},
 
 	/** Dismiss the given toast instantly. */
-	dismiss(key: string): void
-	{
+	dismiss(key: string): void {
 		toaster.dismiss(key);
 	},
 
 	/** Dismiss all toasts instantly. */
-	clear(): void
-	{
+	clear(): void {
 		toaster.clear();
 	},
 
 	/** Returns the props for all current toasts. */
-	getToasts(): IToastOptions[]
-	{
+	getToasts(): IToastOptions[] {
 		return toaster.getToasts();
 	}
 };
