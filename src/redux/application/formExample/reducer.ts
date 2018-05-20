@@ -2,7 +2,7 @@ import { getType } from 'typesafe-actions';
 import { FormExampleActions, formExampleActions } from './actions'
 
 export interface IFormExampleState {
-	readonly selectedPeople: string[];
+	readonly selectedPeople?: string[];
 }
 
 const initialState: IFormExampleState = {

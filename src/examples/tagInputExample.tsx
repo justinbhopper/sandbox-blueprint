@@ -3,22 +3,14 @@ import * as React from 'react';
 
 export interface ITagInputExampleProps {
 	large: boolean;
+	selectedPeople?: string[];
 	onPeopleSelected?: (selectedPeople: string[]) => void;
 }
-
-export interface ITagInputExampleState {
-	selectedPeople?: string[];
-}
-
-export class TagInputExample extends React.Component<ITagInputExampleProps, ITagInputExampleState> {
-	public state: ITagInputExampleState = {
-		selectedPeople: []
-	}
-
+export class TagInputExample extends React.Component<ITagInputExampleProps> {
 	public render() {
 		const { large } = this.props;
 
-		const values: string[] = this.state.selectedPeople || [];
+		const values: string[] = this.props.selectedPeople || [];
 
 		const clearButton = (
 			values.length > 0 
@@ -28,7 +20,7 @@ export class TagInputExample extends React.Component<ITagInputExampleProps, ITag
 
 		return (
 			<TagInput
-				large={large || false}
+				large={large}
 				leftIcon="person"
 				placeholder="Search people..."
 				addOnBlur={true}

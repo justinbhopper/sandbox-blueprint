@@ -4,16 +4,12 @@ import { IRootState } from './redux';
 import { rootReducer } from './redux/root-reducer';
 
 function configureStore(initialState?: IRootState) {
-	const middleware = applyMiddleware();
-
 	const enhancer = compose(
-		middleware,
+		applyMiddleware(),
 		DevTools.instrument()
 	);
 
 	return createStore(rootReducer, initialState!, enhancer);
 }
 
-const store = configureStore();
-
-export default store;
+export default configureStore();
