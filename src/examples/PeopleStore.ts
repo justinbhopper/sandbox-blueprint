@@ -15,6 +15,10 @@ export class PeopleStore {
 
 	@action
 	public add(person: string): void {
+		if (this.people.indexOf(person) !== -1) {
+			return;
+		}
+
 		this.people.push(person);
 		this.data = this.people.sort();
 	}
@@ -27,8 +31,7 @@ export class PeopleStore {
 	@action
 	public remove(person: string): void {
 		const index = this.people.indexOf(person);
-		if (index !== -1)
-		{
+		if (index !== -1) {
 			this.people.splice(index, 1);
 		}
 	}

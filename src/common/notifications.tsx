@@ -31,7 +31,7 @@ let silenced = false;
 let autoDismiss: NodeJS.Timer;
 const NotificationSuppresser = {
 	toaster: Toaster.create({
-		position: Position.BOTTOM_RIGHT
+		position: Position.TOP_RIGHT
 	}),
 
 	onToastShown() {
@@ -67,7 +67,7 @@ const NotificationSuppresser = {
 		if (autoDismiss) {
 			clearTimeout(autoDismiss);
 		}
-		
+
 		autoDismiss = setTimeout(() => {
 			this.toaster.clear();
 		}, 3000);
@@ -80,14 +80,13 @@ export const Notification: IToaster = {
 	 *
 	 * Returns the unique key of the toast.
 	 */
-	show(props: IToastProps, key?: string): string
-	{
+	show(props: IToastProps, key?: string): string {
 		if (silenced) {
 			return "";
 		}
 
 		if (key === undefined) {
-			key = 'notification-'+ toastId++;
+			key = 'notification-' + toastId++;
 		}
 
 		if (props.timeout === undefined) {
@@ -105,12 +104,12 @@ export const Notification: IToaster = {
 			}
 
 			NotificationSuppresser.onToastDismissed();
-		
+
 			if (originalOnDismissHandler) {
 				originalOnDismissHandler(didTimeoutExpire);
 			}
 		}
-		
+
 		if (this.getToasts().length < toastLimit) {
 			toaster.show(props, key);
 		} else {

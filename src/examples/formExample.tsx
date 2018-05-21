@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import { observer } from 'mobx-react';
 import { Notification } from '../common/notifications'
+import { PeopleStore } from './PeopleStore';
 import { TagInputExample } from './tagInputExample'
 
 import {
@@ -21,7 +22,6 @@ import {
 	Switch,
 	Tag
 } from '@blueprintjs/core';
-import { PeopleStore } from './PeopleStore';
 
 let notificationCount = 0;
 
@@ -41,6 +41,18 @@ export class FormExample extends React.Component {
 				<MenuItem text="Add Comments" icon="annotation" />
 				<MenuItem text="Clear Answers" icon="eraser" />
 			</Menu>
+		);
+
+		const peopleWarning = (
+			<Callout intent={Intent.WARNING}>
+				Don't add too many people.
+			</Callout>	
+		);
+
+		const peopleError = (
+			<Callout intent={Intent.DANGER}>
+				Maximum of 4 people allowed.
+			</Callout>	
 		);
 
 		return (
@@ -89,10 +101,13 @@ export class FormExample extends React.Component {
 				</FormGroup>
 				<div className="app-row">
 					<Card elevation={Elevation.TWO}>
-						<div className="app-row">
-							<TagInputExample large={false} store={this.store} />
-							<Tag>{this.store.count} people selected</Tag>
-						</div>
+						<FormGroup helperText="Maximum of 4 allowed." intent={this.store.count > 3 ? Intent.DANGER : Intent.NONE}>
+							<div className="app-row">
+								<TagInputExample large={false} store={this.store} />
+								<Tag>{this.store.count} people selected</Tag>
+							</div>
+							{this.store.count > 2 ? (this.store.count > 3 ? peopleError : peopleWarning) : null}
+						</FormGroup>
 					</Card>
 				</div>
 				<div className="app-row">
