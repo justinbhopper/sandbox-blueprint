@@ -10,12 +10,15 @@ import {
 	FormGroup,
 	InputGroup,
 	Intent,
+	Spinner,
 	Switch,
 	Tag
 } from '@blueprintjs/core';
 
 interface IFormFieldsViewState {
 	disabled: boolean;
+	errored: boolean;
+	searching: boolean;
 }
 
 @observer
@@ -27,11 +30,15 @@ export class FormFieldsView extends React.Component<{}, IFormFieldsViewState> {
 		this.store = new PeopleStore();
 
 		this.state = {
-			disabled: false
+			disabled: false,
+			errored: false,
+			searching: false,
 		};
 	}
 
 	public render() {
+		const intent = this.state.errored ? Intent.DANGER : Intent.NONE;
+
 		let peopleMessage: JSX.Element = <></>;
 		if (this.store.count >= 4) {
 			peopleMessage = <Callout intent={Intent.DANGER}>Maximum of 4 people allowed.</Callout>;
@@ -39,39 +46,56 @@ export class FormFieldsView extends React.Component<{}, IFormFieldsViewState> {
 			peopleMessage = <Callout intent={Intent.WARNING}>Don't add too many people.</Callout>;
 		}
 
+		const searchButton = (
+			this.state.searching 
+			? <Spinner small={true} intent={Intent.PRIMARY} />
+			: <Button text="Search" intent={this.state.errored ? Intent.DANGER : Intent.PRIMARY} disabled={this.state.disabled} onClick={this.onSearchClick} />
+		);
+
 		return (
 			<>
-				<FormGroup disabled={this.state.disabled}>
-					<Switch checked={this.state.disabled} onClick={this.onDisableAllClick}>Disable All</Switch>
+				<FormGroup intent={intent} disabled={this.state.disabled}>
 					<div className="app-row">
-						<InputGroup disabled={this.state.disabled} />
+						<Switch label="Invalidate All" large={true} checked={this.state.errored} onClick={this.onErrorAllClick} />
+						<Switch label="Disable All" large={true} checked={this.state.disabled} onClick={this.onDisableAllClick} />
 					</div>
 					<div className="app-row">
-						<div>
-							<FormGroup label="First Name" labelFor="input2" requiredLabel={true}>
-								<InputGroup id="input2" disabled={this.state.disabled} />
-							</FormGroup>
-						</div>
+						<InputGroup value="some value" intent={intent} disabled={this.state.disabled} />
 					</div>
 					<div className="app-row">
-						<InputGroup disabled={this.state.disabled} />
-						<Button text="Search" intent={Intent.PRIMARY} disabled={this.state.disabled} className="pad-left" />
-					</div>
-					<div className="app-row">
-						<InputGroup rightElement={<Button text="Search" intent={Intent.PRIMARY} disabled={this.state.disabled} />} disabled={this.state.disabled} />
-					</div>
-					<div className="app-row">
-						<FormGroup label="Search" labelFor="search4">
-							<InputGroup id="search4" type="search" leftIcon="search" disabled={this.state.disabled} />
+						<FormGroup label="First Name" labelFor="firstName" helperText="Enter the patient's given name.">
+							<InputGroup id="firstName" intent={intent} disabled={this.state.disabled} />
+						</FormGroup>
+						<FormGroup label="Last Name" labelFor="lastName" requiredLabel={true} helperText="Patient's family name.">
+							<InputGroup id="lastName" intent={intent} disabled={this.state.disabled} />
 						</FormGroup>
 					</div>
 					<div className="app-row">
-						<FormGroup helperText="Maximum of 4 allowed.  Each name must be unique." intent={this.store.count > 3 ? Intent.DANGER : Intent.NONE}>
+						<InputGroup intent={intent} disabled={this.state.disabled} />
+						<Button text="Search" intent={this.state.errored ? Intent.DANGER : Intent.PRIMARY} disabled={this.state.disabled} className="pad-left" />
+					</div>
+					<div className="app-row">
+						<FormGroup helperText="Try out the search button.">
+							<InputGroup rightElement={searchButton} intent={intent} disabled={this.state.disabled} />
+						</FormGroup>
+					</div>
+					<div className="app-row">
+						<FormGroup label="Search" labelFor="search4">
+							<InputGroup id="search4" type="search" leftIcon="search" intent={intent} disabled={this.state.disabled} />
+						</FormGroup>
+					</div>
+					<div className="app-row">
+						<FormGroup helperText="Maximum of 4 allowed.  Each name must be unique." intent={this.store.count > 3 ? Intent.DANGER : intent}>
 							<div className="app-row">
-								<PeopleSelector large={false} store={this.store} />
-								<Tag>{this.store.count} people selected</Tag>
+								<PeopleSelector large={false} intent={intent} disabled={this.state.disabled} peopleStore={this.store} />
+								<Tag intent={intent}>{this.store.count} people selected</Tag>
 								{peopleMessage}
 							</div>
+						</FormGroup>
+					</div>
+					<div className="app-row">
+						<FormGroup label="Large input">
+							<InputGroup large={true} value="some value" intent={intent} disabled={this.state.disabled} />
 						</FormGroup>
 					</div>
 				</FormGroup>
@@ -81,5 +105,19 @@ export class FormFieldsView extends React.Component<{}, IFormFieldsViewState> {
 
 	private onDisableAllClick = () => {
 		this.setState({ disabled: !this.state.disabled });
+	}
+
+	private onErrorAllClick = () => {
+		this.setState({ errored: !this.state.errored });
+	}
+
+	private onSearchClick = () => {
+		this.setState({ searching: true });
+
+		setTimeout(this.onSearchComplete, 2000);
+	}
+
+	private onSearchComplete = () => {
+		this.setState({ searching: false });
 	}
 }

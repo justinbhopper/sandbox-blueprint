@@ -1,27 +1,34 @@
-import { Button, TagInput } from '@blueprintjs/core';
+import { Button, Intent, TagInput } from '@blueprintjs/core';
 import { observer } from 'mobx-react'
 import * as React from 'react';
 import { PeopleStore } from './PeopleStore';
 
 export interface IPeopleSelectorProps {
-	large: boolean;
-	store: PeopleStore;
+	peopleStore: PeopleStore;
+	large?: boolean;
+	disabled?: boolean;
+	intent?: Intent;
 }
 
 @observer
 export class PeopleSelector extends React.Component<IPeopleSelectorProps> {
 	public render() {
-		const { large, store } = this.props;
+		const { peopleStore, intent, ...tagInputProps } = this.props;
 
 		const clearButton = (
-			store.count > 0 
-			? <Button icon="cross" minimal={true} onClick={this.handleClear} />
+			peopleStore.count > 0 
+			? <Button icon="cross" minimal={true} disabled={tagInputProps.disabled} onClick={this.handleClear} />
 			: undefined
 		);
 
+		const tagProps = {
+			intent
+		};
+
 		return (
 			<TagInput
-				large={large}
+				{...tagInputProps}
+				tagProps={tagProps}
 				leftIcon="person"
 				placeholder="Search people..."
 				addOnBlur={true}
@@ -29,19 +36,19 @@ export class PeopleSelector extends React.Component<IPeopleSelectorProps> {
 				onAdd={this.handleAdd}
 				onRemove={this.handleRemove}
 				rightElement={clearButton}
-				values={store.people} />
+				values={peopleStore.people} />
 		);
 	}
 
 	private handleAdd = (people: string[]) => {
-		this.props.store.addMany(people);
+		this.props.peopleStore.addMany(people);
 	}
 
 	private handleRemove= (person: string) => {
-		this.props.store.remove(person);
+		this.props.peopleStore.remove(person);
 	}
 	
 	private handleClear= () => {
-		this.props.store.update([]);
+		this.props.peopleStore.update([]);
 	}
 }

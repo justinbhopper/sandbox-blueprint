@@ -2,10 +2,6 @@ import "@blueprintjs/core/lib/css/blueprint.css";
 import "@blueprintjs/icons/lib/css/blueprint-icons.css";
 import * as React from 'react';
 import './App.css'
-import { ButtonsView } from "./areas/ButtonsView";
-import { CalloutsView } from "./areas/CalloutsView";
-import { FormFieldsView } from "./areas/FormFieldsView";
-import { NotificationsView } from "./areas/NotificationsView";
 
 import {
 	Alignment,
@@ -28,6 +24,12 @@ import {
 	Tabs,
 	Tooltip
 } from '@blueprintjs/core';
+
+import { ButtonsView } from "./areas/ButtonsView";
+import { CalloutsView } from "./areas/CalloutsView";
+import { EmptyView } from "./areas/EmptyView";
+import { FormFieldsView } from "./areas/FormFieldsView";
+import { NotificationsView } from "./areas/NotificationsView";
 
 FormGroup.DEFAULT_REQUIRED_CONTENT = (
 	<span className="requiredLabel">
@@ -73,8 +75,11 @@ class App extends React.Component {
 						<Tabs id="areas" defaultSelectedTabId="fields" large={true}>
 							<Tab id="fields" title="Form Fields" panel={<FormFieldsView />} />
 							<Tab id="buttons" title="Buttons" panel={<ButtonsView />} />
+							<Tab id="datePicker" title="Date Pickers" />
+							<Tab id="selectboxes" title="Selects" />
 							<Tab id="notifications" title="Notifications" panel={<NotificationsView />} />
 							<Tab id="callouts" title="Callouts" panel={<CalloutsView />} />
+							<Tab id="empty" title="Empty Results" panel={<EmptyView />} />
 						</Tabs>
 					</Card>
 				</main>

@@ -41,6 +41,11 @@ main {
 	margin-bottom: 0;
 }
 
+.app-row .pt-form-group + .pt-form-group,
+.pt-control + .pt-control {
+	margin-left: 10px;
+}
+
 label.pt-label {
 	margin: 0;
 }
