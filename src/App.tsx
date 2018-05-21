@@ -2,7 +2,10 @@ import "@blueprintjs/core/lib/css/blueprint.css";
 import "@blueprintjs/icons/lib/css/blueprint-icons.css";
 import * as React from 'react';
 import './App.css'
-import { FormExample } from "./examples/formExample";
+import { ButtonsView } from "./areas/ButtonsView";
+import { CalloutsView } from "./areas/CalloutsView";
+import { FormFieldsView } from "./areas/FormFieldsView";
+import { NotificationsView } from "./areas/NotificationsView";
 
 import {
 	Alignment,
@@ -10,6 +13,7 @@ import {
 	ButtonGroup,
 	Card,
 	Elevation,
+	FormGroup,
 	Intent,
 	Menu,
 	MenuItem,
@@ -24,6 +28,12 @@ import {
 	Tabs,
 	Tooltip
 } from '@blueprintjs/core';
+
+FormGroup.DEFAULT_REQUIRED_CONTENT = (
+	<span className="requiredLabel">
+		{FormGroup.DEFAULT_REQUIRED_CONTENT}
+	</span>
+);
 
 class App extends React.Component {
 	public render() {
@@ -60,10 +70,11 @@ class App extends React.Component {
 				</Navbar>
 				<main>
 					<Card elevation={Elevation.ONE}>
-						<Tabs id="tabs" selectedTabId="search" large={true}>
-							<Tab id="search" title="Search Medications" panel={<FormExample />} />
-							<Tab id="details" title="Enter Details" />
-							<Tab id="send" title="Review / Send" />
+						<Tabs id="areas" defaultSelectedTabId="fields" large={true}>
+							<Tab id="fields" title="Form Fields" panel={<FormFieldsView />} />
+							<Tab id="buttons" title="Buttons" panel={<ButtonsView />} />
+							<Tab id="notifications" title="Notifications" panel={<NotificationsView />} />
+							<Tab id="callouts" title="Callouts" panel={<CalloutsView />} />
 						</Tabs>
 					</Card>
 				</main>

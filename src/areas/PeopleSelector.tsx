@@ -3,13 +3,13 @@ import { observer } from 'mobx-react'
 import * as React from 'react';
 import { PeopleStore } from './PeopleStore';
 
-export interface ITagInputExampleProps {
+export interface IPeopleSelectorProps {
 	large: boolean;
 	store: PeopleStore;
 }
 
 @observer
-export class TagInputExample extends React.Component<ITagInputExampleProps> {
+export class PeopleSelector extends React.Component<IPeopleSelectorProps> {
 	public render() {
 		const { large, store } = this.props;
 

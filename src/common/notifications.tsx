@@ -7,6 +7,13 @@ import {
 	Position,
 	Toaster
 } from '@blueprintjs/core'
+import { action, observable } from 'mobx';
+
+export interface INotifier extends IToaster {
+	readonly silenced: boolean;
+	silence(): void;
+	unsilence(): void;
+}
 
 interface IQueuedToast {
 	props: IToastProps;
@@ -26,7 +33,9 @@ function getDefaultTimeout(): number {
 	return Math.max(2000, 5000 - (toaster.getToasts().length * 1000));
 }
 
-let silenced = false;
+const silenced = observable.box<boolean>(false, {
+	name: "silenced"
+});
 
 let autoDismiss: NodeJS.Timer;
 const NotificationSuppresser = {
@@ -47,7 +56,7 @@ const NotificationSuppresser = {
 			this.toaster.show({
 				action: {
 					onClick: () => {
-						silenced = true;
+						silenced.set(true);
 					},
 					text: "Silence Notifications"
 				},
@@ -74,14 +83,18 @@ const NotificationSuppresser = {
 	}
 }
 
-export const Notification: IToaster = {
+export class Notifier implements INotifier {
+	public get silenced(): boolean {
+		return silenced.get();
+	}
+
 	/**
 	 * Shows a new toast to the user, or updates an existing toast corresponding to the provided key (optional).
 	 *
 	 * Returns the unique key of the toast.
 	 */
-	show(props: IToastProps, key?: string): string {
-		if (silenced) {
+	public show(props: IToastProps, key?: string): string {
+		if (this.silenced) {
 			return "";
 		}
 
@@ -97,7 +110,7 @@ export const Notification: IToaster = {
 		props.onDismiss = (didTimeoutExpire: boolean) => {
 			const next = toastQueue.shift();
 
-			if (next !== undefined && !silenced) {
+			if (next !== undefined && !this.silenced) {
 				setTimeout(() => {
 					toaster.show(next.props, next.key);
 				}, 500);
@@ -119,20 +132,33 @@ export const Notification: IToaster = {
 		NotificationSuppresser.onToastShown();
 
 		return key;
-	},
+	}
 
 	/** Dismiss the given toast instantly. */
-	dismiss(key: string): void {
+	public dismiss(key: string): void {
 		toaster.dismiss(key);
-	},
+	}
 
 	/** Dismiss all toasts instantly. */
-	clear(): void {
+	public clear(): void {
 		toaster.clear();
-	},
+	}
 
 	/** Returns the props for all current toasts. */
-	getToasts(): IToastOptions[] {
+	public getToasts(): IToastOptions[] {
 		return toaster.getToasts();
 	}
-};
+
+	@action("silenced")
+	public silence(): void {
+		silenced.set(true);
+	}
+
+	@action("silenced")
+	public unsilence(): void {
+		silenced.set(false);
+	}
+}
+
+export const Notification = new Notifier();
+export default Notification;
