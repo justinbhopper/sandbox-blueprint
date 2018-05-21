@@ -15,6 +15,10 @@ main {
 .app-row {
 	display: flex;
 	flex-wrap: wrap;
+	align-items: start;
+}
+
+.app-row.middle {
 	align-items: center;
 }
 

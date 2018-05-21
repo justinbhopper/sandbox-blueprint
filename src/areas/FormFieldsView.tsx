@@ -63,7 +63,7 @@ export class FormFieldsView extends React.Component<{}, IFormFieldsViewState> {
 						<InputGroup value="some value" intent={intent} disabled={this.state.disabled} />
 					</div>
 					<div className="app-row">
-						<FormGroup label="First Name" labelFor="firstName" helperText="Enter the patient's given name.">
+						<FormGroup label="First Name" labelFor="firstName">
 							<InputGroup id="firstName" intent={intent} disabled={this.state.disabled} />
 						</FormGroup>
 						<FormGroup label="Last Name" labelFor="lastName" requiredLabel={true} helperText="Patient's family name.">
@@ -80,14 +80,14 @@ export class FormFieldsView extends React.Component<{}, IFormFieldsViewState> {
 						</FormGroup>
 					</div>
 					<div className="app-row">
-						<FormGroup label="Search" labelFor="search4">
+						<FormGroup label="Search" labelFor="search4" helperText={<>Fields can have rounded borders, which helps give<br />focus amongst other fields.</>}>
 							<InputGroup id="search4" type="search" leftIcon="search" intent={intent} disabled={this.state.disabled} />
 						</FormGroup>
 					</div>
 					<div className="app-row">
 						<FormGroup helperText="Maximum of 4 allowed.  Each name must be unique." intent={this.store.count > 3 ? Intent.DANGER : intent}>
-							<div className="app-row">
-								<PeopleSelector large={false} intent={intent} disabled={this.state.disabled} peopleStore={this.store} />
+							<div className="app-row middle">
+								<PeopleSelector intent={intent} disabled={this.state.disabled} peopleStore={this.store} />
 								<Tag intent={intent}>{this.store.count} people selected</Tag>
 								{peopleMessage}
 							</div>

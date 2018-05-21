@@ -7,13 +7,14 @@ export interface IPeopleSelectorProps {
 	peopleStore: PeopleStore;
 	large?: boolean;
 	disabled?: boolean;
+	minimal?: boolean;
 	intent?: Intent;
 }
 
 @observer
 export class PeopleSelector extends React.Component<IPeopleSelectorProps> {
 	public render() {
-		const { peopleStore, intent, ...tagInputProps } = this.props;
+		const { peopleStore, intent, minimal, ...tagInputProps } = this.props;
 
 		const clearButton = (
 			peopleStore.count > 0 
@@ -22,7 +23,8 @@ export class PeopleSelector extends React.Component<IPeopleSelectorProps> {
 		);
 
 		const tagProps = {
-			intent
+			intent,
+			minimal
 		};
 
 		return (
