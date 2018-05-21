@@ -43,17 +43,12 @@ export class FormExample extends React.Component {
 			</Menu>
 		);
 
-		const peopleWarning = (
-			<Callout intent={Intent.WARNING}>
-				Don't add too many people.
-			</Callout>	
-		);
-
-		const peopleError = (
-			<Callout intent={Intent.DANGER}>
-				Maximum of 4 people allowed.
-			</Callout>	
-		);
+		let peopleMessage: JSX.Element = <></>;
+		if (this.store.count >= 4) {
+			peopleMessage = <Callout intent={Intent.DANGER}>Maximum of 4 people allowed.</Callout>;
+		} else if (this.store.count >= 3) {
+			peopleMessage = <Callout intent={Intent.WARNING}>Don't add too many people.</Callout>;
+		}
 
 		return (
 			<>
@@ -106,7 +101,7 @@ export class FormExample extends React.Component {
 								<TagInputExample large={false} store={this.store} />
 								<Tag>{this.store.count} people selected</Tag>
 							</div>
-							{this.store.count > 2 ? (this.store.count > 3 ? peopleError : peopleWarning) : null}
+							{peopleMessage}
 						</FormGroup>
 					</Card>
 				</div>
