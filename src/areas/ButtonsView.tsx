@@ -21,13 +21,13 @@ export class ButtonsView extends React.Component {
 
 		return (
 			<>
-				<div className="app-row">
-					Menu: 
+				<div className="example stack">
+					<span>Menu:</span>
 					<Popover content={moreOptionsMenu} position={Position.BOTTOM_LEFT}>
 						<Button icon="menu" minimal={true} />
 					</Popover>
 				</div>
-				<div className="app-row">
+				<div className="example stack">
 					<ButtonGroup minimal={true}>
 						<Button text="Add Template" icon="add" />
 						<Button text="Load Results" icon="search" />
@@ -36,7 +36,7 @@ export class ButtonsView extends React.Component {
 						</Popover>
 					</ButtonGroup>
 				</div>
-				<div className="app-row">
+				<div className="example stack">
 					<ButtonGroup>
 						<Button text="Add Template" icon="add" />
 						<Button text="Load Results" icon="search" />
@@ -45,11 +45,11 @@ export class ButtonsView extends React.Component {
 						</Popover>
 					</ButtonGroup>
 				</div>
-				<div className="app-row">
+				<div className="example stack">
 					<Button text="Add Template" icon="add" />
-					<Button text="Load Results" icon="search" className="pad-left" />
+					<Button text="Load Results" icon="search" />
 					<Popover content={moreOptionsMenu} position={Position.BOTTOM}>
-						<Button text="More Options" icon="cog" rightIcon="caret-down" className="pad-left" />
+						<Button text="More Options" icon="cog" rightIcon="caret-down" />
 					</Popover>
 				</div>
 			</>

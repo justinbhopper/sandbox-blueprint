@@ -32,7 +32,7 @@ import { FormFieldsView } from "./areas/FormFieldsView";
 import { NotificationsView } from "./areas/NotificationsView";
 
 FormGroup.DEFAULT_REQUIRED_CONTENT = (
-	<span className="requiredLabel">
+	<span className="required-label">
 		{FormGroup.DEFAULT_REQUIRED_CONTENT}
 	</span>
 );

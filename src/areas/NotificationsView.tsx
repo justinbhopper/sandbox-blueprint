@@ -26,14 +26,14 @@ export class NotificationsView extends React.Component<{}, INotificationsView> {
 	public render() {
 		return (
 			<>
-				<div className="app-row">
+			<div className="example stack">
 					<Button large={true} icon="notifications" onClick={this.showNotification}>Repeatedly click here!</Button> 
 				</div>
-				<div className="app-row">
+				<div className="example stack">
 					<Switch checked={Notification.silenced} onClick={this.toggleSilenced}>Notifications Silenced</Switch>
 				</div>
-				<div className="app-row">
-					<Label text="Severity">
+				<div className="example stack">
+					<Label text="Color">
 						<IntentSelect intent={this.state.intent} onChange={this.handleIntentChange} />
 					</Label>
 				</div>
