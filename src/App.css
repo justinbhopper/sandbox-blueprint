@@ -3,18 +3,32 @@ main {
 	padding-top: 80px;
 }
 
+b, strong {
+	font-weight: bolder;
+}
+
 .stack {
 	display: flex;
 	flex-direction: row;
 	flex-wrap: nowrap;
+	align-items: start;
 }
 
 .stack.vertical {
 	flex-direction: column;
 }
 
+.stack.top,
+.example.stack {
+	align-items: start;
+}
+
 .stack.middle {
 	align-items: center;
+}
+
+.stack.bottom {
+	align-items: end;
 }
 
 .stack.centered {
@@ -24,10 +38,6 @@ main {
 .stack > .fill {
 	flex-grow: 1;
 	flex-shrink: 1;
-}
-
-.stack.example {
-	align-items: start;
 }
 
 .example + .example {
@@ -69,15 +79,39 @@ main {
 .stack .pt-control + .pt-form-group,
 .stack .pt-control + .pt-input-group,
 .stack .pt-control + .pt-button,
-.stack .pt-control + .pt-control {
+.stack .pt-control + .pt-control,
+.stack .pt-button + .pt-form-group,
+.stack .pt-button + .pt-input-group,
+.stack .pt-button + .pt-control {
 	margin-left: 10px;
+}
+
+.stack .pt-button + .pt-button,
+.stack .pt-button + .pt-popover-wrapper .pt-button,
+.stack .pt-popover-wrapper + .pt-button {
+	margin-left: 5px;
+}
+
+.stack .pt-button-group .pt-button,
+.stack .pt-button-group .pt-button + .pt-popover-wrapper .pt-button,
+.stack .pt-button-group .pt-popover-wrapper + .pt-button {
+	margin-left: 0;
 }
 
 .stack > .pt-label {
 	margin: 0;
 }
 
-.stack .pt-button + .pt-button,
-.stack .pt-button + .pt-popover-wrapper .pt-button {
-	margin-left: 5px;
+.pt-select-popover .pt-menu {
+	max-width: 400px;
+	max-height: 300px;
+	overflow: auto;
+}
+
+.pt-select-popover .pt-input-group {
+	margin: 5px 5px 2px 5px;
+}
+
+.pt-select-popover .pt-popover-content {
+	padding: 0;
 }

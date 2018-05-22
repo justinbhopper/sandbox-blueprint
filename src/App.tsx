@@ -1,5 +1,6 @@
 import "@blueprintjs/core/lib/css/blueprint.css";
 import "@blueprintjs/icons/lib/css/blueprint-icons.css";
+import "@blueprintjs/select/lib/css/blueprint-select.css";
 import * as React from 'react';
 import './App.css'
 
@@ -30,6 +31,7 @@ import { CalloutsView } from "./areas/CalloutsView";
 import { EmptyView } from "./areas/EmptyView";
 import { FormFieldsView } from "./areas/FormFieldsView";
 import { NotificationsView } from "./areas/NotificationsView";
+import { SelectsView } from "./areas/SelectsView";
 
 FormGroup.DEFAULT_REQUIRED_CONTENT = (
 	<span className="required-label">
@@ -74,9 +76,9 @@ class App extends React.Component {
 					<Card elevation={Elevation.ONE}>
 						<Tabs id="areas" defaultSelectedTabId="fields" large={true}>
 							<Tab id="fields" title="Form Fields" panel={<FormFieldsView />} />
+							<Tab id="selectboxes" title="Selects" panel={<SelectsView />}/>
 							<Tab id="buttons" title="Buttons" panel={<ButtonsView />} />
 							<Tab id="datePicker" title="Date Pickers" />
-							<Tab id="selectboxes" title="Selects" />
 							<Tab id="notifications" title="Notifications" panel={<NotificationsView />} />
 							<Tab id="callouts" title="Callouts" panel={<CalloutsView />} />
 							<Tab id="empty" title="Empty Results" panel={<EmptyView />} />
