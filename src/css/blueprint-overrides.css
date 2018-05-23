@@ -1,0 +1,35 @@
+.pt-callout {
+	margin-top: 10px;
+}
+
+.required-label {
+	padding-left: 5px;
+	font-size: 12px;
+}
+
+.pt-tag-input .pt-input-ghost {
+	width: 120px;
+}
+
+.pt-input + .pt-tag {
+	margin-left: 5px;
+}
+
+.pt-form-group {
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+.pt-select-popover .pt-menu {
+	max-width: 400px;
+	max-height: 300px;
+	overflow: auto;
+}
+
+.pt-select-popover .pt-input-group {
+	margin: 5px 5px 2px 5px;
+}
+
+.pt-select-popover .pt-popover-content {
+	padding: 0;
+}
