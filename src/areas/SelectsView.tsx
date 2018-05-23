@@ -16,7 +16,8 @@ import {
 
 import { Omnibar, Select, Suggest } from '@blueprintjs/select'
 
-import { filterFilm, IFilm, renderFilm, TOP_100_FILMS } from "./Films";
+import { AsyncSelect } from '../components/AsyncSelect';
+import { FilmStore, filterFilm, IFilm, renderFilm, TOP_100_FILMS } from "../components/Films";
 
 export interface ISelectViewState {
 	animated: boolean;
@@ -35,6 +36,16 @@ export class SelectsView extends React.Component<{}, ISelectViewState> {
 		film: TOP_100_FILMS[0],
 		omnibarOpen: false
 	};
+
+	private filmStore = new FilmStore();
+
+	private filmAsyncSelect: AsyncSelect<IFilm>;
+
+	private refHandlers = {
+		filmAsyncSelect: (ref: AsyncSelect<IFilm>) => {
+			this.filmAsyncSelect = ref;
+		}
+	}
 
 	public renderHotkeys() {
 		return (
@@ -58,6 +69,7 @@ export class SelectsView extends React.Component<{}, ISelectViewState> {
 		const FilmSelect = Select.ofType<IFilm>();
 		const FilmSuggest = Suggest.ofType<IFilm>();
 		const FilmOmnibar = Omnibar.ofType<IFilm>();
+		const FilmAsyncSelect = AsyncSelect.ofType<IFilm>();
 
 		const popoverProps: IPopoverProps = {
 			minimal: !animated
@@ -107,10 +119,19 @@ export class SelectsView extends React.Component<{}, ISelectViewState> {
 							</FilmSuggest>
 						</FormGroup>
 					</div>
-					<div className="example">
+					<div className="example stack bottom">
 						<FormGroup label="Asynchronous Suggest">
-							TBD
+							<FilmAsyncSelect
+								ref={this.refHandlers.filmAsyncSelect}
+								disabled={disabled}
+								fetchOnInitialize={false}
+								itemPredicate={filterFilm}
+								itemRenderer={renderFilm}
+								onItemSelect={this.handleValueChange}
+								store={this.filmStore}
+							/>
 						</FormGroup>
+						<Button text="Load" onClick={this.onLoadAsyncItems} />
 					</div>
 					<div className="example">
 						<FormGroup label="Omnibar" helperText={<>Alternatively, you can launch it using <Tag>ctrl</Tag> + <Tag>K</Tag></>}>
@@ -144,6 +165,10 @@ export class SelectsView extends React.Component<{}, ISelectViewState> {
 
 	private onOpenOmnibarClick = () => {
 		this.setState({ omnibarOpen: true });
+	}
+
+	private onLoadAsyncItems = () => {
+		this.filmAsyncSelect.fetch();
 	}
 
 	private openOmnibar = () => this.setState({ omnibarOpen: true });

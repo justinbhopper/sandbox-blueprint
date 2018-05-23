@@ -1,9 +1,5 @@
 import * as React from 'react';
 
-import { observer } from 'mobx-react';
-import { PeopleSelector } from './PeopleSelector'
-import { PeopleStore } from './PeopleStore';
-
 import {
 	Button,
 	Callout,
@@ -14,6 +10,10 @@ import {
 	Switch,
 	Tag
 } from '@blueprintjs/core';
+
+import { observer } from 'mobx-react';
+import { PeopleSelector } from '../components/PeopleSelector'
+import { PeopleStore } from '../components/PeopleStore';
 
 interface IFormFieldsViewState {
 	disabled: boolean;

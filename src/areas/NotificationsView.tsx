@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react';
 import * as React from 'react';
 
-import { Notification } from '../common/notifications'
+import { Notification } from '../components/notifications'
 import { IntentSelect } from './IntentSelect';
 
 import {
