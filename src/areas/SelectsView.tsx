@@ -119,7 +119,10 @@ export class SelectsView extends React.Component<{}, ISelectViewState> {
 								{...selectProps} 
 								isOpen={omnibarOpen}
 								resetOnSelect={true}
-								inputProps={({ onBlur: this.closeOmnibar })}
+								inputProps={{ 
+									onBlur: this.closeOmnibar,
+									placeholder: "Search for movies..."
+								}}
 								onClose={this.closeOmnibar} />
 						</FormGroup>
 					</div>
