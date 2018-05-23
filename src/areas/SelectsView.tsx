@@ -9,21 +9,25 @@ import {
 	InputGroup,
 	Intent,
 	IPopoverProps,
+	Label,
 	MenuItem,
 	Switch,
 	Tag
 } from '@blueprintjs/core';
 
-import { Omnibar, Select, Suggest } from '@blueprintjs/select'
+import { MultiSelect, Omnibar, Select, Suggest } from '@blueprintjs/select'
 
 import { AsyncSelect } from '../components/AsyncSelect';
 import { FilmStore, filterFilm, IFilm, renderFilm, TOP_100_FILMS } from "../components/Films";
+import { IntentSelect } from './IntentSelect';
 
 export interface ISelectViewState {
 	animated: boolean;
 	disabled: boolean;
 	errored: boolean;
 	film: IFilm;
+	intent: Intent;
+	selectedFilms: IFilm[];
 	omnibarOpen: boolean;
 }
 
@@ -34,7 +38,9 @@ export class SelectsView extends React.Component<{}, ISelectViewState> {
 		disabled: false,
 		errored: false,
 		film: TOP_100_FILMS[0],
-		omnibarOpen: false
+		intent: Intent.NONE,
+		omnibarOpen: false,
+		selectedFilms: []
 	};
 
 	private filmStore = new FilmStore();
@@ -64,9 +70,10 @@ export class SelectsView extends React.Component<{}, ISelectViewState> {
 	
 	public render() {
 		const { animated, disabled, errored, film, omnibarOpen } = this.state;
-		const intent = errored ? Intent.DANGER : Intent.NONE;
+		const intent = errored ? Intent.DANGER : this.state.intent;
 
 		const FilmSelect = Select.ofType<IFilm>();
+		const FilmMultiSelect = MultiSelect.ofType<IFilm>();
 		const FilmSuggest = Suggest.ofType<IFilm>();
 		const FilmOmnibar = Omnibar.ofType<IFilm>();
 		const FilmAsyncSelect = AsyncSelect.ofType<IFilm>();
@@ -77,27 +84,34 @@ export class SelectsView extends React.Component<{}, ISelectViewState> {
 
 		const selectProps = {
 			disabled,
+			filterable: false,
 			itemPredicate: filterFilm,
 			itemRenderer: renderFilm,
 			items: TOP_100_FILMS,
 			noResults: <MenuItem icon="zoom-out" disabled={true} text="No results." />,
-			onItemSelect: this.handleValueChange,
+			onItemSelect: () => null,
 			popoverProps
 		};
 
-		const getFilmTitle = (f: IFilm): string => f.title;
+		const getFilmTitle = (f?: IFilm): string => f ? f.title : "(No selection)";
+		const filmTagRenderer = (f: IFilm) => f.title;
 
 		return (
 			<>
 				<FormGroup intent={intent} disabled={disabled}>
-					<div className="example stack">
-						<Switch label="Animated Popup" large={true} checked={animated} onClick={this.onAnimatedClick} />
-						<Switch label="Invalidate All" large={true} checked={errored} onClick={this.onErrorAllClick} />
+					<div className="example stack middle">
 						<Switch label="Disable All" large={true} checked={disabled} onClick={this.onDisableAllClick} />
+						<Switch label="Invalidate All" large={true} checked={errored} onClick={this.onErrorAllClick} />
+						<Switch label="Animated Popup" large={true} checked={animated} onClick={this.onAnimatedClick} />
+						<Label text="Color" inline={true}>
+							<IntentSelect intent={this.state.intent} onChange={this.handleIntentChange} />
+						</Label>
 					</div>
 					<div className="example stack">
 						<FormGroup label="Normal Select">
-							<FilmSelect {...selectProps} filterable={false}>
+							<FilmSelect 
+								{...selectProps}
+								onItemSelect={this.handleValueChange}>
 								<Button rightIcon="caret-down" text={film ? film.title : "(No selection)"} intent={intent} disabled={disabled} />
 							</FilmSelect>
 						</FormGroup>
@@ -120,15 +134,17 @@ export class SelectsView extends React.Component<{}, ISelectViewState> {
 						</FormGroup>
 					</div>
 					<div className="example stack bottom">
-						<FormGroup label="Asynchronous Suggest">
+						<FormGroup label="Asynchronous Select">
 							<FilmAsyncSelect
 								ref={this.refHandlers.filmAsyncSelect}
 								disabled={disabled}
+								intent={intent}
 								fetchOnInitialize={false}
 								itemPredicate={filterFilm}
 								itemRenderer={renderFilm}
-								onItemSelect={this.handleValueChange}
+								buttonTextProvider={getFilmTitle}
 								store={this.filmStore}
+								popoverProps={popoverProps}
 							/>
 						</FormGroup>
 						<Button text="Load" onClick={this.onLoadAsyncItems} />
@@ -147,12 +163,36 @@ export class SelectsView extends React.Component<{}, ISelectViewState> {
 								onClose={this.closeOmnibar} />
 						</FormGroup>
 					</div>
+					<div className="example">
+						<FormGroup label="Multi Select">
+							<FilmMultiSelect 
+								{...selectProps}
+								tagRenderer={filmTagRenderer}
+								onItemSelect={this.handleFilmSelect}
+								tagInputProps={{
+									onRemove: this.handleFilmRemove
+								}}
+								selectedItems={this.state.selectedFilms} />
+						</FormGroup>
+					</div>
 				</FormGroup>
 			</>
 		);
 	}
 
-	private handleValueChange = (film: IFilm) => this.setState({ film });
+	private handleIntentChange = (intent: Intent) => this.setState({ intent });
+
+	private handleValueChange = (film: IFilm) => {
+		this.setState({ film });
+	}
+
+	private handleFilmSelect = (film: IFilm) => {
+		this.setState({ selectedFilms: [...this.state.selectedFilms, film] });
+	}
+
+	private handleFilmRemove = (tag: string, index: number) => {
+		this.setState({ selectedFilms: this.state.selectedFilms.filter((f, i) => i !== index) });
+	}
 
 	private onDisableAllClick = () => {
 		this.setState({ disabled: !this.state.disabled });

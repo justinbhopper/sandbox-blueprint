@@ -12,17 +12,23 @@ const INTENTS = [
 export interface IIntentSelectProps {
 	inline?: boolean;
 	intent: Intent;
-	onChange: React.FormEventHandler<HTMLSelectElement>;
+	onChange: (intent: Intent) => void;
 }
 
-export const IntentSelect: React.SFC<IIntentSelectProps> = props => (
-	<div className={Classes.SELECT}>
-		<select value={props.intent} onChange={props.onChange}>
-			{INTENTS.map((opt, i) => (
-				<option key={i} value={opt.value}>
-					{opt.label}
-				</option>
-			))}
-		</select>
-	</div>
-);
+export class IntentSelect extends React.PureComponent<IIntentSelectProps> {
+	public render() {
+		return (
+			<div className={Classes.SELECT}>
+				<select value={this.props.intent} onChange={this.handleIntentChange}>
+					{INTENTS.map((opt, i) => (
+						<option key={i} value={opt.value}>
+							{opt.label}
+						</option>
+					))}
+				</select>
+			</div>
+		);
+	}
+
+	private handleIntentChange = (event: React.FormEvent<HTMLSelectElement>) => this.props.onChange((event.target as HTMLInputElement).value as Intent);
+}

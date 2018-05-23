@@ -6,15 +6,18 @@ import {
 	Select
 } from "@blueprintjs/select";
 
-import { Button } from "@blueprintjs/core";
+import { Button, Intent, IPopoverProps, Spinner } from "@blueprintjs/core";
 import * as React from "react";
 import { IAsyncStore } from "./AsyncStore";
 
 export interface IAsyncSelectProps<T> {
 	store: IAsyncStore<T>;
+	buttonTextProvider: (selectedItem?: T) => string;
 	fetchOnInitialize?: boolean;
 	filterable?: boolean;
 	disabled?: boolean;
+	minimal?: boolean;
+	intent?: Intent;
 	resetOnSelect?: boolean;
 	resetOnClose?: boolean;
 	onQueryChange?: (query: string) => void;
@@ -24,11 +27,13 @@ export interface IAsyncSelectProps<T> {
 	itemListRenderer?: ItemListRenderer<T>;
 	initialContent?: React.ReactNode | null;
 	noResults?: React.ReactNode;
-	onItemSelect: (item: T, event?: React.SyntheticEvent<HTMLElement>) => void;
+	onItemSelect?: (item: T, event?: React.SyntheticEvent<HTMLElement>) => void;
+	popoverProps?: IPopoverProps;
 }
 
 export interface IAsyncSelectState<T> {
 	items?: T[];
+	selectedItem?: T;
 	loading: boolean;
 }
 
@@ -55,11 +60,17 @@ export class AsyncSelect<T> extends React.PureComponent<IAsyncSelectProps<T>, IA
 	}
 
 	public render() {
-		const { items, loading } = this.state;
+		const { items, loading, selectedItem } = this.state;
+
+		const buttonProps = {
+			disabled: this.props.disabled,
+			intent: this.props.intent,
+			minimal: this.props.minimal
+		}
 
 		if (loading) {
 			return (
-				<Button rightIcon="caret-down" text="Loading..." disabled={true} />
+				<Button {...buttonProps} text="Loading..." rightIcon={<Spinner small={true} intent={this.props.intent} />} disabled={true} />
 			);
 		} else if (items !== undefined) {
 			const TypedSelect = Select.ofType<T>();
@@ -69,14 +80,20 @@ export class AsyncSelect<T> extends React.PureComponent<IAsyncSelectProps<T>, IA
 				items
 			};
 
+			const text = this.props.buttonTextProvider(selectedItem);
+
 			return (
-				<TypedSelect {...selectProps}>
-					<Button rightIcon="caret-down" text="Example" />
+				<TypedSelect 
+					{...selectProps}
+					onItemSelect={this.onItemSelect}>
+					<Button {...buttonProps} rightIcon="caret-down" text={text} />
 				</TypedSelect>
 			);
 		} else {
+
+			const text = this.props.buttonTextProvider();
 			return (
-				<Button rightIcon="caret-down" text="" disabled={true} />
+				<Button {...buttonProps} rightIcon="caret-down" text={text} disabled={true} />
 			);
 		}
 	}
@@ -87,8 +104,17 @@ export class AsyncSelect<T> extends React.PureComponent<IAsyncSelectProps<T>, IA
 		return this.store.fetch().then(items => {
 			this.setState({ 
 				items,
-				loading: false
+				loading: false, 
+				selectedItem: undefined
 			})
 		});
+	}
+
+	private onItemSelect = (selectedItem: T) => {
+		this.setState({ selectedItem });
+
+		if (this.props.onItemSelect) {
+			this.props.onItemSelect(selectedItem);
+		}
 	}
 }

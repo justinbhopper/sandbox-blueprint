@@ -51,22 +51,12 @@ b, strong {
 	margin-bottom: 0;
 }
 
-.stack .pt-input-group + .pt-input-group,
-.stack .pt-input-group + .pt-button,
-.stack .pt-input-group + .pt-form-group,
-.stack .pt-input-group + .pt-control,
-.stack .pt-form-group + .pt-form-group,
-.stack .pt-form-group + .pt-input-group,
-.stack .pt-form-group + .pt-button,
-.stack .pt-form-group + .pt-control,
-.stack .pt-control + .pt-form-group,
-.stack .pt-control + .pt-input-group,
-.stack .pt-control + .pt-button,
-.stack .pt-control + .pt-control,
-.stack .pt-button + .pt-form-group,
-.stack .pt-button + .pt-input-group,
-.stack .pt-button + .pt-control {
+.stack:not(.vertical) > * + * {
 	margin-left: 10px;
+}
+
+.stack.vertical > * + * {
+	margin-top: 10px;
 }
 
 .stack .pt-button + .pt-button,
@@ -81,6 +71,7 @@ b, strong {
 	margin-left: 0;
 }
 
-.stack > .pt-label {
-	margin: 0;
+.stack > .pt-label,
+.pt-form-group .stack > .pt-label {
+	margin-bottom: 0;
 }

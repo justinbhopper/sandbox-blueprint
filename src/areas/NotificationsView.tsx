@@ -41,7 +41,7 @@ export class NotificationsView extends React.Component<{}, INotificationsView> {
 		);
 	}
 
-	private handleIntentChange = (event: React.FormEvent<HTMLSelectElement>) => this.setState({ intent: (event.target as HTMLInputElement).value as Intent });
+	private handleIntentChange = (intent: Intent) => this.setState({ intent });
 
 	private toggleSilenced = () => {
 		if (Notification.silenced) {

@@ -33,3 +33,8 @@
 .pt-select-popover .pt-popover-content {
 	padding: 0;
 }
+
+.pt-button > .pt-spinner:not(.pt-svg-spinner),
+.pt-button > .pt-spinner.pt-small:not(.pt-svg-spinner) {
+	width: 20px;
+}
