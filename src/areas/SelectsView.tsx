@@ -211,7 +211,7 @@ export class SelectsView extends React.Component<{}, ISelectViewState> {
 	}
 
 	private onLoadAsyncItems = () => {
-		this.filmAsyncSelect.fetch();
+		this.filmAsyncSelect.fetchAsync();
 	}
 
 	private openOmnibar = () => this.setState({ omnibarOpen: true });

@@ -137,7 +137,7 @@ export const filterFilm: ItemPredicate<IFilm> = (query, film) => {
 };
 
 export class FilmStore implements IAsyncStore<IFilm> {
-	public fetch(): Promise<IFilm[]> {
+	public fetchAsync(): Promise<IFilm[]> {
 		return new Promise<IFilm[]>(resolve => {
 			setTimeout(() => resolve(TOP_100_FILMS), 1500);
 		});

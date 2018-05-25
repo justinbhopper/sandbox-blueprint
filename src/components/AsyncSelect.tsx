@@ -55,7 +55,7 @@ export class AsyncSelect<T> extends React.PureComponent<IAsyncSelectProps<T>, IA
 		this.store = props.store;
 
 		if (props.fetchOnInitialize !== false) {
-			this.fetch();
+			this.fetchAsync();
 		}
 	}
 
@@ -98,15 +98,15 @@ export class AsyncSelect<T> extends React.PureComponent<IAsyncSelectProps<T>, IA
 		}
 	}
 
-	public fetch(): Promise<void> {
+	public async fetchAsync(): Promise<void> {
 		this.setState({ loading: true });
 
-		return this.store.fetch().then(items => {
-			this.setState({ 
-				items,
-				loading: false, 
-				selectedItem: undefined
-			})
+		const items = await this.store.fetchAsync();
+
+		this.setState({ 
+			items,
+			loading: false, 
+			selectedItem: undefined
 		});
 	}
 

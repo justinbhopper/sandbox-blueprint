@@ -1,4 +1,4 @@
 
 export interface IAsyncStore<T> {
-	fetch(): Promise<T[]>;
+	fetchAsync(): Promise<T[]>;
 }
