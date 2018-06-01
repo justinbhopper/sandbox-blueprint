@@ -75,3 +75,33 @@ b, strong {
 .pt-form-group .stack > .pt-label {
 	margin-bottom: 0;
 }
+
+.pt-overlay .card {
+	padding: 12px;
+}
+
+.pt-overlay .card:before {
+	content: '';
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 4px;
+	border-top-left-radius: 3px;
+	border-top-right-radius: 3px;
+	background: linear-gradient(to right, #5d49c8 0%,#5d49c8 42%,#207cca 75%,#7db9e8 100%);
+}
+
+.codeable-info {
+	display: flex;
+	flex-direction: column;
+}
+
+.codeable-info .description {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	font-size: 16px;
+	font-weight: 700;
+}
