@@ -1,5 +1,5 @@
 .pt-callout {
-	margin-top: 10px;
+	margin: 10px 0;
 }
 
 .required-label {
@@ -37,4 +37,9 @@
 .pt-button > .pt-spinner:not(.pt-svg-spinner),
 .pt-button > .pt-spinner.pt-small:not(.pt-svg-spinner) {
 	width: 20px;
+}
+
+label.pt-label .pt-popover-wrapper {
+	display: inline-block;
+	margin-top: 0;
 }
