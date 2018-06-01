@@ -15,7 +15,7 @@ export class PopupsView extends React.Component {
 		return (
 			<>
 				<Callout>
-					Hover over items to display the popups.
+					Hover over items to display the popups.  Some popups are custom styled, and some are using Balloon.css.
 				</Callout>
 				<div className="example">
 					<>Patient is suffering from </>
