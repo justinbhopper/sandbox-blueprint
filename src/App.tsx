@@ -32,6 +32,7 @@ import { CalloutsView } from "./areas/CalloutsView";
 import { EmptyView } from "./areas/EmptyView";
 import { FormFieldsView } from "./areas/FormFieldsView";
 import { NotificationsView } from "./areas/NotificationsView";
+import { PopupsView } from "./areas/PopupsView";
 import { SelectsView } from "./areas/SelectsView";
 
 FormGroup.DEFAULT_REQUIRED_CONTENT = (
@@ -79,8 +80,8 @@ class App extends React.Component {
 							<Tab id="fields" title="Form Fields" panel={<FormFieldsView />} />
 							<Tab id="selectboxes" title="Selects" panel={<SelectsView />}/>
 							<Tab id="buttons" title="Buttons" panel={<ButtonsView />} />
-							<Tab id="datePicker" title="Date Pickers" />
 							<Tab id="notifications" title="Notifications" panel={<NotificationsView />} />
+							<Tab id="popups" title="Popups" panel={<PopupsView />} />
 							<Tab id="callouts" title="Callouts" panel={<CalloutsView />} />
 							<Tab id="empty" title="Empty Results" panel={<EmptyView />} />
 						</Tabs>

@@ -26,7 +26,7 @@ export class NotificationsView extends React.Component<{}, INotificationsView> {
 	public render() {
 		return (
 			<>
-			<div className="example stack">
+				<div className="example stack">
 					<Button large={true} icon="notifications" onClick={this.showNotification}>Repeatedly click here!</Button> 
 				</div>
 				<div className="example stack">
