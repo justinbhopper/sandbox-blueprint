@@ -10,7 +10,6 @@ import {
 	Button,
 	ButtonGroup,
 	Card,
-	Elevation,
 	FormGroup,
 	Intent,
 	Menu,
@@ -23,6 +22,7 @@ import {
 	PopoverInteractionKind,
 	Position,
 	Tab,
+	TabId,
 	Tabs,
 	Tooltip
 } from '@blueprintjs/core';
@@ -51,6 +51,8 @@ class App extends React.Component {
 			</Menu>
 		);
 
+		const defaultSelectedTabId = (location.hash || "fields").replace('#', '');
+
 		return (
 			<>
 				<Navbar fixedToTop={true}>
@@ -75,20 +77,22 @@ class App extends React.Component {
 					</NavbarGroup>
 				</Navbar>
 				<main>
-					<Card elevation={Elevation.ONE}>
-						<Tabs id="areas" defaultSelectedTabId="fields" large={true}>
-							<Tab id="fields" title="Form Fields" panel={<FormFieldsView />} />
-							<Tab id="selectboxes" title="Selects" panel={<SelectsView />}/>
-							<Tab id="buttons" title="Buttons" panel={<ButtonsView />} />
-							<Tab id="notifications" title="Notifications" panel={<NotificationsView />} />
-							<Tab id="popups" title="Popups" panel={<PopupsView />} />
-							<Tab id="callouts" title="Callouts" panel={<CalloutsView />} />
-							<Tab id="empty" title="Empty Results" panel={<EmptyView />} />
-						</Tabs>
-					</Card>
+					<Tabs id="areas" defaultSelectedTabId={defaultSelectedTabId} large={true} vertical={true} onChange={this.onTabChange}>
+						<Tab id="fields" title="Form Fields" panel={<Card><FormFieldsView /></Card>} />
+						<Tab id="selectboxes" title="Selects" panel={<Card><SelectsView /></Card>}/>
+						<Tab id="buttons" title="Buttons" panel={<Card><ButtonsView /></Card>} />
+						<Tab id="notifications" title="Notifications" panel={<Card><NotificationsView /></Card>} />
+						<Tab id="popups" title="Popups" panel={<Card><PopupsView /></Card>} />
+						<Tab id="callouts" title="Callouts" panel={<Card><CalloutsView /></Card>} />
+						<Tab id="empty" title="Empty Results" panel={<Card><EmptyView /></Card>} />
+					</Tabs>
 				</main>
 			</>
 		);
+	}
+
+	private onTabChange = (newTabId: TabId) => {
+		history.pushState(null, undefined, `#${newTabId}`);
 	}
 }
 

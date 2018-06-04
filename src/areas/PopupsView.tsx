@@ -4,7 +4,9 @@ import {
 	Callout,
 	FormGroup,
 	Icon,
-	InputGroup
+	InputGroup,
+	Position,
+	Tooltip
 } from '@blueprintjs/core';
 
 import { Codeable } from 'components/Codeable';
@@ -29,15 +31,21 @@ export class PopupsView extends React.Component {
 				</div>
 				<div className="example">
 					<>Patient is suffering from </>
-					<span data-balloon="This is a tip!" data-balloon-pos="down">
+					<span data-balloon="This is a tip using Balloon.css!" data-balloon-pos="down">
 						depression
 					</span>.
 				</div>
 				<div className="example">
 					<>Patient is suffering from depression. </>
-					<span data-balloon="This is a tip!" data-balloon-pos="down">
+					<span data-balloon="This is a tip using Balloon.css!" data-balloon-pos="down">
 						<Icon title="" color="#5d49c8" icon="help" iconSize={14} />
 					</span>
+				</div>
+				<div className="example">
+					<>Patient is suffering from </>
+					<Tooltip content="This is a tip using Blueprint!" position={Position.TOP} openOnTargetFocus={false}>
+						depression
+					</Tooltip>.
 				</div>
 				<div className="example stack">
 					<FormGroup label="Last Name" labelFor="lastName" requiredLabel={true} 

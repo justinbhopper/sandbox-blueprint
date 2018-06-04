@@ -108,7 +108,7 @@ export class SelectsView extends React.Component<{}, ISelectViewState> {
 
 		return (
 			<FormGroup intent={intent} disabled={disabled}>
-				<div className="example stack middle">
+				<div className="stack middle">
 					<Switch label="Disable All" large={true} checked={disabled} onClick={this.onDisableAllClick} />
 					<Switch label="Invalidate All" large={true} checked={errored} onClick={this.onErrorAllClick} />
 					<Switch label="Animated Popup" large={true} checked={animated} onClick={this.onAnimatedClick} />

@@ -54,7 +54,7 @@ export class FormFieldsView extends React.Component<{}, IFormFieldsViewState> {
 
 		return (
 			<FormGroup intent={intent} disabled={this.state.disabled}>
-				<div className="example stack">
+				<div className="stack">
 					<Switch label="Invalidate All" large={true} checked={this.state.errored} onClick={this.onErrorAllClick} />
 					<Switch label="Disable All" large={true} checked={this.state.disabled} onClick={this.onDisableAllClick} />
 				</div>

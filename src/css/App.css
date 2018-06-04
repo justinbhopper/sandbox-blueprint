@@ -3,6 +3,10 @@ main {
 	padding-top: 80px;
 }
 
+main .pt-tabs.pt-vertical > .pt-tab-panel {
+	flex-grow: 1;
+}
+
 b, strong {
 	font-weight: bolder;
 }
@@ -40,10 +44,12 @@ b, strong {
 	flex-shrink: 1;
 }
 
+.example {
+	padding: 10px 0;
+}
+
 .example + .example {
 	border-top: 1px solid #ddd;
-	margin-top: 10px;
-	padding-top: 10px;
 }
 
 .example .pt-control {

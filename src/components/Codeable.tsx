@@ -29,7 +29,7 @@ export const Codeable: React.SFC<ICodeableProps> = (props) => {
 		</div>
 	);
 
-	if (popoverProps.children === undefined) {
+	if (!popoverProps.children) {
 		popoverProps.children = description;
 	}
 
@@ -41,6 +41,7 @@ export const Codeable: React.SFC<ICodeableProps> = (props) => {
 			content={content}
 			minimal={true} 
 			hoverCloseDelay={150}
+			openOnTargetFocus={false}
 			targetElementTag="span"
 			position={Position.BOTTOM_LEFT} 
 			interactionKind={PopoverInteractionKind.HOVER_TARGET_ONLY} 
