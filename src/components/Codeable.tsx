@@ -14,39 +14,36 @@ export interface ICodeableProps {
 }
 
 export const Codeable: React.SFC<ICodeableProps> = (props) => {
-{
-		const { description, system, code, ...popoverProps } = props;
+	const { description, system, code, ...popoverProps } = props;
 
-		const content = (
-			<div className="card codeable-info">
-				<Icon icon="search-text" color="white" iconSize={30} />
-				<div className="description">
-					<span>{description}</span>
-				</div>
-				<div className="coding">
-					<span className="system">{system}</span>
-					<span className="code">{code}</span>
-				</div>
+	const content = (
+		<div className="card codeable-info">
+			<Icon icon="search-text" color="white" iconSize={30} />
+			<div className="description">
+				<span>{description}</span>
 			</div>
-		);
+			<div className="coding">
+				<span className="system">{system}</span>
+				<span className="code">{code}</span>
+			</div>
+		</div>
+	);
 
-		if (popoverProps.children === undefined)
-		{
-			popoverProps.children = description;
-		}
-
-		return (
-			<Popover 
-				{...popoverProps}
-				className="codeable-hoverable"
-				popoverClassName="card"
-				content={content}
-				minimal={true} 
-				hoverCloseDelay={150}
-				targetElementTag="span"
-				position={Position.BOTTOM_LEFT} 
-				interactionKind={PopoverInteractionKind.HOVER_TARGET_ONLY} 
-			/>
-		);
+	if (popoverProps.children === undefined) {
+		popoverProps.children = description;
 	}
+
+	return (
+		<Popover 
+			{...popoverProps}
+			className="codeable-hoverable"
+			popoverClassName="card"
+			content={content}
+			minimal={true} 
+			hoverCloseDelay={150}
+			targetElementTag="span"
+			position={Position.BOTTOM_LEFT} 
+			interactionKind={PopoverInteractionKind.HOVER_TARGET_ONLY} 
+		/>
+	);
 };

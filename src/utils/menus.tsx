@@ -10,11 +10,14 @@ export function highlightText(text: string, query: string): React.ReactNode {
 		.split(/\s+/)
 		.filter(word => word.length > 0)
 		.map(escapeRegExpChars);
+
 	if (words.length === 0) {
 		return [text];
 	}
+
 	const regexp = new RegExp(words.join("|"), "gi");
 	const tokens: React.ReactNode[] = [];
+
 	while (true) {
 		const match = regexp.exec(text);
 		if (!match) {
@@ -28,9 +31,11 @@ export function highlightText(text: string, query: string): React.ReactNode {
 		lastIndex = regexp.lastIndex;
 		tokens.push(<strong key={lastIndex}>{match[0]}</strong>);
 	}
+
 	const rest = text.slice(lastIndex);
 	if (rest.length > 0) {
 		tokens.push(rest);
 	}
+	
 	return tokens;
 }

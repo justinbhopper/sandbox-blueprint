@@ -107,104 +107,102 @@ export class SelectsView extends React.Component<{}, ISelectViewState> {
 		const filmTagRenderer = (f: IFilm) => f.title;
 
 		return (
-			<>
-				<FormGroup intent={intent} disabled={disabled}>
-					<div className="example stack middle">
-						<Switch label="Disable All" large={true} checked={disabled} onClick={this.onDisableAllClick} />
-						<Switch label="Invalidate All" large={true} checked={errored} onClick={this.onErrorAllClick} />
-						<Switch label="Animated Popup" large={true} checked={animated} onClick={this.onAnimatedClick} />
-						<Label text="Color" inline={true}>
-							<IntentSelect intent={this.state.intent} onChange={this.handleIntentChange} />
-						</Label>
-					</div>
-					<div className="example stack">
-						<FormGroup label="Normal Select">
-							<FilmSelect 
-								{...selectProps}
-								onItemSelect={this.handleFilmChange}>
-								<Button rightIcon="caret-down" text={film ? film.title : "(No selection)"} intent={intent} disabled={disabled} />
-							</FilmSelect>
-						</FormGroup>
-						<FormGroup label="Selected Value" helperText="This shows how a hidden input could be updated if need-be.">
-							<InputGroup value={film ? film.title : ""} intent={intent} disabled={disabled} />
-						</FormGroup>
-					</div>
-					<div className="example">
-						<FormGroup label="Filterable Select">
-							<FilmSelect {...selectProps} filterable={true}>
-								<Button rightIcon="caret-down" text={film ? film.title : "(No selection)"} intent={intent} disabled={disabled} />
-							</FilmSelect>
-						</FormGroup>
-					</div>
-					<div className="example">
-						<FormGroup label="Suggest (aka ComboBox)">
-							<FilmSuggest {...selectProps} inputValueRenderer={getFilmTitle}>
-								<Button rightIcon="caret-down" text={film ? film.title : "(No selection)"} intent={intent} disabled={disabled} />
-							</FilmSuggest>
-						</FormGroup>
-					</div>
-					<div className="example stack bottom">
-						<FormGroup label="Asynchronous Select (Local)">
-							<FilmAsyncSelect
-								ref={this.refHandlers.filmAsyncSelect}
-								disabled={disabled}
-								intent={intent}
-								fetchOnInitialize={false}
-								itemPredicate={filterFilm}
-								itemRenderer={renderFilm}
-								buttonTextProvider={getFilmTitle}
-								store={this.filmStore}
-								popoverProps={popoverProps}
-							/>
-						</FormGroup>
-						<Button text="Load" onClick={this.onLoadFilmItems} />
-					</div>
-					<div className="example stack bottom">
-						<FormGroup label="Asynchronous Select (Server)">
-							<UserAsyncSelect
-								ref={this.refHandlers.userAsyncSelect}
-								disabled={disabled}
-								filterable={false}
-								intent={intent}
-								fetchOnInitialize={false}
-								itemPredicate={filterUser}
-								itemRenderer={renderUser}
-								buttonTextProvider={getUsername}
-								store={this.userStore}
-								onItemSelect={this.handleUserChange}
-								popoverProps={popoverProps}
-							/>
-						</FormGroup>
-						<Button text="Load" onClick={this.onLoadUserItems} />
-					</div>
-					<div className="example">
-						<FormGroup label="Omnibar" helperText={<>Alternatively, you can launch it using <Tag>ctrl</Tag> + <Tag>K</Tag></>}>
-							<Button text="Launch Omnibar" onClick={this.onOpenOmnibarClick} intent={intent} disabled={disabled} />
-							<FilmOmnibar 
-								{...selectProps} 
-								isOpen={omnibarOpen}
-								resetOnSelect={true}
-								inputProps={{ 
-									onBlur: this.closeOmnibar,
-									placeholder: "Search for movies..."
-								}}
-								onClose={this.closeOmnibar} />
-						</FormGroup>
-					</div>
-					<div className="example">
-						<FormGroup label="Multi Select">
-							<FilmMultiSelect 
-								{...selectProps}
-								tagRenderer={filmTagRenderer}
-								onItemSelect={this.handleFilmSelect}
-								tagInputProps={{
-									onRemove: this.handleFilmRemove
-								}}
-								selectedItems={this.state.selectedFilms} />
-						</FormGroup>
-					</div>
-				</FormGroup>
-			</>
+			<FormGroup intent={intent} disabled={disabled}>
+				<div className="example stack middle">
+					<Switch label="Disable All" large={true} checked={disabled} onClick={this.onDisableAllClick} />
+					<Switch label="Invalidate All" large={true} checked={errored} onClick={this.onErrorAllClick} />
+					<Switch label="Animated Popup" large={true} checked={animated} onClick={this.onAnimatedClick} />
+					<Label text="Color" inline={true}>
+						<IntentSelect intent={this.state.intent} onChange={this.handleIntentChange} />
+					</Label>
+				</div>
+				<div className="example stack">
+					<FormGroup label="Normal Select">
+						<FilmSelect 
+							{...selectProps}
+							onItemSelect={this.handleFilmChange}>
+							<Button rightIcon="caret-down" text={film ? film.title : "(No selection)"} intent={intent} disabled={disabled} />
+						</FilmSelect>
+					</FormGroup>
+					<FormGroup label="Selected Value" helperText="This shows how a hidden input could be updated if need-be.">
+						<InputGroup value={film ? film.title : ""} intent={intent} readOnly={true} disabled={disabled} />
+					</FormGroup>
+				</div>
+				<div className="example">
+					<FormGroup label="Filterable Select">
+						<FilmSelect {...selectProps} filterable={true}>
+							<Button rightIcon="caret-down" text={film ? film.title : "(No selection)"} intent={intent} disabled={disabled} />
+						</FilmSelect>
+					</FormGroup>
+				</div>
+				<div className="example">
+					<FormGroup label="Suggest (aka ComboBox)">
+						<FilmSuggest {...selectProps} inputValueRenderer={getFilmTitle}>
+							<Button rightIcon="caret-down" text={film ? film.title : "(No selection)"} intent={intent} disabled={disabled} />
+						</FilmSuggest>
+					</FormGroup>
+				</div>
+				<div className="example stack bottom">
+					<FormGroup label="Asynchronous Select (Local)">
+						<FilmAsyncSelect
+							ref={this.refHandlers.filmAsyncSelect}
+							disabled={disabled}
+							intent={intent}
+							fetchOnInitialize={false}
+							itemPredicate={filterFilm}
+							itemRenderer={renderFilm}
+							buttonTextProvider={getFilmTitle}
+							store={this.filmStore}
+							popoverProps={popoverProps}
+						/>
+					</FormGroup>
+					<Button text="Load" onClick={this.onLoadFilmItems} />
+				</div>
+				<div className="example stack bottom">
+					<FormGroup label="Asynchronous Select (Server)">
+						<UserAsyncSelect
+							ref={this.refHandlers.userAsyncSelect}
+							disabled={disabled}
+							filterable={false}
+							intent={intent}
+							fetchOnInitialize={false}
+							itemPredicate={filterUser}
+							itemRenderer={renderUser}
+							buttonTextProvider={getUsername}
+							store={this.userStore}
+							onItemSelect={this.handleUserChange}
+							popoverProps={popoverProps}
+						/>
+					</FormGroup>
+					<Button text="Load" onClick={this.onLoadUserItems} />
+				</div>
+				<div className="example">
+					<FormGroup label="Omnibar" helperText={<>Alternatively, you can launch it using <Tag>ctrl</Tag> + <Tag>K</Tag></>}>
+						<Button text="Launch Omnibar" onClick={this.onOpenOmnibarClick} intent={intent} disabled={disabled} />
+						<FilmOmnibar 
+							{...selectProps} 
+							isOpen={omnibarOpen}
+							resetOnSelect={true}
+							inputProps={{ 
+								onBlur: this.closeOmnibar,
+								placeholder: "Search for movies..."
+							}}
+							onClose={this.closeOmnibar} />
+					</FormGroup>
+				</div>
+				<div className="example">
+					<FormGroup label="Multi Select">
+						<FilmMultiSelect 
+							{...selectProps}
+							tagRenderer={filmTagRenderer}
+							onItemSelect={this.handleFilmSelect}
+							tagInputProps={{
+								onRemove: this.handleFilmRemove
+							}}
+							selectedItems={this.state.selectedFilms} />
+					</FormGroup>
+				</div>
+			</FormGroup>
 		);
 	}
 

@@ -53,53 +53,51 @@ export class FormFieldsView extends React.Component<{}, IFormFieldsViewState> {
 		);
 
 		return (
-			<>
-				<FormGroup intent={intent} disabled={this.state.disabled}>
-					<div className="example stack">
-						<Switch label="Invalidate All" large={true} checked={this.state.errored} onClick={this.onErrorAllClick} />
-						<Switch label="Disable All" large={true} checked={this.state.disabled} onClick={this.onDisableAllClick} />
-					</div>
-					<div className="example stack">
-						<InputGroup value="some value" intent={intent} disabled={this.state.disabled} />
-					</div>
-					<div className="example stack">
-						<FormGroup label="First Name" labelFor="firstName">
-							<InputGroup id="firstName" intent={intent} disabled={this.state.disabled} />
-						</FormGroup>
-						<FormGroup label="Last Name" labelFor="lastName" requiredLabel={true} helperText="Patient's family name.">
-							<InputGroup id="lastName" intent={intent} disabled={this.state.disabled} />
-						</FormGroup>
-					</div>
-					<div className="example stack">
-						<InputGroup intent={intent} disabled={this.state.disabled} />
-						<Button text="Search" intent={this.state.errored ? Intent.DANGER : Intent.PRIMARY} disabled={this.state.disabled} className="pad-left" />
-					</div>
-					<div className="example stack">
-						<FormGroup helperText="Try out the search button.">
-							<InputGroup rightElement={searchButton} intent={intent} disabled={this.state.disabled} />
-						</FormGroup>
-					</div>
-					<div className="example stack">
-						<FormGroup label="Search" labelFor="search4" helperText={<>Fields can have rounded borders, which helps give<br />focus amongst other fields.</>}>
-							<InputGroup id="search4" type="search" leftIcon="search" intent={intent} disabled={this.state.disabled} />
-						</FormGroup>
-					</div>
-					<div className="example stack">
-						<FormGroup helperText="Maximum of 4 allowed.  Each name must be unique." intent={this.store.count > 3 ? Intent.DANGER : intent}>
-							<div className="stack middle">
-								<PeopleSelector intent={intent} disabled={this.state.disabled} peopleStore={this.store} />
-								<Tag intent={intent}>{this.store.count} people selected</Tag>
-								{peopleMessage}
-							</div>
-						</FormGroup>
-					</div>
-					<div className="example stack">
-						<FormGroup label="Large input">
-							<InputGroup large={true} value="some value" intent={intent} disabled={this.state.disabled} />
-						</FormGroup>
-					</div>
-				</FormGroup>
-			</>
+			<FormGroup intent={intent} disabled={this.state.disabled}>
+				<div className="example stack">
+					<Switch label="Invalidate All" large={true} checked={this.state.errored} onClick={this.onErrorAllClick} />
+					<Switch label="Disable All" large={true} checked={this.state.disabled} onClick={this.onDisableAllClick} />
+				</div>
+				<div className="example stack">
+					<InputGroup defaultValue="some value" intent={intent} disabled={this.state.disabled} />
+				</div>
+				<div className="example stack">
+					<FormGroup label="First Name" labelFor="firstName">
+						<InputGroup id="firstName" intent={intent} disabled={this.state.disabled} />
+					</FormGroup>
+					<FormGroup label="Last Name" labelFor="lastName" requiredLabel={true} helperText="Patient's family name.">
+						<InputGroup id="lastName" intent={intent} disabled={this.state.disabled} />
+					</FormGroup>
+				</div>
+				<div className="example stack">
+					<InputGroup intent={intent} disabled={this.state.disabled} />
+					<Button text="Search" intent={this.state.errored ? Intent.DANGER : Intent.PRIMARY} disabled={this.state.disabled} className="pad-left" />
+				</div>
+				<div className="example stack">
+					<FormGroup helperText="Try out the search button.">
+						<InputGroup rightElement={searchButton} intent={intent} disabled={this.state.disabled} />
+					</FormGroup>
+				</div>
+				<div className="example stack">
+					<FormGroup label="Search" labelFor="search4" helperText={<>Fields can have rounded borders, which helps give<br />focus amongst other fields.</>}>
+						<InputGroup id="search4" type="search" leftIcon="search" intent={intent} disabled={this.state.disabled} />
+					</FormGroup>
+				</div>
+				<div className="example stack">
+					<FormGroup helperText="Maximum of 4 allowed.  Each name must be unique." intent={this.store.count > 3 ? Intent.DANGER : intent}>
+						<div className="stack middle">
+							<PeopleSelector intent={intent} disabled={this.state.disabled} peopleStore={this.store} />
+							<Tag intent={intent}>{this.store.count} people selected</Tag>
+							{peopleMessage}
+						</div>
+					</FormGroup>
+				</div>
+				<div className="example stack">
+					<FormGroup label="Large input">
+						<InputGroup large={true} value="some value" intent={intent} disabled={this.state.disabled} />
+					</FormGroup>
+				</div>
+			</FormGroup>
 		);
 	}
 
