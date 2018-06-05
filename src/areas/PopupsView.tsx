@@ -8,15 +8,18 @@ import {
 	Icon,
 	InputGroup,
 	Intent,
+	Label,
 	Position,
 	Tooltip
 } from '@blueprintjs/core';
 
 import { Codeable } from 'components/Codeable';
 import { Hint } from 'components/Hint';
+import { IntentSelect } from './IntentSelect';
 
 interface IPopupsViewState {
 	isAlertOpen: boolean;
+	intent: Intent;
 }
 
 export class PopupsView extends React.Component<{}, IPopupsViewState> {
@@ -24,6 +27,7 @@ export class PopupsView extends React.Component<{}, IPopupsViewState> {
 		super(props);
 
 		this.state = {
+			intent: Intent.NONE,
 			isAlertOpen: false
 		};
 	}
@@ -68,13 +72,15 @@ export class PopupsView extends React.Component<{}, IPopupsViewState> {
 						<InputGroup id="lastName" />
 					</FormGroup>
 				</div>
-				<div className="example">
+				<div className="example stack middle">
 					<Button text="Show Alert" onClick={this.showAlert} />
+					<Label text="Color" />
+					<IntentSelect intent={this.state.intent} onChange={this.onIntentSelect} />
 					<Alert
 						confirmButtonText="Okay"
 						isOpen={this.state.isAlertOpen}
 						icon="error"
-						intent={Intent.PRIMARY}
+						intent={this.state.intent}
 						transitionDuration={100}
 						onConfirm={this.hideAlert}>
 						This is a simple alert dialog.
@@ -82,6 +88,10 @@ export class PopupsView extends React.Component<{}, IPopupsViewState> {
 				</div>
 			</>
 		);
+	}
+
+	private onIntentSelect = (intent: Intent) => {
+		this.setState({ intent });
 	}
 
 	private showAlert = () => {
