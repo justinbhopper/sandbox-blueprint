@@ -66,7 +66,8 @@ class App extends React.Component<IAppProps> {
 
 		const { location } = this.props;
 
-		let defaultSelectedTabId = '/fields';
+		let defaultSelectedTabId = 'fields';
+		
 		switch (location.pathname) {
 			case '/fields':
 			case '/selects':
@@ -75,9 +76,11 @@ class App extends React.Component<IAppProps> {
 			case '/popups':
 			case '/callouts':
 			case '/empty':
-				defaultSelectedTabId = location.pathname.substring(1);
+				defaultSelectedTabId = location.pathname;
 				break;
 		}
+
+		defaultSelectedTabId = defaultSelectedTabId.replace('/', '');
 
 		return (
 			<>
