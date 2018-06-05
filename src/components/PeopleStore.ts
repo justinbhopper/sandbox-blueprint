@@ -1,26 +1,27 @@
+import { List } from 'immutable'
+
 import { action, computed, observable } from 'mobx'
 
 export class PeopleStore {
 	@observable
-	private data: string[] = [];
+	private data = List<string>();
 
-	public get people(): string[] {
-		return this.data;
+	public getAll(): string[] {
+		return this.data.toArray();
 	}
 
 	@computed
 	public get count(): number {
-		return this.people.length;
+		return this.data.size;
 	}
 
 	@action
 	public add(person: string): void {
-		if (this.people.indexOf(person) !== -1) {
+		if (this.data.includes(person)) {
 			return;
 		}
-
-		this.people.push(person);
-		this.data = this.people.sort();
+		
+		this.data = this.data.push(person).sort().toList();
 	}
 
 	@action
@@ -30,9 +31,9 @@ export class PeopleStore {
 
 	@action
 	public remove(person: string): void {
-		const index = this.people.indexOf(person);
+		const index = this.data.indexOf(person);
 		if (index !== -1) {
-			this.people.splice(index, 1);
+			this.data = this.data.splice(index, 1).toList();
 		}
 	}
 
@@ -43,7 +44,6 @@ export class PeopleStore {
 
 	@action
 	public update(people: string[]): void {
-		this.removeMany(this.people);
-		this.addMany(people);
+		this.data = List<string>(people.sort());
 	}
 }

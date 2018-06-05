@@ -38,8 +38,8 @@ export class FormFieldsView extends React.Component<{}, IFormFieldsViewState> {
 
 	public render() {
 		const intent = this.state.errored ? Intent.DANGER : Intent.NONE;
-
-		let peopleMessage: JSX.Element = <></>;
+		
+		let peopleMessage = <></>;
 		if (this.store.count >= 4) {
 			peopleMessage = <Callout intent={Intent.DANGER}>Maximum of 4 people allowed.</Callout>;
 		} else if (this.store.count >= 3) {
@@ -85,9 +85,11 @@ export class FormFieldsView extends React.Component<{}, IFormFieldsViewState> {
 				</div>
 				<div className="example stack">
 					<FormGroup helperText="Maximum of 4 allowed.  Each name must be unique." intent={this.store.count > 3 ? Intent.DANGER : intent}>
-						<div className="stack middle">
-							<PeopleSelector intent={intent} disabled={this.state.disabled} peopleStore={this.store} />
-							<Tag intent={intent}>{this.store.count} people selected</Tag>
+						<div className="stack vertical">
+							<div className="stack middle">
+								<PeopleSelector intent={intent} disabled={this.state.disabled} peopleStore={this.store} />
+								<Tag intent={intent}>{this.store.count} people selected</Tag>
+							</div>
 							{peopleMessage}
 						</div>
 					</FormGroup>

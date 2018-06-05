@@ -22,10 +22,11 @@ import {
 	PopoverInteractionKind,
 	Position,
 	Tab,
-	TabId,
 	Tabs,
 	Tooltip
 } from '@blueprintjs/core';
+
+import { Link } from 'react-router-dom'
 
 import { ButtonsView } from "./areas/ButtonsView";
 import { CalloutsView } from "./areas/CalloutsView";
@@ -41,7 +42,19 @@ FormGroup.DEFAULT_REQUIRED_CONTENT = (
 	</span>
 );
 
-class App extends React.Component {
+function renderTab(id: string, label: string, view: JSX.Element) {
+	return (
+		<Tab id={id} panel={<Card>{view}</Card>}>
+			<Link to={`/${id}`}>{label}</Link>
+		</Tab>
+	);
+}
+
+interface IAppProps {
+	location: Location;
+}
+
+class App extends React.Component<IAppProps> {
 	public render() {
 		const contentMenu = (
 			<Menu>
@@ -51,7 +64,20 @@ class App extends React.Component {
 			</Menu>
 		);
 
-		const defaultSelectedTabId = (location.hash || "fields").replace('#', '');
+		const { location } = this.props;
+
+		let defaultSelectedTabId = '/fields';
+		switch (location.pathname) {
+			case '/fields':
+			case '/selects':
+			case '/buttons':
+			case '/notifications':
+			case '/popups':
+			case '/callouts':
+			case '/empty':
+				defaultSelectedTabId = location.pathname.substring(1);
+				break;
+		}
 
 		return (
 			<>
@@ -77,22 +103,30 @@ class App extends React.Component {
 					</NavbarGroup>
 				</Navbar>
 				<main>
-					<Tabs id="areas" defaultSelectedTabId={defaultSelectedTabId} large={true} vertical={true} onChange={this.onTabChange}>
-						<Tab id="fields" title="Form Fields" panel={<Card><FormFieldsView /></Card>} />
-						<Tab id="selectboxes" title="Selects" panel={<Card><SelectsView /></Card>}/>
-						<Tab id="buttons" title="Buttons" panel={<Card><ButtonsView /></Card>} />
-						<Tab id="notifications" title="Notifications" panel={<Card><NotificationsView /></Card>} />
-						<Tab id="popups" title="Popups" panel={<Card><PopupsView /></Card>} />
-						<Tab id="callouts" title="Callouts" panel={<Card><CalloutsView /></Card>} />
-						<Tab id="empty" title="Empty Results" panel={<Card><EmptyView /></Card>} />
+					<Tabs id="areas" defaultSelectedTabId={defaultSelectedTabId} large={true} vertical={true}>
+						{renderTab('fields', 'Form Fields', <FormFieldsView />)}
+						<Tab id="selects" panel={<Card><SelectsView /></Card>}>
+							<Link to="/selects">Selects</Link>
+						</Tab>
+						<Tab id="buttons" panel={<Card><ButtonsView /></Card>}>
+							<Link to="/buttons">Buttons</Link>
+						</Tab>
+						<Tab id="notifications" panel={<Card><NotificationsView /></Card>}>
+							<Link to="/notifications">Notifications</Link>
+						</Tab>
+						<Tab id="popups" panel={<Card><PopupsView /></Card>}>
+							<Link to="/popups">Popups</Link>
+						</Tab>
+						<Tab id="callouts" panel={<Card><CalloutsView /></Card>}>
+							<Link to="/callouts">Callouts</Link>
+						</Tab>
+						<Tab id="empty" panel={<Card><EmptyView /></Card>}>
+							<Link to="/empty">Empty Results</Link>
+						</Tab>
 					</Tabs>
 				</main>
 			</>
 		);
-	}
-
-	private onTabChange = (newTabId: TabId) => {
-		history.pushState(null, undefined, `#${newTabId}`);
 	}
 }
 

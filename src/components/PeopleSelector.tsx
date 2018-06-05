@@ -38,7 +38,7 @@ export class PeopleSelector extends React.Component<IPeopleSelectorProps> {
 				onAdd={this.handleAdd}
 				onRemove={this.handleRemove}
 				rightElement={clearButton}
-				values={peopleStore.people} />
+				values={peopleStore.getAll()} />
 		);
 	}
 
