@@ -19,7 +19,6 @@ import { MultiSelect, Omnibar, Select, Suggest } from '@blueprintjs/select'
 
 import { AsyncSelect } from '../components/AsyncSelect';
 import { FilmStore, filterFilm, IFilm, renderFilm, TOP_100_FILMS } from "../components/Films";
-import { filterUser, IUser, renderUser, UserStore } from "../components/Users";
 import { IntentSelect } from './IntentSelect';
 
 export interface ISelectViewState {
@@ -27,7 +26,6 @@ export interface ISelectViewState {
 	disabled: boolean;
 	errored: boolean;
 	film: IFilm;
-	user?: IUser;
 	intent: Intent;
 	selectedFilms: IFilm[];
 	omnibarOpen: boolean;
@@ -42,22 +40,16 @@ export class SelectsView extends React.Component<{}, ISelectViewState> {
 		film: TOP_100_FILMS[0],
 		intent: Intent.NONE,
 		omnibarOpen: false,
-		selectedFilms: [],
-		user: undefined
+		selectedFilms: []
 	};
 
 	private filmStore = new FilmStore();
-	private userStore = new UserStore();
 
 	private filmAsyncSelect: AsyncSelect<IFilm>;
-	private userAsyncSelect: AsyncSelect<IUser>;
 
 	private refHandlers = {
 		filmAsyncSelect: (ref: AsyncSelect<IFilm>) => {
 			this.filmAsyncSelect = ref;
-		},
-		userAsyncSelect: (ref: AsyncSelect<IUser>) => {
-			this.userAsyncSelect = ref;
 		}
 	}
 
@@ -85,7 +77,6 @@ export class SelectsView extends React.Component<{}, ISelectViewState> {
 		const FilmSuggest = Suggest.ofType<IFilm>();
 		const FilmOmnibar = Omnibar.ofType<IFilm>();
 		const FilmAsyncSelect = AsyncSelect.ofType<IFilm>();
-		const UserAsyncSelect = AsyncSelect.ofType<IUser>();
 
 		const popoverProps: IPopoverProps = {
 			minimal: !animated
@@ -103,7 +94,6 @@ export class SelectsView extends React.Component<{}, ISelectViewState> {
 		};
 
 		const getFilmTitle = (f?: IFilm): string => f ? f.title : "(No selection)";
-		const getUsername = (u?: IUser): string => u ? u.username : "(No selection)";
 		const filmTagRenderer = (f: IFilm) => f.title;
 
 		return (
@@ -158,24 +148,6 @@ export class SelectsView extends React.Component<{}, ISelectViewState> {
 					</FormGroup>
 					<Button text="Load" onClick={this.onLoadFilmItems} />
 				</div>
-				<div className="example stack bottom">
-					<FormGroup label="Asynchronous Select (Server)">
-						<UserAsyncSelect
-							ref={this.refHandlers.userAsyncSelect}
-							disabled={disabled}
-							filterable={false}
-							intent={intent}
-							fetchOnInitialize={false}
-							itemPredicate={filterUser}
-							itemRenderer={renderUser}
-							buttonTextProvider={getUsername}
-							store={this.userStore}
-							onItemSelect={this.handleUserChange}
-							popoverProps={popoverProps}
-						/>
-					</FormGroup>
-					<Button text="Load" onClick={this.onLoadUserItems} />
-				</div>
 				<div className="example">
 					<FormGroup label="Omnibar" helperText={<>Alternatively, you can launch it using <Tag>ctrl</Tag> + <Tag>K</Tag></>}>
 						<Button text="Launch Omnibar" onClick={this.onOpenOmnibarClick} intent={intent} disabled={disabled} />
@@ -212,10 +184,6 @@ export class SelectsView extends React.Component<{}, ISelectViewState> {
 		this.setState({ film });
 	}
 
-	private handleUserChange = (user: IUser) => {
-		this.setState({ user });
-	}
-
 	private handleFilmSelect = (film: IFilm) => {
 		this.setState({ selectedFilms: [...this.state.selectedFilms, film] });
 	}
@@ -242,10 +210,6 @@ export class SelectsView extends React.Component<{}, ISelectViewState> {
 
 	private onLoadFilmItems = () => {
 		this.filmAsyncSelect.fetchAsync();
-	}
-
-	private onLoadUserItems = () => {
-		this.userAsyncSelect.fetchAsync();
 	}
 
 	private openOmnibar = () => this.setState({ omnibarOpen: true });

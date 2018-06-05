@@ -55,8 +55,8 @@ export class FormFieldsView extends React.Component<{}, IFormFieldsViewState> {
 		return (
 			<FormGroup intent={intent} disabled={this.state.disabled}>
 				<div className="stack">
-					<Switch label="Invalidate All" large={true} checked={this.state.errored} onClick={this.onErrorAllClick} />
 					<Switch label="Disable All" large={true} checked={this.state.disabled} onClick={this.onDisableAllClick} />
+					<Switch label="Invalidate All" large={true} checked={this.state.errored} onClick={this.onErrorAllClick} />
 				</div>
 				<div className="example stack">
 					<InputGroup defaultValue="some value" intent={intent} disabled={this.state.disabled} />
@@ -96,7 +96,7 @@ export class FormFieldsView extends React.Component<{}, IFormFieldsViewState> {
 				</div>
 				<div className="example stack">
 					<FormGroup label="Large input">
-						<InputGroup large={true} value="some value" intent={intent} disabled={this.state.disabled} />
+						<InputGroup large={true} defaultValue="some value" intent={intent} disabled={this.state.disabled} />
 					</FormGroup>
 				</div>
 			</FormGroup>

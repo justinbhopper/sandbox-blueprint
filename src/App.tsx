@@ -42,12 +42,18 @@ FormGroup.DEFAULT_REQUIRED_CONTENT = (
 	</span>
 );
 
-function renderTab(id: string, label: string, view: JSX.Element) {
+function renderTab(tab: IAppTab) {
 	return (
-		<Tab id={id} panel={<Card>{view}</Card>}>
-			<Link to={`/${id}`}>{label}</Link>
+		<Tab key={tab.id + 'Tab'} id={tab.id} panel={<Card>{tab.view()}</Card>}>
+			<Link to={`/${tab.id}`} replace={true}>{tab.label}</Link>
 		</Tab>
 	);
+}
+
+interface IAppTab {
+	id: string;
+	label: string;
+	view: () => JSX.Element;
 }
 
 interface IAppProps {
@@ -66,27 +72,28 @@ class App extends React.Component<IAppProps> {
 
 		const { location } = this.props;
 
-		let defaultSelectedTabId = 'fields';
-		
-		switch (location.pathname) {
-			case '/fields':
-			case '/selects':
-			case '/buttons':
-			case '/notifications':
-			case '/popups':
-			case '/callouts':
-			case '/empty':
-				defaultSelectedTabId = location.pathname;
-				break;
-		}
+		const tabs: IAppTab[] = [
+			{ id: 'fields', label: 'Fields', view: () => <FormFieldsView /> },
+			{ id: 'selects', label: 'Selects', view: () => <SelectsView /> },
+			{ id: 'buttons', label: 'Buttons', view: () => <ButtonsView /> },
+			{ id: 'notifications', label: 'Notifications', view: () => <NotificationsView /> },
+			{ id: 'popups', label: 'Popups', view: () => <PopupsView /> },
+			{ id: 'callouts', label: 'Callouts', view: () => <CalloutsView /> },
+			{ id: 'empty', label: 'Empty Results', view: () => <EmptyView /> }
+		]
 
-		defaultSelectedTabId = defaultSelectedTabId.replace('/', '');
+		let defaultSelectedTabId = 'fields';
+
+		const locationPath = location.pathname.replace('/', '');
+		if (tabs.some(t => t.id === locationPath)) {
+			defaultSelectedTabId = locationPath;
+		}
 
 		return (
 			<>
 				<Navbar fixedToTop={true}>
 					<NavbarGroup>
-						<NavbarHeading>Test App</NavbarHeading>
+						<NavbarHeading>Sandbox</NavbarHeading>
 					</NavbarGroup>
 					<NavbarGroup align={Alignment.RIGHT}>
 						<Button minimal={true} icon="home" text="Home" />
@@ -107,25 +114,7 @@ class App extends React.Component<IAppProps> {
 				</Navbar>
 				<main>
 					<Tabs id="areas" defaultSelectedTabId={defaultSelectedTabId} large={true} vertical={true}>
-						{renderTab('fields', 'Form Fields', <FormFieldsView />)}
-						<Tab id="selects" panel={<Card><SelectsView /></Card>}>
-							<Link to="/selects">Selects</Link>
-						</Tab>
-						<Tab id="buttons" panel={<Card><ButtonsView /></Card>}>
-							<Link to="/buttons">Buttons</Link>
-						</Tab>
-						<Tab id="notifications" panel={<Card><NotificationsView /></Card>}>
-							<Link to="/notifications">Notifications</Link>
-						</Tab>
-						<Tab id="popups" panel={<Card><PopupsView /></Card>}>
-							<Link to="/popups">Popups</Link>
-						</Tab>
-						<Tab id="callouts" panel={<Card><CalloutsView /></Card>}>
-							<Link to="/callouts">Callouts</Link>
-						</Tab>
-						<Tab id="empty" panel={<Card><EmptyView /></Card>}>
-							<Link to="/empty">Empty Results</Link>
-						</Tab>
+						{tabs.map(t => renderTab(t))}
 					</Tabs>
 				</main>
 			</>
