@@ -1,15 +1,16 @@
 import "@blueprintjs/core/lib/css/blueprint.css";
 import "@blueprintjs/icons/lib/css/blueprint-icons.css";
 import "@blueprintjs/select/lib/css/blueprint-select.css";
-import * as React from 'react';
 import './css/App.css'
 import './css/blueprint-overrides.css'
+
+import * as React from 'react';
+import { BrowserRouter, Route } from 'react-router-dom';
 
 import {
 	Alignment,
 	Button,
 	ButtonGroup,
-	Card,
 	FormGroup,
 	Intent,
 	Menu,
@@ -21,20 +22,10 @@ import {
 	Popover,
 	PopoverInteractionKind,
 	Position,
-	Tab,
-	Tabs,
 	Tooltip
 } from '@blueprintjs/core';
 
-import { Link } from 'react-router-dom'
-
-import { ButtonsView } from "./areas/ButtonsView";
-import { CalloutsView } from "./areas/CalloutsView";
-import { EmptyView } from "./areas/EmptyView";
-import { FormFieldsView } from "./areas/FormFieldsView";
-import { NotificationsView } from "./areas/NotificationsView";
-import { PopupsView } from "./areas/PopupsView";
-import { SelectsView } from "./areas/SelectsView";
+import Sandbox from "./scenes/sandbox";
 
 FormGroup.DEFAULT_REQUIRED_CONTENT = (
 	<span className="required-label">
@@ -42,25 +33,7 @@ FormGroup.DEFAULT_REQUIRED_CONTENT = (
 	</span>
 );
 
-function renderTab(tab: IAppTab) {
-	return (
-		<Tab key={tab.id + 'Tab'} id={tab.id} panel={<Card>{tab.view()}</Card>}>
-			<Link to={`/${tab.id}`} replace={true}>{tab.label}</Link>
-		</Tab>
-	);
-}
-
-interface IAppTab {
-	id: string;
-	label: string;
-	view: () => JSX.Element;
-}
-
-interface IAppProps {
-	location: Location;
-}
-
-class App extends React.Component<IAppProps> {
+class App extends React.Component {
 	public render() {
 		const contentMenu = (
 			<Menu>
@@ -69,25 +42,6 @@ class App extends React.Component<IAppProps> {
 				<MenuItem text="Scheduler" />
 			</Menu>
 		);
-
-		const { location } = this.props;
-
-		const tabs: IAppTab[] = [
-			{ id: 'fields', label: 'Fields', view: () => <FormFieldsView /> },
-			{ id: 'selects', label: 'Selects', view: () => <SelectsView /> },
-			{ id: 'buttons', label: 'Buttons', view: () => <ButtonsView /> },
-			{ id: 'notifications', label: 'Notifications', view: () => <NotificationsView /> },
-			{ id: 'popups', label: 'Popups', view: () => <PopupsView /> },
-			{ id: 'callouts', label: 'Callouts', view: () => <CalloutsView /> },
-			{ id: 'empty', label: 'Empty Results', view: () => <EmptyView /> }
-		]
-
-		let defaultSelectedTabId = 'fields';
-
-		const locationPath = location.pathname.replace('/', '');
-		if (tabs.some(t => t.id === locationPath)) {
-			defaultSelectedTabId = locationPath;
-		}
 
 		return (
 			<>
@@ -113,9 +67,9 @@ class App extends React.Component<IAppProps> {
 					</NavbarGroup>
 				</Navbar>
 				<main>
-					<Tabs id="areas" defaultSelectedTabId={defaultSelectedTabId} large={true} vertical={true}>
-						{tabs.map(t => renderTab(t))}
-					</Tabs>
+					<BrowserRouter>
+						<Route component={Sandbox} />
+					</BrowserRouter>
 				</main>
 			</>
 		);

@@ -1,8 +1,8 @@
 import { observer } from 'mobx-react';
 import * as React from 'react';
 
-import { Notification } from '../components/notifications'
-import { IntentSelect } from './IntentSelect';
+import { Notification } from '../../../common/components/Notification'
+import { IntentSelect } from '../components/IntentSelect';
 
 import {
 	Button,
@@ -13,13 +13,13 @@ import {
 
 let notificationCount = 0;
 
-export interface INotificationsView {
+export interface INotifications {
 	intent: Intent;
 }
 
 @observer
-export class NotificationsView extends React.Component<{}, INotificationsView> {
-	public state: INotificationsView = {
+export class Notifications extends React.Component<{}, INotifications> {
+	public state: INotifications = {
 		intent: Intent.NONE
 	}
 
@@ -66,3 +66,5 @@ export class NotificationsView extends React.Component<{}, INotificationsView> {
 		})
 	}
 }
+
+export default Notifications;

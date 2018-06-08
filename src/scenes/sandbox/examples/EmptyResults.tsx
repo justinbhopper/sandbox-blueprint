@@ -4,7 +4,7 @@ import {
 	NonIdealState
 } from '@blueprintjs/core';
 
-export const EmptyView: React.SFC = (props) => {
+export default function EmptyResults() {
 	return (
 		<NonIdealState
 			visual="zoom-out"
@@ -18,5 +18,3 @@ export const EmptyView: React.SFC = (props) => {
 		/>
 	);
 };
-
-export default EmptyView;

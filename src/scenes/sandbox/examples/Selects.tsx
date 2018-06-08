@@ -17,11 +17,11 @@ import {
 
 import { MultiSelect, Omnibar, Select, Suggest } from '@blueprintjs/select'
 
-import { AsyncSelect } from '../components/AsyncSelect';
+import { AsyncSelect } from '../../../common/components/AsyncSelect';
 import { FilmStore, filterFilm, IFilm, renderFilm, TOP_100_FILMS } from "../components/Films";
-import { IntentSelect } from './IntentSelect';
+import { IntentSelect } from '../components/IntentSelect';
 
-export interface ISelectViewState {
+export interface ISelectsState {
 	animated: boolean;
 	disabled: boolean;
 	errored: boolean;
@@ -32,8 +32,8 @@ export interface ISelectViewState {
 }
 
 @HotkeysTarget
-export class SelectsView extends React.Component<{}, ISelectViewState> {
-	public state: ISelectViewState = {
+export class Selects extends React.Component<{}, ISelectsState> {
+	public state: ISelectsState = {
 		animated: false,
 		disabled: false,
 		errored: false,
@@ -216,3 +216,5 @@ export class SelectsView extends React.Component<{}, ISelectViewState> {
 
 	private closeOmnibar = () => this.setState({ omnibarOpen: false });
 }
+
+export default Selects;

@@ -13,16 +13,16 @@ import {
 	Tooltip
 } from '@blueprintjs/core';
 
-import { Codeable } from 'components/Codeable';
-import { Hint } from 'components/Hint';
-import { IntentSelect } from './IntentSelect';
+import { Codeable } from '../../../common/components/Codeable';
+import { Hint } from '../../../common/components/Hint';
+import { IntentSelect } from '../components/IntentSelect';
 
-interface IPopupsViewState {
+interface IPopupsState {
 	isAlertOpen: boolean;
 	intent: Intent;
 }
 
-export class PopupsView extends React.Component<{}, IPopupsViewState> {
+export class Popups extends React.Component<{}, IPopupsState> {
 	constructor(props: {}) {
 		super(props);
 
@@ -103,4 +103,4 @@ export class PopupsView extends React.Component<{}, IPopupsViewState> {
 	}
 };
 
-export default PopupsView;
+export default Popups;

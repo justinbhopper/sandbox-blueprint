@@ -5,7 +5,7 @@ import {
 	Intent,
 } from '@blueprintjs/core';
 
-export const CalloutsView: React.SFC = (props) => {
+export default function Callouts() {
 	return (
 		<>
 			<Callout intent={Intent.NONE}>
@@ -40,6 +40,4 @@ export const CalloutsView: React.SFC = (props) => {
 			</Callout>
 		</>
 	);
-};
-
-export default CalloutsView;
+}

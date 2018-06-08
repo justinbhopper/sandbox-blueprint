@@ -1,8 +1,9 @@
 import { MenuItem } from "@blueprintjs/core";
 import { ItemPredicate, ItemRenderer } from "@blueprintjs/select";
 import * as React from "react";
-import { highlightText } from '../utils/menus'
-import { IAsyncStore } from "./AsyncStore";
+
+import { IAsyncStore } from "../../../common/components/AsyncStore";
+import { highlightText } from '../../../common/utils/menus'
 
 export interface IFilm {
 	/** Title of film. */

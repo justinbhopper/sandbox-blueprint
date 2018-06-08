@@ -15,14 +15,14 @@ import { observer } from 'mobx-react';
 import { PeopleSelector } from '../components/PeopleSelector'
 import { PeopleStore } from '../components/PeopleStore';
 
-interface IFormFieldsViewState {
+interface IFormFieldsState {
 	disabled: boolean;
 	errored: boolean;
 	searching: boolean;
 }
 
 @observer
-export class FormFieldsView extends React.Component<{}, IFormFieldsViewState> {
+export class FormFields extends React.Component<{}, IFormFieldsState> {
 	public store: PeopleStore;
 
 	constructor(props: any) {
@@ -121,3 +121,5 @@ export class FormFieldsView extends React.Component<{}, IFormFieldsViewState> {
 		this.setState({ searching: false });
 	}
 }
+
+export default FormFields;

@@ -10,7 +10,7 @@ import {
 	Position
 } from '@blueprintjs/core';
 
-export const ButtonsView: React.SFC = (props) => {
+export default function Buttons() {
 	const moreOptionsMenu = (
 		<Menu>
 			<MenuItem text="Refresh" icon="refresh" />
@@ -54,6 +54,4 @@ export const ButtonsView: React.SFC = (props) => {
 			</div>
 		</>
 	);
-};
-
-export default ButtonsView;
+}
