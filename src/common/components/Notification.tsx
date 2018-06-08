@@ -7,6 +7,7 @@ import {
 	Position,
 	Toaster
 } from '@blueprintjs/core'
+
 import { action, observable } from 'mobx';
 
 export interface INotifier extends IToaster {

@@ -2,8 +2,9 @@ import { MenuItem } from "@blueprintjs/core";
 import { ItemPredicate, ItemRenderer } from "@blueprintjs/select";
 import * as React from "react";
 
-import { IAsyncStore } from "../../../common/components/AsyncStore";
-import { highlightText } from '../../../common/utils/menus'
+import { IAsyncStore } from "common/components/AsyncStore";
+import { highlightText } from 'common/utils/menus'
+import { delay } from "common/utils/promises";
 
 export interface IFilm {
 	/** Title of film. */
@@ -138,9 +139,8 @@ export const filterFilm: ItemPredicate<IFilm> = (query, film) => {
 };
 
 export class FilmStore implements IAsyncStore<IFilm> {
-	public fetchAsync(): Promise<IFilm[]> {
-		return new Promise<IFilm[]>(resolve => {
-			setTimeout(() => resolve(TOP_100_FILMS), 1500);
-		});
+	public async fetchAsync(): Promise<IFilm[]> {
+		await delay(1500);
+		return TOP_100_FILMS;
 	}
 }

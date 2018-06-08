@@ -17,6 +17,7 @@ import {
 
 import { MultiSelect, Omnibar, Select, Suggest } from '@blueprintjs/select'
 
+import { CancelToken } from 'common/components/CancelToken';
 import { AsyncSelect } from '../../../common/components/AsyncSelect';
 import { FilmStore, filterFilm, IFilm, renderFilm, TOP_100_FILMS } from "../components/Films";
 import { IntentSelect } from '../components/IntentSelect';
@@ -44,13 +45,17 @@ export class Selects extends React.Component<{}, ISelectsState> {
 	};
 
 	private filmStore = new FilmStore();
-
 	private filmAsyncSelect: AsyncSelect<IFilm>;
+	private cancelSource = CancelToken.source();
 
 	private refHandlers = {
 		filmAsyncSelect: (ref: AsyncSelect<IFilm>) => {
 			this.filmAsyncSelect = ref;
 		}
+	}
+
+	public componentWillUnmount() {
+		this.cancelSource.cancel('Unmounting');
 	}
 
 	public renderHotkeys() {
@@ -209,7 +214,7 @@ export class Selects extends React.Component<{}, ISelectsState> {
 	}
 
 	private onLoadFilmItems = () => {
-		this.filmAsyncSelect.fetchAsync();
+		this.filmAsyncSelect.fetchAsync(this.cancelSource.token);
 	}
 
 	private openOmnibar = () => this.setState({ omnibarOpen: true });

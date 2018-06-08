@@ -1,3 +1,12 @@
+import * as React from "react";
+
+import { 
+	Button, 
+	Intent, 
+	IPopoverProps, 
+	Spinner 
+} from "@blueprintjs/core";
+
 import { 
 	ItemListPredicate, 
 	ItemListRenderer, 
@@ -6,9 +15,8 @@ import {
 	Select
 } from "@blueprintjs/select";
 
-import { Button, Intent, IPopoverProps, Spinner } from "@blueprintjs/core";
-import * as React from "react";
 import { IAsyncStore } from "./AsyncStore";
+import { CancelToken } from "./CancelToken";
 
 export interface IAsyncSelectProps<T> {
 	store: IAsyncStore<T>;
@@ -43,6 +51,7 @@ export class AsyncSelect<T> extends React.PureComponent<IAsyncSelectProps<T>, IA
 	}
 
 	public store: IAsyncStore<T>;
+	private cancelSource = CancelToken.source();
 	
 	constructor(props: IAsyncSelectProps<T>, context?: any) {
 		super(props, context);
@@ -57,6 +66,10 @@ export class AsyncSelect<T> extends React.PureComponent<IAsyncSelectProps<T>, IA
 		if (props.fetchOnInitialize !== false) {
 			this.fetchAsync();
 		}
+	}
+
+	public componentWillUnmount() {
+		this.cancelSource.cancel('Unmounting');
 	}
 
 	public render() {
@@ -98,10 +111,12 @@ export class AsyncSelect<T> extends React.PureComponent<IAsyncSelectProps<T>, IA
 		}
 	}
 
-	public async fetchAsync(): Promise<void> {
+	public async fetchAsync(cancelToken: CancelToken = CancelToken.never): Promise<void> {
 		this.setState({ loading: true });
 
 		const items = await this.store.fetchAsync();
+
+		CancelToken.race(this.cancelSource.token, cancelToken).throwIfRequested();
 
 		this.setState({ 
 			items,

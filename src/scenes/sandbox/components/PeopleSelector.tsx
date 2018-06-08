@@ -1,6 +1,7 @@
 import { Button, Intent, TagInput } from '@blueprintjs/core';
 import { observer } from 'mobx-react'
 import * as React from 'react';
+
 import { PeopleStore } from './PeopleStore';
 
 export interface IPeopleSelectorProps {

@@ -32,3 +32,5 @@ export class IntentSelect extends React.PureComponent<IIntentSelectProps> {
 
 	private handleIntentChange = (event: React.FormEvent<HTMLSelectElement>) => this.props.onChange((event.target as HTMLInputElement).value as Intent);
 }
+
+export default IntentSelect;

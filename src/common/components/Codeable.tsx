@@ -1,11 +1,11 @@
+import * as React from 'react';
+
 import {
 	Icon,
 	Popover,
 	PopoverInteractionKind,
 	Position
 } from '@blueprintjs/core';
-
-import * as React from 'react';
 
 export interface ICodeableProps {
 	description: string;

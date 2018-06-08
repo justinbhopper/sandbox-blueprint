@@ -1,9 +1,6 @@
 import { observer } from 'mobx-react';
 import * as React from 'react';
 
-import { Notification } from '../../../common/components/Notification'
-import { IntentSelect } from '../components/IntentSelect';
-
 import {
 	Button,
 	Icon,
@@ -11,7 +8,10 @@ import {
 	Label,
 	Switch
 } from '@blueprintjs/core';
+
 import BeforeUnload from 'common/components/BeforeUnload';
+import Notification from 'common/components/Notification'
+import IntentSelect from '../components/IntentSelect';
 
 let notificationCount = 0;
 
@@ -29,7 +29,12 @@ export class Notifications extends React.Component<{}, INotificationsState> {
 		saving: false
 	}
 
+	private countDownTimer?: NodeJS.Timer;
 	private countDownInterval?: NodeJS.Timer;
+
+	public componentWillUnmount() {
+		this.clearTimers();
+	}
 
 	public render() {
 		const { milliSecondsRemaining } = this.state;
@@ -52,8 +57,9 @@ export class Notifications extends React.Component<{}, INotificationsState> {
 					</Label>
 				</div>
 				<div className="example stack vertical">
+					<small>We can warn the user about leaving the site (or refreshing) while saves are in progress.</small>
 					<div className="stack">
-						<Button onClick={this.startSave}>Click here to simulate save.</Button> 
+						<Button disabled={this.state.saving} onClick={this.startSave}>Click here to simulate save.</Button> 
 						<Button disabled={!this.state.saving} minimal={true} onClick={this.leaveWebsite}>
 							Click here to simulate user attempting to leave website. <span>(or press</span> <Icon icon="refresh" /> <span>refresh).</span>
 						</Button> 
@@ -91,23 +97,34 @@ export class Notifications extends React.Component<{}, INotificationsState> {
 	}
 
 	private startSave = () => {
-		this.setState({ saving: true, milliSecondsRemaining: 4000 });
+		const interval = 50;
+		const timeout = 4000;
+		
+		this.setState({ saving: true, milliSecondsRemaining: timeout });
 
-		this.countDownInterval = setInterval(this.countDown, 50);
+		this.countDownTimer = setTimeout(this.stopSave, timeout);
+		this.countDownInterval = setInterval(() => this.countDown(interval), interval);
 	}
 
-	private countDown = () => {
-		let { milliSecondsRemaining } = this.state;
-		milliSecondsRemaining -= 50;
+	private countDown = (interval: number) => {
+		const { milliSecondsRemaining } = this.state;
+		this.setState({ milliSecondsRemaining: Math.max(milliSecondsRemaining - interval, 0) });
+	}
 
-		if (milliSecondsRemaining > 0) {
-			this.setState({ milliSecondsRemaining });
-		} else {
-			if (this.countDownInterval) {
-				clearInterval(this.countDownInterval);
-				this.countDownInterval = undefined;
-			}
-			this.setState({ saving: false, milliSecondsRemaining: 0 });
+	private stopSave = () => {
+		this.setState({ saving: false, milliSecondsRemaining: 0 });
+		this.clearTimers();
+	}
+
+	private clearTimers = () => {
+		if (this.countDownInterval) {
+			clearInterval(this.countDownInterval);
+			this.countDownInterval = undefined;
+		}
+
+		if (this.countDownTimer) {
+			clearTimeout(this.countDownTimer);
+			this.countDownTimer = undefined;
 		}
 	}
 

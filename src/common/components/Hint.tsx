@@ -1,3 +1,5 @@
+import * as React from 'react';
+
 import {
 	Icon,
 	Intent,
@@ -5,8 +7,6 @@ import {
 	PopoverInteractionKind,
 	Position
 } from '@blueprintjs/core';
-
-import * as React from 'react';
 
 export interface IHintProps {
 	text: string;

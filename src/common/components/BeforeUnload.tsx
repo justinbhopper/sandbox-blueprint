@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 export interface IBeforeUnloadProps {
+	children?: React.ReactNode;
 	shouldWarn: (event: BeforeUnloadEvent) => boolean;
 }
 
@@ -26,7 +27,7 @@ class BeforeUnload extends React.Component<IBeforeUnloadProps> {
 	}
 
 	public render() {
-		return null;
+		return this.props.children || null;
 	}
 };
 

@@ -11,6 +11,8 @@ import {
 	Tag
 } from '@blueprintjs/core';
 
+import { CancelToken } from 'common/components/CancelToken';
+import { delay } from 'common/utils/promises'
 import { observer } from 'mobx-react';
 import { PeopleSelector } from '../components/PeopleSelector'
 import { PeopleStore } from '../components/PeopleStore';
@@ -24,6 +26,7 @@ interface IFormFieldsState {
 @observer
 export class FormFields extends React.Component<{}, IFormFieldsState> {
 	public store: PeopleStore;
+	private cancelSource = CancelToken.source();
 
 	constructor(props: any) {
 		super(props);
@@ -34,6 +37,10 @@ export class FormFields extends React.Component<{}, IFormFieldsState> {
 			errored: false,
 			searching: false,
 		};
+	}
+
+	public componentWillUnmount() {
+		this.cancelSource.cancel('Unmounting');
 	}
 
 	public render() {
@@ -111,14 +118,18 @@ export class FormFields extends React.Component<{}, IFormFieldsState> {
 		this.setState({ errored: !this.state.errored });
 	}
 
-	private onSearchClick = () => {
+	private onSearchClick = async () => {
 		this.setState({ searching: true });
-
-		setTimeout(this.onSearchComplete, 2000);
+		
+		await this.fakeCallAsync(this.cancelSource.token);
+	
+		this.setState({ searching: false });
 	}
 
-	private onSearchComplete = () => {
-		this.setState({ searching: false });
+	private fakeCallAsync = async (cancelToken: CancelToken): Promise<void> => {
+		await delay(1500);
+		
+		cancelToken.throwIfRequested();
 	}
 }
 
