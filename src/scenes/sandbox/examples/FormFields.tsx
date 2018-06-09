@@ -11,7 +11,7 @@ import {
 	Tag
 } from '@blueprintjs/core';
 
-import { CancelToken } from 'common/components/CancelToken';
+import { CancelToken, ignoreCancel } from 'common/components/CancelToken';
 import { delay } from 'common/utils/promises'
 import { observer } from 'mobx-react';
 import { PeopleSelector } from '../components/PeopleSelector'
@@ -118,7 +118,8 @@ export class FormFields extends React.Component<{}, IFormFieldsState> {
 		this.setState({ errored: !this.state.errored });
 	}
 
-	private onSearchClick = async () => {
+	@ignoreCancel
+	private onSearchClick = async() => {
 		this.setState({ searching: true });
 		
 		await this.fakeCallAsync(this.cancelSource.token);
@@ -126,7 +127,7 @@ export class FormFields extends React.Component<{}, IFormFieldsState> {
 		this.setState({ searching: false });
 	}
 
-	private fakeCallAsync = async (cancelToken: CancelToken): Promise<void> => {
+	private fakeCallAsync = async(cancelToken: CancelToken) => {
 		await delay(1500);
 		
 		cancelToken.throwIfRequested();

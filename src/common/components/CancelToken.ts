@@ -1,4 +1,4 @@
-import { Cancel } from "./Cancel";
+import { Cancel, isCancel } from "./Cancel";
 
 export type CancelFunction = (reason?: any) => void;
 
@@ -68,18 +68,6 @@ export class CancelToken {
 	}
 }
 
-// non-standard, taken from domenic's suggestion at
-// https://github.com/tc39/proposal-cancelable-promises/issues/32#issuecomment-235644656
-export function isCancel(value: any): value is Cancel {
-	if (!value) {
-		return false;
-	}
-	if (!value.constructor) {
-		return false;
-	}
-	return value.constructor.name === 'Cancel';
-}
-
 export function isCancelToken(value: any): value is CancelToken {
 	if (!value) {
 		return false;
@@ -90,6 +78,59 @@ export function isCancelToken(value: any): value is CancelToken {
 	return value.constructor.name === 'CancelToken';
 }
 
+function createIgnoredMethod(originalFn: (...args: any[]) => any) {
+	function handleError(err: any) {
+		if (!isCancel(err)) {
+			throw err;
+		}
+	}
+	
+	return function (this: any, ...args: any[]) {
+		try {
+			const result = originalFn.apply(this, args);
+			if (result instanceof Promise) { 
+				return result.catch((err) => handleError(err)); 
+			} 
+			return result; 
+		} catch (err) {
+			return handleError(err);
+		}
+	}
+}
+
+const ignoreCancelMethodDecorator: MethodDecorator = (target: any, propertyKey: string | symbol, descriptor: PropertyDescriptor): PropertyDescriptor => {
+	descriptor.value = createIgnoredMethod(descriptor.value);
+	return descriptor;
+}
+
+const ignoreCancelPropertyDecorator: PropertyDecorator = (target: any, propertyKey: string | symbol) => {
+	let value: any;
+	Object.defineProperty(target, propertyKey, {
+		configurable: true,
+		enumerable: false,
+		get() {
+			return value;
+		},
+		set(newValue) {
+			value = createIgnoredMethod(newValue);
+			return value;
+		}
+	});
+}
+
+export interface IgnoreCancelDecorator {
+	<T>(target: any, propertyKey: string | symbol, descriptor?: TypedPropertyDescriptor<T>): void;
+	(target: any, propertyKey: string | symbol, descriptor?: PropertyDescriptor): void;
+} 
+
+export const ignoreCancel: IgnoreCancelDecorator = (target: any, propertyKey: string | symbol, descriptor?: PropertyDescriptor): void => {
+	if (descriptor) {
+		ignoreCancelMethodDecorator(target, propertyKey, descriptor);
+	} else {
+		ignoreCancelPropertyDecorator(target, propertyKey);
+	}
+}
+
 // TODO(rictic): handle unhandledRejections of Cancels according to each
 //     platform's folkways.
 process.on('unhandledRejection', (reason: any, p: Promise<any>) => {
@@ -97,3 +138,5 @@ process.on('unhandledRejection', (reason: any, p: Promise<any>) => {
 		p.catch(() => {/*do nothing but let node know this is ok */});
 	}
 });
+
+export { Cancel, isCancel }

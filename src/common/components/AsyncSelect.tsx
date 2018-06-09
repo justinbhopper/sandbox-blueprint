@@ -16,7 +16,7 @@ import {
 } from "@blueprintjs/select";
 
 import { IAsyncStore } from "./AsyncStore";
-import { CancelToken } from "./CancelToken";
+import { CancelToken, ignoreCancel } from "./CancelToken";
 
 export interface IAsyncSelectProps<T> {
 	store: IAsyncStore<T>;
@@ -111,6 +111,7 @@ export class AsyncSelect<T> extends React.PureComponent<IAsyncSelectProps<T>, IA
 		}
 	}
 
+	@ignoreCancel
 	public async fetchAsync(cancelToken: CancelToken = CancelToken.never): Promise<void> {
 		this.setState({ loading: true });
 
