@@ -25,6 +25,7 @@ import {
 	Tooltip
 } from '@blueprintjs/core';
 
+import { ErrorBoundary } from "common/errorHandling";
 import Sandbox from "./scenes/sandbox";
 
 FormGroup.DEFAULT_REQUIRED_CONTENT = (
@@ -44,7 +45,7 @@ class App extends React.Component {
 		);
 
 		return (
-			<>
+			<ErrorBoundary>
 				<Navbar fixedToTop={true}>
 					<NavbarGroup>
 						<NavbarHeading>Sandbox</NavbarHeading>
@@ -71,7 +72,7 @@ class App extends React.Component {
 						<Route component={Sandbox} />
 					</BrowserRouter>
 				</main>
-			</>
+			</ErrorBoundary>
 		);
 	}
 }

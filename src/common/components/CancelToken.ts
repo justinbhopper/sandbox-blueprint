@@ -1,3 +1,4 @@
+import { AnyFunction, IMethodDecorator, wrappedMethodDecorator } from './../utils/decorators';
 import { Cancel, isCancel } from "./Cancel";
 
 export type CancelFunction = (reason?: any) => void;
@@ -78,58 +79,26 @@ export function isCancelToken(value: any): value is CancelToken {
 	return value.constructor.name === 'CancelToken';
 }
 
-function createIgnoredMethod(originalFn: (...args: any[]) => any) {
+export const ignoreCancel: IMethodDecorator = wrappedMethodDecorator((originalFn: AnyFunction) => {
 	function handleError(err: any) {
 		if (!isCancel(err)) {
 			throw err;
 		}
 	}
-	
+
 	return function (this: any, ...args: any[]) {
 		try {
 			const result = originalFn.apply(this, args);
-			if (result instanceof Promise) { 
+			
+			if (result instanceof Promise) 
 				return result.catch((err) => handleError(err)); 
-			} 
+			
 			return result; 
 		} catch (err) {
 			return handleError(err);
 		}
 	}
-}
-
-const ignoreCancelMethodDecorator: MethodDecorator = (target: any, propertyKey: string | symbol, descriptor: PropertyDescriptor): PropertyDescriptor => {
-	descriptor.value = createIgnoredMethod(descriptor.value);
-	return descriptor;
-}
-
-const ignoreCancelPropertyDecorator: PropertyDecorator = (target: any, propertyKey: string | symbol) => {
-	let value: any;
-	Object.defineProperty(target, propertyKey, {
-		configurable: true,
-		enumerable: false,
-		get() {
-			return value;
-		},
-		set(newValue) {
-			value = createIgnoredMethod(newValue);
-			return value;
-		}
-	});
-}
-
-export interface IgnoreCancelDecorator {
-	<T>(target: any, propertyKey: string | symbol, descriptor?: TypedPropertyDescriptor<T>): void;
-	(target: any, propertyKey: string | symbol, descriptor?: PropertyDescriptor): void;
-} 
-
-export const ignoreCancel: IgnoreCancelDecorator = (target: any, propertyKey: string | symbol, descriptor?: PropertyDescriptor): void => {
-	if (descriptor) {
-		ignoreCancelMethodDecorator(target, propertyKey, descriptor);
-	} else {
-		ignoreCancelPropertyDecorator(target, propertyKey);
-	}
-}
+});
 
 // TODO(rictic): handle unhandledRejections of Cancels according to each
 //     platform's folkways.

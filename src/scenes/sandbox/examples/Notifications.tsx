@@ -6,11 +6,13 @@ import {
 	Icon,
 	Intent,
 	Label,
-	Switch
+	Switch,
+	Tag
 } from '@blueprintjs/core';
 
 import BeforeUnload from 'common/components/BeforeUnload';
 import Notification from 'common/components/Notification'
+import { randomWords } from 'common/utils/words';
 import IntentSelect from '../components/IntentSelect';
 
 let notificationCount = 0;
@@ -66,6 +68,9 @@ export class Notifications extends React.Component<{}, INotificationsState> {
 					</div>
 					<span>{timer}</span>
 					<BeforeUnload shouldWarn={this.shouldWarnBeforeLeaving} />
+				</div>
+				<div className="example stack">
+					<Button icon="error" onClick={this.showErrorAlert}>Simulate error alert</Button>
 				</div>
 			</>
 		);
@@ -134,6 +139,39 @@ export class Notifications extends React.Component<{}, INotificationsState> {
 
 	private shouldWarnBeforeLeaving = () => {
 		return this.state.saving;
+	}
+
+	private showErrorAlert = () => {
+		Notification.show({
+			icon: 'error',
+			intent: Intent.DANGER,
+			message: (
+				<>Oops!  We had an error.</>
+			),
+			action: {
+				icon: 'flag',
+				text: 'Report',
+				onClick: this.reportError
+			}
+		});
+	}
+
+	private reportError = () => {
+		const errorCode = randomWords(4).map(word => <><Tag intent={Intent.WARNING}>{word}</Tag> </>);
+
+		Notification.show({
+			icon: 'thumbs-up',
+			intent: Intent.SUCCESS,
+			timeout: 0,
+			message: (
+				<>
+					The error has been reported to our diagnostics team. We will be investigating the issue.  Thank you for your support!<br />
+					<br />
+					<small>Your unique error code:</small> {errorCode}<br />
+					<small>You may use this error code to reference this error with our team in the future.</small>
+				</>
+			)
+		});
 	}
 }
 

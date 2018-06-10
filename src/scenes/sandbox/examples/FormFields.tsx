@@ -58,7 +58,7 @@ export class FormFields extends React.Component<{}, IFormFieldsState> {
 			? <Spinner small={true} intent={Intent.PRIMARY} />
 			: <Button text="Search" intent={this.state.errored ? Intent.DANGER : Intent.PRIMARY} disabled={this.state.disabled} onClick={this.onSearchClick} />
 		);
-
+		
 		return (
 			<FormGroup intent={intent} disabled={this.state.disabled}>
 				<div className="stack">
@@ -121,7 +121,7 @@ export class FormFields extends React.Component<{}, IFormFieldsState> {
 	@ignoreCancel
 	private onSearchClick = async() => {
 		this.setState({ searching: true });
-		
+
 		await this.fakeCallAsync(this.cancelSource.token);
 	
 		this.setState({ searching: false });
