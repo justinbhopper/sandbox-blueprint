@@ -7,26 +7,11 @@ import './css/blueprint-overrides.css'
 import * as React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 
-import {
-	Alignment,
-	Button,
-	ButtonGroup,
-	FormGroup,
-	Intent,
-	Menu,
-	MenuItem,
-	Navbar,
-	NavbarDivider,
-	NavbarGroup,
-	NavbarHeading,
-	Popover,
-	PopoverInteractionKind,
-	Position,
-	Tooltip
-} from '@blueprintjs/core';
+import { FormGroup } from '@blueprintjs/core';
 
 import { ErrorBoundary } from "common/errorHandling";
-import Sandbox from "./scenes/sandbox";
+import MainNavBar from "scenes/navigation";
+import Sandbox from "scenes/sandbox";
 
 FormGroup.DEFAULT_REQUIRED_CONTENT = (
 	<span className="required-label">
@@ -36,37 +21,9 @@ FormGroup.DEFAULT_REQUIRED_CONTENT = (
 
 class App extends React.Component {
 	public render() {
-		const contentMenu = (
-			<Menu>
-				<MenuItem text="Application Preferences" />
-				<MenuItem text="Layout Options" />
-				<MenuItem text="Scheduler" />
-			</Menu>
-		);
-
 		return (
 			<ErrorBoundary>
-				<Navbar fixedToTop={true}>
-					<NavbarGroup>
-						<NavbarHeading>Sandbox</NavbarHeading>
-					</NavbarGroup>
-					<NavbarGroup align={Alignment.RIGHT}>
-						<Button minimal={true} icon="home" text="Home" />
-						<NavbarDivider />
-						<ButtonGroup minimal={true} large={true}>
-							<Tooltip content="User Profile" position={Position.BOTTOM}>
-								<Button icon="user" />
-							</Tooltip>
-							<Popover content={contentMenu} interactionKind={PopoverInteractionKind.HOVER} position={Position.BOTTOM_RIGHT}>
-								<Button minimal={true} icon="cog" />
-							</Popover>
-						</ButtonGroup>
-						<NavbarDivider />
-						<Tooltip content="Log Out" position={Position.BOTTOM} intent={Intent.DANGER}>
-							<Button minimal={true} large={true} icon="log-out" intent={Intent.DANGER} />
-						</Tooltip>
-					</NavbarGroup>
-				</Navbar>
+				<MainNavBar />
 				<main>
 					<BrowserRouter>
 						<Route component={Sandbox} />

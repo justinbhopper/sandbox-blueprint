@@ -34,7 +34,7 @@ function getDefaultTimeout(): number {
 	return Math.max(2000, 5000 - (toaster.getToasts().length * 1000));
 }
 
-const silenced = observable.box<boolean>(false, {
+export const silenced = observable.box<boolean>(false, {
 	name: "silenced"
 });
 

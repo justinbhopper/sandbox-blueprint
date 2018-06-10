@@ -1,3 +1,9 @@
+button > svg,
+button > svg > path,
+button > svg > title {
+  pointer-events: none;
+}
+
 .pt-callout {
 	margin: 10px 0;
 }

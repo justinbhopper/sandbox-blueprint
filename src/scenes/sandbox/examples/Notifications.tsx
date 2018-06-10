@@ -143,7 +143,7 @@ export class Notifications extends React.Component<{}, INotificationsState> {
 
 	private showErrorAlert = () => {
 		Notification.show({
-			icon: 'error',
+			icon: 'warning-sign',
 			intent: Intent.DANGER,
 			message: (
 				<>Oops!  We had an error.</>
