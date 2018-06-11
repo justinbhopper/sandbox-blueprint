@@ -36,30 +36,30 @@ class MainNavBar extends React.Component {
 
 		return (
 			<Navbar fixedToTop={true}>
-			<NavbarGroup>
-				<NavbarHeading>Sandbox</NavbarHeading>
-			</NavbarGroup>
-			<NavbarGroup align={Alignment.RIGHT}>
-				<Button minimal={true} icon="home" text="Home" />
-				<NavbarDivider />
-				<ButtonGroup minimal={true} large={true}>
-					<Tooltip content="User Profile" position={Position.BOTTOM}>
-						<Button icon="user" />
+				<NavbarGroup>
+					<NavbarHeading>Sandbox</NavbarHeading>
+				</NavbarGroup>
+				<NavbarGroup align={Alignment.RIGHT}>
+					<Button minimal={true} icon="home" text="Home" />
+					<NavbarDivider />
+					<ButtonGroup minimal={true} large={true}>
+						<Tooltip content="User Profile" position={Position.BOTTOM}>
+							<Button icon="user" />
+						</Tooltip>
+						<Popover content={contentMenu} interactionKind={PopoverInteractionKind.HOVER} position={Position.BOTTOM_RIGHT}>
+							<Button minimal={true} icon="cog" />
+						</Popover>
+						<Tooltip content={notificationsLabel} position={Position.BOTTOM}>
+							<Button minimal={true} style={{opacity: Notification.silenced ? 0.5 : 1}} 
+								icon="notifications" onClick={this.toggleNotifications} />
+						</Tooltip>
+					</ButtonGroup>
+					<NavbarDivider />
+					<Tooltip content="Log Out" position={Position.BOTTOM} intent={Intent.DANGER}>
+						<Button minimal={true} large={true} icon="log-out" intent={Intent.DANGER} />
 					</Tooltip>
-					<Popover content={contentMenu} interactionKind={PopoverInteractionKind.HOVER} position={Position.BOTTOM_RIGHT}>
-						<Button minimal={true} icon="cog" />
-					</Popover>
-					<Tooltip content={notificationsLabel} position={Position.BOTTOM}>
-						<Button minimal={true} style={{opacity: Notification.silenced ? 0.5 : 1}} 
-							icon="notifications" onClick={this.toggleNotifications} />
-					</Tooltip>
-				</ButtonGroup>
-				<NavbarDivider />
-				<Tooltip content="Log Out" position={Position.BOTTOM} intent={Intent.DANGER}>
-					<Button minimal={true} large={true} icon="log-out" intent={Intent.DANGER} />
-				</Tooltip>
-			</NavbarGroup>
-		</Navbar>
+				</NavbarGroup>
+			</Navbar>
 		);
 	}
 

@@ -18,15 +18,17 @@ import {
 import { MultiSelect, Omnibar, Select, Suggest } from '@blueprintjs/select'
 
 import { CancelToken } from 'common/components/CancelToken';
+import { IFilm } from 'schemas';
 import { AsyncSelect } from '../../../common/components/AsyncSelect';
-import { FilmStore, filterFilm, IFilm, renderFilm, TOP_100_FILMS } from "../components/Films";
+import { FilmStore, filterFilm, renderFilm } from "../components/Films";
 import { IntentSelect } from '../components/IntentSelect';
 
 export interface ISelectsState {
 	animated: boolean;
 	disabled: boolean;
 	errored: boolean;
-	film: IFilm;
+	film?: IFilm;
+	allFilms: IFilm[];
 	intent: Intent;
 	selectedFilms: IFilm[];
 	omnibarOpen: boolean;
@@ -34,16 +36,6 @@ export interface ISelectsState {
 
 @HotkeysTarget
 export class Selects extends React.Component<{}, ISelectsState> {
-	public state: ISelectsState = {
-		animated: false,
-		disabled: false,
-		errored: false,
-		film: TOP_100_FILMS[0],
-		intent: Intent.NONE,
-		omnibarOpen: false,
-		selectedFilms: []
-	};
-
 	private filmStore = new FilmStore();
 	private filmAsyncSelect: AsyncSelect<IFilm>;
 	private cancelSource = CancelToken.source();
@@ -52,6 +44,30 @@ export class Selects extends React.Component<{}, ISelectsState> {
 		filmAsyncSelect: (ref: AsyncSelect<IFilm>) => {
 			this.filmAsyncSelect = ref;
 		}
+	}
+
+	constructor(props: {}) {
+		super(props);
+
+		this.state = {
+			animated: false,
+			disabled: false,
+			errored: false,
+			film: undefined,
+			allFilms: [],
+			intent: Intent.NONE,
+			omnibarOpen: false,
+			selectedFilms: []
+		}
+	}
+
+	public async componentDidMount() {
+		const allFilms = await this.filmStore.fetchAsync();
+		
+		this.setState({ 
+			allFilms,
+			film: allFilms[0]
+		});
 	}
 
 	public componentWillUnmount() {
@@ -92,7 +108,7 @@ export class Selects extends React.Component<{}, ISelectsState> {
 			filterable: false,
 			itemPredicate: filterFilm,
 			itemRenderer: renderFilm,
-			items: TOP_100_FILMS,
+			items: this.state.allFilms,
 			noResults: <MenuItem icon="zoom-out" disabled={true} text="No results." />,
 			onItemSelect: () => null,
 			popoverProps
