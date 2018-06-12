@@ -1,14 +1,14 @@
-import IFilmsApi from "api/IFilmsApi";
-import IFilmsService from "api/services/IFilmsService";
 import { IRouter } from "express-serve-static-core";
 import RestypedRouter from 'restyped-express-async'
+import IFilmsApi from "./IFilmsApi";
+import IFilmsService from "./IFilmsService";
 
 export default (app: IRouter, filmsService: IFilmsService) => {
 	const router = RestypedRouter<IFilmsApi>(app);
 
 	router.get('/films', async () => {
 		try {
-			return await filmsService.list();
+			return await filmsService.getAll();
 		} catch (e) {
 			throw e; // TODO: handle errors and return correct status code
 		}
