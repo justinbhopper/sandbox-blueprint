@@ -2,42 +2,44 @@ import { MissingResourceError } from "exceptions";
 import { IFilm } from "schemas";
 import IFilmsService from "./IFilmsService";
 
-export default class FilmsService implements IFilmsService {
-	private films: IFilm[] = allFilms;
-
-	public async create(data: Partial<IFilm>): Promise<IFilm> {
-		const film: IFilm = {
-			id: this.films.length + 1,
-			rank: data.rank || this.films.length + 1,
-			title: data.title!,
-			year: data.year!
-		};
-
-		this.films.push(film);
-		return film;
-	}
-
-	public async list(): Promise<IFilm[]> {
-		return this.films.concat();
-	}
-
-	public async get(id: number): Promise<IFilm> {
-		const film = this.films.find(f => f.id === id);
-
-		if (!film)
-			throw new MissingResourceError(`Film with id ${id} not found.`);
+export default (): IFilmsService => {
+	let films: IFilm[] = allFilms.concat();
+	
+	return {
+		async create(data: Partial<IFilm>): Promise<IFilm> {
+			const film: IFilm = {
+				id: films.length + 1,
+				rank: data.rank || films.length + 1,
+				title: data.title!,
+				year: data.year!
+			};
+	
+			films.push(film);
+			return film;
+		},
+	
+		async getAll(): Promise<IFilm[]> {
+			return films.concat();
+		},
+	
+		async get(id: number): Promise<IFilm> {
+			const film = films.find(f => f.id === id);
+	
+			if (!film)
+				throw new MissingResourceError(`Film with id ${id} not found.`);
+				
+			return film;
+		},
+	
+		async delete(id: number): Promise<void> {
+			const index = films.findIndex(f => f.id === id);
 			
-		return film;
-	}
-
-	public async delete(id: number): Promise<void> {
-		const index = this.films.findIndex(f => f.id === id);
-		
-		if (index === -1)
-			throw new MissingResourceError(`Film with id ${id} not found.`);
-
-		this.films = this.films.splice(index, 1);
-	}
+			if (index === -1)
+				throw new MissingResourceError(`Film with id ${id} not found.`);
+	
+			films = films.splice(index, 1);
+		}
+	};
 }
 
 const allFilms = [

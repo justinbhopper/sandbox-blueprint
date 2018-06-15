@@ -8,7 +8,7 @@ import axios, {
 
 import {RestypedBase, RestypedRoute} from 'restyped'
 
-	export interface ITypedAxiosRequestConfig<
+export interface ITypedAxiosRequestConfig<
 	API extends RestypedBase,
 	Path extends keyof API & string,
 	Method extends keyof API[Path] & string,

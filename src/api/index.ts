@@ -1,7 +1,7 @@
 
 import { MissingResourceError } from 'exceptions';
 import * as express from 'express'
-import routes from './routers'
+import routes from './routes'
 
 const app = express();
 const apiRouter = express.Router();
