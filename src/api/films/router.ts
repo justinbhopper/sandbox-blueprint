@@ -7,38 +7,20 @@ export default (app: IRouter, filmsService: IFilmsService) => {
 	const router = RestypedRouter<IFilmsApi>(app);
 
 	router.get('/films', async () => {
-		try {
-			return await filmsService.getAll();
-		} catch (e) {
-			throw e; // TODO: handle errors and return correct status code
-		}
+		return await filmsService.getAll();
 	});
 
 	router.post('/films', async (req) => {
-		try {
-			// TODO: validate body
-			return await filmsService.create(req.body);
-		} catch (e) {
-			throw e; // TODO: handle errors and return correct status code
-		}
+		// TODO: validate body
+		return await filmsService.create(req.body);
 	});
 
-	router.get('/films/:id', async (req, res) => {
-		try {
-			return await filmsService.get(req.params.id);
-		} catch (e) {
-			// res.status(404);
-			throw e; // TODO: handle errors and return correct status code
-		}
+	router.get('/films/:id', async (req) => {
+		return await filmsService.get(req.params.id);
 	});
 
 	router.delete('/films/:id', async (req, res) => {
-		try {
-			await filmsService.delete(req.params.id);
-			res.status(200); // is this necessary?
-		} catch (e) {
-			// res.status(404);
-			throw e; // TODO: handle errors and return correct status code
-		}
+		await filmsService.delete(req.params.id);
+		res.sendStatus(204);
 	});
 }
