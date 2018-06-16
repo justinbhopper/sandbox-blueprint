@@ -1,10 +1,14 @@
+import { createClient } from 'common/utils/redis'
 import { MissingResourceError } from "exceptions";
 import { IFilm } from "schemas";
 import IFilmsService from "./IFilmsService";
 
 export default (): IFilmsService => {
 	let films: IFilm[] = allFilms.concat();
-	
+	const cache = createClient({
+		host: 'redis'
+	});
+
 	return {
 		async create(data: Partial<IFilm>): Promise<IFilm> {
 			const film: IFilm = {
@@ -19,6 +23,9 @@ export default (): IFilmsService => {
 		},
 	
 		async getAll(): Promise<IFilm[]> {
+			const exists = await cache.exists('films');
+			if (exists > 0)
+				return await cache.get<IFilm[]>('films');
 			return films.concat();
 		},
 	

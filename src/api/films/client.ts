@@ -13,7 +13,11 @@ export default (axios: ITypedAxiosStatic): IFilmsApiClient => {
 		},
 	
 		async get(id: number): Promise<IFilm> {
-			const res = await api.get<'/films/:id'>('/films/'+ id);
+			const res = await api.get<'/films/:id'>('/films/'+ id, {
+				params: {
+					include: ["year"]
+				}
+			});
 			return res.data;
 		},
 		

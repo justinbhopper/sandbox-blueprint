@@ -1,28 +1,36 @@
 import { IFilm } from "schemas";
 
+type IFilmKey = keyof IFilm;
+
 export default interface IFilmsApi {
 	'/films': {
 		GET: {
-			response: IFilm[]
-		}
+			query: {
+				include?: IFilmKey[];
+			};
+			response: IFilm[];
+		};
 		POST: {
-			body: IFilm
-			response: IFilm
-		}
-	}
+			body: IFilm;
+			response: IFilm;
+		};
+	};
 
 	'/films/:id': {
 		GET: {
 			params: {
-				id: number
-			}
-			response: IFilm
-		}
+				id: number;
+			};
+			query: {
+				include?: IFilmKey[];
+			};
+			response: IFilm;
+		};
 		DELETE: {
 			params: {
-				id: number
-			}
-			response: void
-		}
-	}
+				id: number;
+			};
+			response: void;
+		};
+	};
 }
