@@ -3,7 +3,14 @@ import { ITypedAxiosStatic } from "../../common/utils/axios";
 import IFilmsApi from "./IFilmsApi";
 import IFilmsApiClient from "./IFilmsApiClient";
 
+import filmsService from './service'
+
 export default (axios: ITypedAxiosStatic): IFilmsApiClient => {
+
+	// TODO: express service is not working in react-script, 
+	// so we will fake the calls by just providing a local service
+	return filmsService();
+
 	const api = axios.create<IFilmsApi>();
 	
 	return {

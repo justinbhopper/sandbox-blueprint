@@ -2,7 +2,6 @@ import * as React from 'react';
 
 import {
 	Card,
-	FormGroup,
 	Tab,
 	Tabs
 } from '@blueprintjs/core';
@@ -16,12 +15,6 @@ import FormFields from "./examples/FormFields";
 import Notifications from "./examples/Notifications";
 import Popups from "./examples/Popups";
 import Selects from "./examples/Selects";
-
-FormGroup.DEFAULT_REQUIRED_CONTENT = (
-	<span className="required-label">
-		{FormGroup.DEFAULT_REQUIRED_CONTENT}
-	</span>
-);
 
 function renderTab(tab: ISandboxTab) {
 	return (

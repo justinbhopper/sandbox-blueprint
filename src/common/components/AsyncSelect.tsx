@@ -83,7 +83,7 @@ export class AsyncSelect<T> extends React.PureComponent<IAsyncSelectProps<T>, IA
 
 		if (loading) {
 			return (
-				<Button {...buttonProps} text="Loading..." rightIcon={<Spinner small={true} intent={this.props.intent} />} disabled={true} />
+				<Button {...buttonProps} text="Loading..." rightIcon={<Spinner size={Spinner.SIZE_SMALL} intent={this.props.intent} />} disabled={true} />
 			);
 		} else if (items !== undefined) {
 			const TypedSelect = Select.ofType<T>();

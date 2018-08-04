@@ -42,7 +42,7 @@ export const Codeable: React.SFC<ICodeableProps> = (props) => {
 			minimal={true} 
 			hoverCloseDelay={150}
 			openOnTargetFocus={false}
-			targetElementTag="span"
+			targetTagName="span"
 			position={Position.BOTTOM_LEFT} 
 			interactionKind={PopoverInteractionKind.HOVER_TARGET_ONLY} 
 		/>

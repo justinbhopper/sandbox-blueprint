@@ -54,7 +54,8 @@ export class Notifications extends React.Component<{}, INotificationsState> {
 					<Switch checked={Notification.silenced} onClick={this.toggleSilenced}>Notifications Silenced</Switch>
 				</div>
 				<div className="example stack">
-					<Label text="Color">
+					<Label>
+						Color
 						<IntentSelect intent={this.state.intent} onChange={this.handleIntentChange} />
 					</Label>
 				</div>

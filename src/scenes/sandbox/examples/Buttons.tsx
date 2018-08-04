@@ -22,7 +22,7 @@ export default function Buttons() {
 	return (
 		<>
 			<div className="example stack middle">
-				<Label text="Menu" />
+				<Label>Menu</Label>
 				<Popover content={moreOptionsMenu} position={Position.BOTTOM_LEFT}>
 					<Button icon="menu" minimal={true} />
 				</Popover>

@@ -67,14 +67,14 @@ export class Popups extends React.Component<{}, IPopupsState> {
 					</Tooltip>.
 				</div>
 				<div className="example stack">
-					<FormGroup label="Last Name" labelFor="lastName" requiredLabel={true} 
+					<FormGroup label="Last Name" labelFor="lastName" labelInfo="(required)"
 						helperText={<>Patient's family name. <Hint text="Input the patient's family name, also known as their sirname or last name." /></>}>
 						<InputGroup id="lastName" />
 					</FormGroup>
 				</div>
 				<div className="example stack middle">
 					<Button text="Show Alert" onClick={this.showAlert} />
-					<Label text="Color" />
+					<Label>Color</Label>
 					<IntentSelect intent={this.state.intent} onChange={this.onIntentSelect} />
 					<Alert
 						confirmButtonText="Okay"

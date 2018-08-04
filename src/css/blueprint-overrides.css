@@ -1,59 +1,49 @@
-button > svg,
-button > svg > path,
-button > svg > title {
-  pointer-events: none;
-}
 
-.pt-callout {
+.bp3-callout {
 	margin: 10px 0;
 }
 
-.pt-tab-panel {
+.bp3-tab-panel {
 	margin-top: 10px;
 }
 
-.pt-switch {
+.bp3-switch {
 	user-select: none;
 }
 
-.required-label {
-	padding-left: 5px;
-	font-size: 12px;
-}
-
-.pt-tag-input .pt-input-ghost {
+.bp3-tag-input .bp3-input-ghost {
 	width: 120px;
 }
 
-.pt-input + .pt-tag {
+.bp3-input + .bp3-tag {
 	margin-left: 5px;
 }
 
-.pt-form-group {
+.bp3-form-group {
 	margin-top: 0;
 	margin-bottom: 0;
 }
 
-.pt-select-popover .pt-menu {
+.bp3-select-popover .bp3-menu {
 	max-width: 400px;
 	max-height: 300px;
 	overflow: auto;
 }
 
-.pt-select-popover .pt-input-group {
+.bp3-select-popover .bp3-input-group {
 	margin: 5px 5px 2px 5px;
 }
 
-.pt-select-popover .pt-popover-content {
+.bp3-select-popover .bp3-popover-content {
 	padding: 0;
 }
 
-.pt-button > .pt-spinner:not(.pt-svg-spinner),
-.pt-button > .pt-spinner.pt-small:not(.pt-svg-spinner) {
+.bp3-button > .bp3-spinner:not(.bp3-svg-spinner),
+.bp3-button > .bp3-spinner.bp3-small:not(.bp3-svg-spinner) {
 	width: 20px;
 }
 
-label.pt-label .pt-popover-wrapper {
+label.bp3-label .bp3-popover-wrapper {
 	display: inline-block;
 	margin-top: 0;
 }
@@ -61,7 +51,7 @@ label.pt-label .pt-popover-wrapper {
 
 
 /* Custom Callout Styles */
-.pt-callout {
+.bp3-callout {
 	background-color: #f5f5f5;
 	box-shadow: 0 0 0 1px rgba(61,70,79,.05), 0 1px 3px 0 rgba(61,70,79,.15);
 	border-width: 3px 0 0;
@@ -72,33 +62,33 @@ label.pt-label .pt-popover-wrapper {
 	border-top-right-radius: 0;
 }
 
-.pt-callout .pt-callout-title {
+.bp3-callout .bp3-callout-title {
 	color: inherit !important;
 }
 
-.pt-callout.pt-intent-primary,
-.pt-callout.pt-intent-primary .pt-icon {
+.bp3-callout.bp3-intent-primary,
+.bp3-callout.bp3-intent-primary .bp3-icon {
 	color: #2f5f9a;
 	background-color: #f7f9fc;
 	border-color: #346cb0;
 }
 
-.pt-callout.pt-intent-danger,
-.pt-callout.pt-intent-danger .pt-icon {
+.bp3-callout.bp3-intent-danger,
+.bp3-callout.bp3-intent-danger .bp3-icon {
 	color: #cc4747;
 	background-color: #fcf9f9;
 	border-color: #c14848;
 }
 
-.pt-callout.pt-intent-warning,
-.pt-callout.pt-intent-warning .pt-icon {
+.bp3-callout.bp3-intent-warning,
+.bp3-callout.bp3-intent-warning .bp3-icon {
 	color: #d69932;
 	background-color: #fffdf9;
 	border-color: #f7c46c;
 }
 
-.pt-callout.pt-intent-success,
-.pt-callout.pt-intent-success .pt-icon {
+.bp3-callout.bp3-intent-success,
+.bp3-callout.bp3-intent-success .bp3-icon {
 	color: #038d7a;
 	background-color: #f5fbfa;
 	border-color: #00a28a;

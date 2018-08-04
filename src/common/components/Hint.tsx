@@ -21,7 +21,7 @@ export const Hint: React.SFC<IHintProps> = (props) => {
 			{...popoverProps}
 			targetClassName="hint"
 			popoverClassName="hint"
-			targetElementTag="span"
+			targetTagName="span"
 			content={text}
 			hoverCloseDelay={150}
 			position={Position.BOTTOM_LEFT} 

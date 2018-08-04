@@ -7,17 +7,9 @@ import './css/blueprint-overrides.css'
 import * as React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 
-import { FormGroup } from '@blueprintjs/core';
-
 import { ErrorBoundary } from "common/errorHandling";
 import MainNavBar from "scenes/navigation";
 import Sandbox from "scenes/sandbox";
-
-FormGroup.DEFAULT_REQUIRED_CONTENT = (
-	<span className="required-label">
-		{FormGroup.DEFAULT_REQUIRED_CONTENT}
-	</span>
-);
 
 class App extends React.Component {
 	public render() {

@@ -7,7 +7,7 @@ import {
 export default function EmptyResults() {
 	return (
 		<NonIdealState
-			visual="zoom-out"
+			icon="zoom-out"
 			title="No search results"
 			description={
 				<>

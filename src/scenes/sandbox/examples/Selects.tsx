@@ -123,9 +123,8 @@ export class Selects extends React.Component<{}, ISelectsState> {
 					<Switch label="Disable All" large={true} checked={disabled} onClick={this.onDisableAllClick} />
 					<Switch label="Invalidate All" large={true} checked={errored} onClick={this.onErrorAllClick} />
 					<Switch label="Animated Popup" large={true} checked={animated} onClick={this.onAnimatedClick} />
-					<Label text="Color" inline={true}>
-						<IntentSelect intent={this.state.intent} onChange={this.handleIntentChange} />
-					</Label>
+					<Label>Color</Label>
+					<IntentSelect intent={this.state.intent} onChange={this.handleIntentChange} />
 				</div>
 				<div className="example stack">
 					<FormGroup label="Normal Select">

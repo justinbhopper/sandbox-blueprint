@@ -55,7 +55,7 @@ export class FormFields extends React.Component<{}, IFormFieldsState> {
 
 		const searchButton = (
 			this.state.searching 
-			? <Spinner small={true} intent={Intent.PRIMARY} />
+			? <Spinner size={16} intent={Intent.PRIMARY} />
 			: <Button text="Search" intent={this.state.errored ? Intent.DANGER : Intent.PRIMARY} disabled={this.state.disabled} onClick={this.onSearchClick} />
 		);
 		
@@ -72,7 +72,7 @@ export class FormFields extends React.Component<{}, IFormFieldsState> {
 					<FormGroup label="First Name" labelFor="firstName">
 						<InputGroup id="firstName" intent={intent} disabled={this.state.disabled} />
 					</FormGroup>
-					<FormGroup label="Last Name" labelFor="lastName" requiredLabel={true} helperText="Patient's family name.">
+					<FormGroup label="Last Name" labelFor="lastName" labelInfo="(required)" helperText="Patient's family name.">
 						<InputGroup id="lastName" intent={intent} disabled={this.state.disabled} />
 					</FormGroup>
 				</div>
