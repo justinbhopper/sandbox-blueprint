@@ -19,6 +19,6 @@ describe("<PeopleSelector>", () => {
 		const selector = mount(
 			<PeopleSelector peopleStore={peopleStore} placeholder={placeholder} />
 		)
-		assert.equal((selector.find("input").getDOMNode() as HTMLInputElement).placeholder, "this should fail");
+		assert.equal((selector.find("input").getDOMNode() as HTMLInputElement).placeholder, placeholder);
 	})
 });
