@@ -19,7 +19,7 @@ import {
 	Tooltip
 } from '@blueprintjs/core';
 
-import Notification from 'common/components/Notification'
+import Notification from '../../common/components/Notification'
 
 @observer
 class MainNavBar extends React.Component {

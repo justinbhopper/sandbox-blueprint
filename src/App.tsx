@@ -7,9 +7,9 @@ import './css/blueprint-overrides.css'
 import * as React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 
-import { ErrorBoundary } from "common/errorHandling";
-import MainNavBar from "scenes/navigation";
-import Sandbox from "scenes/sandbox";
+import { ErrorBoundary } from "./common/errorHandling"
+import MainNavBar from "./scenes/navigation";
+import Sandbox from "./scenes/sandbox";
 
 class App extends React.Component {
 	public render() {

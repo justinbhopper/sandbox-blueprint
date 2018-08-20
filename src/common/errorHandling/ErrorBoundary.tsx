@@ -2,8 +2,8 @@ import * as React from "react";
 
 import { Alert, Intent } from "@blueprintjs/core";
 
-import { isCancel } from "common/components/CancelToken";
-import Notification from 'common/components/Notification'
+import { isCancel } from "../components/Cancel"
+import Notification from '../components/Notification'
 
 interface IErrorBoundaryState {
 	error?: Error;

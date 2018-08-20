@@ -1,5 +1,3 @@
-import * as React from 'react';
-
 import {
 	Button,
 	Callout,
@@ -10,10 +8,11 @@ import {
 	Switch,
 	Tag
 } from '@blueprintjs/core';
-
-import { CancelToken, ignoreCancel } from 'common/components/CancelToken';
-import { delay } from 'common/utils/promises'
 import { observer } from 'mobx-react';
+import * as React from 'react';
+
+import { CancelToken, ignoreCancel } from '../../../common/components/CancelToken';
+import { delay } from '../../../common/utils/promises'
 import { PeopleSelector } from '../components/PeopleSelector'
 import { PeopleStore } from '../components/PeopleStore';
 

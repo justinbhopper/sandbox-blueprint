@@ -1,5 +1,5 @@
-import { MissingResourceError } from "exceptions";
-import { IFilm } from "schemas";
+import { MissingResourceError } from "../../exceptions";
+import { IFilm } from "../../schemas";
 import IFilmsService from "./IFilmsService";
 
 export default (): IFilmsService => {

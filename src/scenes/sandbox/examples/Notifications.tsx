@@ -10,9 +10,9 @@ import {
 	Tag
 } from '@blueprintjs/core';
 
-import BeforeUnload from 'common/components/BeforeUnload';
-import Notification from 'common/components/Notification'
-import { randomWords } from 'common/utils/words';
+import BeforeUnload from '../../../common/components/BeforeUnload';
+import Notification from '../../../common/components/Notification'
+import { randomWords } from '../../../common/utils/words';
 import IntentSelect from '../components/IntentSelect';
 
 let notificationCount = 0;

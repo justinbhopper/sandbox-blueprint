@@ -10,12 +10,13 @@ export interface IPeopleSelectorProps {
 	disabled?: boolean;
 	minimal?: boolean;
 	intent?: Intent;
+	placeholder?: string;
 }
 
 @observer
 export class PeopleSelector extends React.Component<IPeopleSelectorProps> {
 	public render() {
-		const { peopleStore, intent, minimal, ...tagInputProps } = this.props;
+		const { peopleStore, intent, minimal, placeholder, ...tagInputProps } = this.props;
 
 		const clearButton = (
 			peopleStore.count > 0 
@@ -33,7 +34,7 @@ export class PeopleSelector extends React.Component<IPeopleSelectorProps> {
 				{...tagInputProps}
 				tagProps={tagProps}
 				leftIcon="person"
-				placeholder="Search people..."
+				placeholder={placeholder || "Search people..."}
 				addOnBlur={true}
 				fill={false}
 				onAdd={this.handleAdd}

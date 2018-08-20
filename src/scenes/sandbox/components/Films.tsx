@@ -2,12 +2,12 @@ import { MenuItem } from "@blueprintjs/core";
 import { ItemPredicate, ItemRenderer } from "@blueprintjs/select";
 import * as React from "react";
 
-import FilmsApiClient from "api/films/client";
-import IFilmsApiClient from "api/films/IFilmsApiClient";
-import { IAsyncStore } from "common/components/AsyncStore";
-import axios from "common/utils/axios";
-import { highlightText } from 'common/utils/menus'
-import { IFilm } from "schemas";
+import FilmsApiClient from "../../../api/films/client";
+import IFilmsApiClient from "../../../api/films/IFilmsApiClient";
+import { IAsyncStore } from "../../../common/components/AsyncStore";
+import axios from "../../../common/utils/axios";
+import { highlightText } from '../../../common/utils/menus'
+import { IFilm } from "../../../schemas";
 
 export const renderFilm: ItemRenderer<IFilm> = (film, { handleClick, modifiers, query }) => {
 	if (!modifiers.matchesPredicate) {

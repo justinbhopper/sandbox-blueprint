@@ -13,8 +13,8 @@ import {
 	Tooltip
 } from '@blueprintjs/core';
 
-import { Codeable } from 'common/components/Codeable';
-import { Hint } from 'common/components/Hint';
+import { Codeable } from '../../../common/components/Codeable';
+import { Hint } from '../../../common/components/Hint';
 import { IntentSelect } from '../components/IntentSelect';
 
 interface IPopupsState {
