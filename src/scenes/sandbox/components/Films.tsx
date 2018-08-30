@@ -2,12 +2,11 @@ import { MenuItem } from "@blueprintjs/core";
 import { ItemPredicate, ItemRenderer } from "@blueprintjs/select";
 import * as React from "react";
 
+import { IFilm } from '@tehsolace/core-sandbox/Generated/client';
 import FilmsApiClient from "../../../api/films/client";
 import IFilmsApiClient from "../../../api/films/IFilmsApiClient";
 import { IAsyncStore } from "../../../common/components/AsyncStore";
-import axios from "../../../common/utils/axios";
 import { highlightText } from '../../../common/utils/menus'
-import { IFilm } from "../../../schemas";
 
 export const renderFilm: ItemRenderer<IFilm> = (film, { handleClick, modifiers, query }) => {
 	if (!modifiers.matchesPredicate) {
@@ -33,7 +32,7 @@ export class FilmStore implements IAsyncStore<IFilm> {
 	private filmsClient: IFilmsApiClient;
 
 	constructor() {
-		this.filmsClient = FilmsApiClient(axios);
+		this.filmsClient = FilmsApiClient();
 	}
 
 	public fetchAsync(): Promise<IFilm[]> {

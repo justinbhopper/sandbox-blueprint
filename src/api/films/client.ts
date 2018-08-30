@@ -1,40 +1,38 @@
-import { IFilm } from "schemas";
-import { ITypedAxiosStatic } from "../../common/utils/axios";
-import IFilmsApi from "./IFilmsApi";
+
 import IFilmsApiClient from "./IFilmsApiClient";
 
 import filmsService from './service'
 
-export default (axios: ITypedAxiosStatic): IFilmsApiClient => {
+// TODO: how to fix this so I don't have to point to the exact file
+import { Film, FilmsClient, IFilm } from '@tehsolace/core-sandbox/Generated/client'
+
+export default (): IFilmsApiClient => {
 
 	// TODO: express service is not working in react-script, 
 	// so we will fake the calls by just providing a local service
 	return filmsService();
 
-	const api = axios.create<IFilmsApi>();
+	const api = new FilmsClient();
 	
 	return {
 		async getAll(): Promise<IFilm[]> {
-			const res = await api.get('/films');
-			return res.data;
+			return await api.getAll();
 		},
 	
 		async get(id: number): Promise<IFilm> {
-			const res = await api.get<'/films/:id'>('/films/'+ id, {
-				params: {
-					include: ["year"]
-				}
-			});
-			return res.data;
+			return await api.getById(id);
 		},
 		
-		async create(data: IFilm): Promise<IFilm> {
-			const res = await api.post('/films', data);
-			return res.data;
+		async create(data: Film): Promise<IFilm> {
+			return await api.insert(data);
+		},
+		
+		async update(id: number, data: Film): Promise<IFilm> {
+			return await api.update(id, data);
 		},
 		
 		async delete(id: number): Promise<void> {
-			await api.delete<'/films/:id'>('/films/'+ id);
+			await api.delete(id);
 		}
 	};
 }

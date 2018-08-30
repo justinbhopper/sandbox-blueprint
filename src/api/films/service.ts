@@ -1,5 +1,5 @@
+import { IFilm } from '@tehsolace/core-sandbox/Generated/client'
 import { MissingResourceError } from "../../exceptions";
-import { IFilm } from "../../schemas";
 import IFilmsService from "./IFilmsService";
 
 export default (): IFilmsService => {
@@ -29,6 +29,16 @@ export default (): IFilmsService => {
 				throw new MissingResourceError(`Film with id ${id} not found.`);
 				
 			return film;
+		},
+
+		async update(id: number, data: IFilm): Promise<IFilm> {
+			const index = films.findIndex(f => f.id === id);
+			
+			if (index === -1)
+				throw new MissingResourceError(`Film with id ${id} not found.`);
+			
+			films = films.splice(index, 1, data);
+			return data;
 		},
 	
 		async delete(id: number): Promise<void> {
