@@ -17,7 +17,7 @@ import {
 
 import { MultiSelect, Omnibar, Select, Suggest } from '@blueprintjs/select'
 
-import { IFilm } from '@tehsolace/core-sandbox/Generated/client';
+import { IFilm } from '@tehsolace/core-sandbox';
 import { AsyncSelect } from '../../../common/components/AsyncSelect';
 import { CancelToken } from '../../../common/components/CancelToken';
 import { FilmStore, filterFilm, renderFilm } from "../components/Films";
