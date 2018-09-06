@@ -1,28 +1,16 @@
-import { IFilm } from '@tehsolace/core-sandbox/Generated/client'
+import * as api from '@justinbhopper/cqrs-sandbox'
+import { v4 as uuid } from 'uuid'
 import { MissingResourceError } from "../../exceptions";
-import IFilmsService from "./IFilmsService";
 
-export default (): IFilmsService => {
-	let films: IFilm[] = allFilms.concat();
+export default (): api.IFilmsClient => {
+	let films: api.Film[] = allFilms.concat();
 
 	return {
-		async create(data: Partial<IFilm>): Promise<IFilm> {
-			const film: IFilm = {
-				id: films.length + 1,
-				rank: data.rank || films.length + 1,
-				title: data.title!,
-				year: data.year!
-			};
-	
-			films.push(film);
-			return film;
-		},
-	
-		async getAll(): Promise<IFilm[]> {
+		async getAll(): Promise<api.Film[]> {
 			return films.concat();
 		},
 	
-		async get(id: number): Promise<IFilm> {
+		async getById(id: string): Promise<api.Film> {
 			const film = films.find(f => f.id === id);
 	
 			if (!film)
@@ -31,21 +19,34 @@ export default (): IFilmsService => {
 			return film;
 		},
 
-		async update(id: number, data: IFilm): Promise<IFilm> {
-			const index = films.findIndex(f => f.id === id);
+		async create(command: api.CreateFilmCommand): Promise<void> {
+			const film = new api.Film({
+				id: uuid(),
+				rank: command.rank || films.length + 1,
+				title: command.title!,
+				year: command.year!
+			});
+	
+			films.push(film);
+		},
+
+		async update(command: api.UpdateFilmCommand): Promise<void> {
+			const index = films.findIndex(f => f.id === command.id);
 			
 			if (index === -1)
-				throw new MissingResourceError(`Film with id ${id} not found.`);
+				throw new MissingResourceError(`Film with id ${command.id} not found.`);
 			
-			films = films.splice(index, 1, data);
-			return data;
+			const film = films[index];
+			film.rank = command.rank;
+			film.title = command.title!;
+			film.year = command.year!;
 		},
 	
-		async delete(id: number): Promise<void> {
-			const index = films.findIndex(f => f.id === id);
+		async delete(command: api.DeleteFilmCommand): Promise<void> {
+			const index = films.findIndex(f => f.id === command.filmId);
 			
 			if (index === -1)
-				throw new MissingResourceError(`Film with id ${id} not found.`);
+				throw new MissingResourceError(`Film with id ${command.filmId} not found.`);
 	
 			films = films.splice(index, 1);
 		}
@@ -153,4 +154,4 @@ const allFilms = [
 	{ title: "Snatch", year: 2000 },
 	{ title: "3 Idiots", year: 2009 },
 	{ title: "Monty Python and the Holy Grail", year: 1975 },
-].map<IFilm>((m, index) => ({ ...m, rank: index + 1, id: index + 1 }));
+].map<api.Film>((m, index) => (new api.Film({ ...m, rank: index + 1, id: uuid() })));
