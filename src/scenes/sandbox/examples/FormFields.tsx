@@ -61,8 +61,8 @@ export class FormFields extends React.Component<{}, IFormFieldsState> {
 		return (
 			<FormGroup intent={intent} disabled={this.state.disabled}>
 				<div className="stack">
-					<Switch label="Disable All" large={true} checked={this.state.disabled} onClick={this.onDisableAllClick} />
-					<Switch label="Invalidate All" large={true} checked={this.state.errored} onClick={this.onErrorAllClick} />
+					<Switch label="Disable All" large={true} checked={this.state.disabled} onChange={this.onDisableAllChange} />
+					<Switch label="Invalidate All" large={true} checked={this.state.errored} onChange={this.onErrorAllChange} />
 				</div>
 				<div className="example stack">
 					<InputGroup defaultValue="some value" intent={intent} disabled={this.state.disabled} />
@@ -109,12 +109,12 @@ export class FormFields extends React.Component<{}, IFormFieldsState> {
 		);
 	}
 
-	private onDisableAllClick = () => {
-		this.setState({ disabled: !this.state.disabled });
+	private onDisableAllChange = (event: React.FormEvent<HTMLInputElement>) => {
+		this.setState({ disabled: event.currentTarget.checked });
 	}
 
-	private onErrorAllClick = () => {
-		this.setState({ errored: !this.state.errored });
+	private onErrorAllChange = (event: React.FormEvent<HTMLInputElement>) => {
+		this.setState({ errored: event.currentTarget.checked });
 	}
 
 	@ignoreCancel

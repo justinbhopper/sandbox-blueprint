@@ -5,6 +5,8 @@
 		"target": "es5",
 		"lib": ["es6", "dom"],
 		"sourceMap": true,
+		"stripInternal": true,
+		"pretty": true,
 		"emitDecoratorMetadata": true,
 		"experimentalDecorators": true,
 		"allowJs": true,

@@ -1,0 +1,17 @@
+{
+    "files.watcherExclude": {
+        "**/build": true,
+        "**/coverage": true,
+        "**/dist": true,
+        "docs": true
+    },
+    "search.exclude": {
+      "**/node_modules": true,
+      "**/build": true,
+      "**/coverage": true,
+      "**/dist": true,
+      "docs": true
+    },
+    "editor.insertSpaces": false,
+    "editor.tabSize": 4,
+}
