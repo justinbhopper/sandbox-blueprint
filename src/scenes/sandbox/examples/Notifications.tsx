@@ -10,9 +10,11 @@ import {
 	Tag
 } from '@blueprintjs/core';
 
+import Stack from 'common/components/Stack';
 import BeforeUnload from '../../../common/components/BeforeUnload';
 import Notification from '../../../common/components/Notification'
 import { randomWords } from '../../../common/utils/words';
+import Example from '../components/Example';
 import IntentSelect from '../components/IntentSelect';
 
 let notificationCount = 0;
@@ -47,32 +49,32 @@ export class Notifications extends React.Component<{}, INotificationsState> {
 
 		return (
 			<>
-				<div className="example stack">
+				<Example>
 					<Button large={true} icon="notifications" onClick={this.showNotification}>Repeatedly click here!</Button> 
-				</div>
-				<div className="example stack">
+				</Example>
+				<Example>
 					<Switch checked={Notification.silenced} onClick={this.toggleSilenced}>Notifications Silenced</Switch>
-				</div>
-				<div className="example stack">
+				</Example>
+				<Example>
 					<Label>
 						Color
 						<IntentSelect intent={this.state.intent} onChange={this.handleIntentChange} />
 					</Label>
-				</div>
-				<div className="example stack vertical">
+				</Example>
+				<Example vertical={true}>
 					<small>We can warn the user about leaving the site (or refreshing) while saves are in progress.</small>
-					<div className="stack">
+					<Stack>
 						<Button disabled={this.state.saving} onClick={this.startSave}>Click here to simulate save.</Button> 
 						<Button disabled={!this.state.saving} minimal={true} onClick={this.leaveWebsite}>
 							Click here to simulate user attempting to leave website. <span>(or press</span> <Icon icon="refresh" /> <span>refresh).</span>
 						</Button> 
-					</div>
+					</Stack>
 					<span>{timer}</span>
 					<BeforeUnload shouldWarn={this.shouldWarnBeforeLeaving} />
-				</div>
-				<div className="example stack">
+				</Example>
+				<Example>
 					<Button icon="error" onClick={this.showErrorAlert}>Simulate error alert</Button>
-				</div>
+				</Example>
 			</>
 		);
 	}

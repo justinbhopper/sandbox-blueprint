@@ -18,8 +18,10 @@ import {
 import { MultiSelect, Omnibar, Select, Suggest } from '@blueprintjs/select'
 
 import { IFilm } from '@justinbhopper/cqrs-sandbox';
+import Stack from 'common/components/Stack';
 import { AsyncSelect } from '../../../common/components/AsyncSelect';
 import { CancelToken } from '../../../common/components/CancelToken';
+import Example from '../components/Example';
 import { FilmStore, filterFilm, renderFilm } from "../components/Films";
 import { IntentSelect } from '../components/IntentSelect';
 
@@ -119,14 +121,14 @@ export class Selects extends React.Component<{}, ISelectsState> {
 
 		return (
 			<FormGroup intent={intent} disabled={disabled}>
-				<div className="stack middle">
-					<Switch label="Disable All" large={true} checked={disabled} onClick={this.onDisableAllClick} />
-					<Switch label="Invalidate All" large={true} checked={errored} onClick={this.onErrorAllClick} />
-					<Switch label="Animated Popup" large={true} checked={animated} onClick={this.onAnimatedClick} />
+				<Stack position="middle">
+					<Switch label="Disable All" large={true} checked={disabled} onChange={this.onDisableAllChange} />
+					<Switch label="Invalidate All" large={true} checked={errored} onChange={this.onErrorAllChange} />
+					<Switch label="Animated Popup" large={true} checked={animated} onChange={this.onAnimatedChange} />
 					<Label>Color</Label>
 					<IntentSelect intent={this.state.intent} onChange={this.handleIntentChange} />
-				</div>
-				<div className="example stack">
+				</Stack>
+				<Example>
 					<FormGroup label="Normal Select">
 						<FilmSelect 
 							{...selectProps}
@@ -137,22 +139,22 @@ export class Selects extends React.Component<{}, ISelectsState> {
 					<FormGroup label="Selected Value" helperText="This shows how a hidden input could be updated if need-be.">
 						<InputGroup value={film ? film.title : ""} intent={intent} readOnly={true} disabled={disabled} />
 					</FormGroup>
-				</div>
-				<div className="example">
+				</Example>
+				<Example>
 					<FormGroup label="Filterable Select">
 						<FilmSelect {...selectProps} filterable={true}>
 							<Button rightIcon="caret-down" text={film ? film.title : "(No selection)"} intent={intent} disabled={disabled} />
 						</FilmSelect>
 					</FormGroup>
-				</div>
-				<div className="example">
+				</Example>
+				<Example>
 					<FormGroup label="Suggest (aka ComboBox)">
 						<FilmSuggest {...selectProps} inputValueRenderer={getFilmTitle}>
 							<Button rightIcon="caret-down" text={film ? film.title : "(No selection)"} intent={intent} disabled={disabled} />
 						</FilmSuggest>
 					</FormGroup>
-				</div>
-				<div className="example stack bottom">
+				</Example>
+				<Example position="bottom">
 					<FormGroup label="Asynchronous Select (Local)">
 						<FilmAsyncSelect
 							ref={this.refHandlers.filmAsyncSelect}
@@ -167,8 +169,8 @@ export class Selects extends React.Component<{}, ISelectsState> {
 						/>
 					</FormGroup>
 					<Button text="Load" onClick={this.onLoadFilmItems} />
-				</div>
-				<div className="example">
+				</Example>
+				<Example>
 					<FormGroup label="Omnibar" helperText={<>Alternatively, you can launch it using <Tag>ctrl</Tag> + <Tag>K</Tag></>}>
 						<Button text="Launch Omnibar" onClick={this.onOpenOmnibarClick} intent={intent} disabled={disabled} />
 						<FilmOmnibar 
@@ -181,8 +183,8 @@ export class Selects extends React.Component<{}, ISelectsState> {
 							}}
 							onClose={this.closeOmnibar} />
 					</FormGroup>
-				</div>
-				<div className="example">
+				</Example>
+				<Example>
 					<FormGroup label="Multi Select">
 						<FilmMultiSelect 
 							{...selectProps}
@@ -193,7 +195,7 @@ export class Selects extends React.Component<{}, ISelectsState> {
 							}}
 							selectedItems={this.state.selectedFilms} />
 					</FormGroup>
-				</div>
+				</Example>
 			</FormGroup>
 		);
 	}
@@ -212,16 +214,16 @@ export class Selects extends React.Component<{}, ISelectsState> {
 		this.setState({ selectedFilms: this.state.selectedFilms.filter((f, i) => i !== index) });
 	}
 
-	private onDisableAllClick = () => {
-		this.setState({ disabled: !this.state.disabled });
+	private onDisableAllChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		this.setState({ disabled: event.target.checked });
 	}
 
-	private onErrorAllClick = () => {
-		this.setState({ errored: !this.state.errored });
+	private onErrorAllChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		this.setState({ errored: event.target.checked });
 	}
 
-	private onAnimatedClick = () => {
-		this.setState({ animated: !this.state.animated });
+	private onAnimatedChange =(event: React.ChangeEvent<HTMLInputElement>) => {
+		this.setState({ animated: event.target.checked });
 	}
 
 	private onOpenOmnibarClick = () => {

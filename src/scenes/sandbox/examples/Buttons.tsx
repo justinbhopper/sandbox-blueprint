@@ -10,6 +10,8 @@ import {
 	Position
 } from '@blueprintjs/core';
 
+import Example from '../components/Example';
+
 export default function Buttons() {
 	const moreOptionsMenu = (
 		<Menu>
@@ -21,13 +23,13 @@ export default function Buttons() {
 
 	return (
 		<>
-			<div className="example stack middle">
+			<Example position="middle">
 				<Label>Menu</Label>
 				<Popover content={moreOptionsMenu} position={Position.BOTTOM_LEFT}>
 					<Button icon="menu" minimal={true} />
 				</Popover>
-			</div>
-			<div className="example stack">
+			</Example>
+			<Example>
 				<ButtonGroup minimal={true}>
 					<Button text="Add Template" icon="add" />
 					<Button text="Load Results" icon="search" />
@@ -35,8 +37,8 @@ export default function Buttons() {
 						<Button text="More Options" icon="cog" rightIcon="caret-down" />
 					</Popover>
 				</ButtonGroup>
-			</div>
-			<div className="example stack">
+			</Example>
+			<Example>
 				<ButtonGroup>
 					<Button text="Add Template" icon="add" />
 					<Button text="Load Results" icon="search" />
@@ -44,14 +46,14 @@ export default function Buttons() {
 						<Button text="More Options" icon="cog" rightIcon="caret-down" />
 					</Popover>
 				</ButtonGroup>
-			</div>
-			<div className="example stack">
+			</Example>
+			<Example vertical={false}>
 				<Button text="Add Template" icon="add" />
 				<Button text="Load Results" icon="search" />
 				<Popover content={moreOptionsMenu} position={Position.BOTTOM}>
 					<Button text="More Options" icon="cog" rightIcon="caret-down" />
 				</Popover>
-			</div>
+			</Example>
 		</>
 	);
 }

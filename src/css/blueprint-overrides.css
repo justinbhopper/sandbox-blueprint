@@ -7,10 +7,6 @@
 	margin-top: 10px;
 }
 
-.bp3-switch {
-	user-select: none;
-}
-
 .bp3-tag-input .bp3-input-ghost {
 	width: 120px;
 }
@@ -28,14 +24,6 @@
 	max-width: 400px;
 	max-height: 300px;
 	overflow: auto;
-}
-
-.bp3-select-popover .bp3-input-group {
-	margin: 5px 5px 2px 5px;
-}
-
-.bp3-select-popover .bp3-popover-content {
-	padding: 0;
 }
 
 .bp3-button > .bp3-spinner:not(.bp3-svg-spinner),

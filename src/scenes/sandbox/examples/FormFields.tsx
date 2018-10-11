@@ -11,8 +11,10 @@ import {
 import { observer } from 'mobx-react';
 import * as React from 'react';
 
+import Stack from 'common/components/Stack';
 import { CancelToken, ignoreCancel } from '../../../common/components/CancelToken';
 import { delay } from '../../../common/utils/promises'
+import Example from '../components/Example';
 import { PeopleSelector } from '../components/PeopleSelector'
 import { PeopleStore } from '../components/PeopleStore';
 
@@ -60,51 +62,51 @@ export class FormFields extends React.Component<{}, IFormFieldsState> {
 		
 		return (
 			<FormGroup intent={intent} disabled={this.state.disabled}>
-				<div className="stack">
+				<Stack>
 					<Switch label="Disable All" large={true} checked={this.state.disabled} onChange={this.onDisableAllChange} />
 					<Switch label="Invalidate All" large={true} checked={this.state.errored} onChange={this.onErrorAllChange} />
-				</div>
-				<div className="example stack">
+				</Stack>
+				<Example>
 					<InputGroup defaultValue="some value" intent={intent} disabled={this.state.disabled} />
-				</div>
-				<div className="example stack">
+				</Example>
+				<Example>
 					<FormGroup label="First Name" labelFor="firstName">
 						<InputGroup id="firstName" intent={intent} disabled={this.state.disabled} />
 					</FormGroup>
 					<FormGroup label="Last Name" labelFor="lastName" labelInfo="(required)" helperText="Patient's family name.">
 						<InputGroup id="lastName" intent={intent} disabled={this.state.disabled} />
 					</FormGroup>
-				</div>
-				<div className="example stack">
+				</Example>
+				<Example>
 					<InputGroup intent={intent} disabled={this.state.disabled} />
 					<Button text="Search" intent={this.state.errored ? Intent.DANGER : Intent.PRIMARY} disabled={this.state.disabled} className="pad-left" />
-				</div>
-				<div className="example stack">
+				</Example>
+				<Example>
 					<FormGroup helperText="Try out the search button.">
 						<InputGroup rightElement={searchButton} intent={intent} disabled={this.state.disabled} />
 					</FormGroup>
-				</div>
-				<div className="example stack">
+				</Example>
+				<Example>
 					<FormGroup label="Search" labelFor="search4" helperText={<>Fields can have rounded borders, which helps give<br />focus amongst other fields.</>}>
 						<InputGroup id="search4" type="search" leftIcon="search" intent={intent} disabled={this.state.disabled} />
 					</FormGroup>
-				</div>
-				<div className="example stack">
+				</Example>
+				<Example>
 					<FormGroup helperText="Maximum of 4 allowed.  Each name must be unique." intent={this.store.count > 3 ? Intent.DANGER : intent}>
-						<div className="stack vertical">
-							<div className="stack middle">
+						<Stack vertical={true}>
+							<Stack position="middle">
 								<PeopleSelector intent={intent} disabled={this.state.disabled} peopleStore={this.store} />
 								<Tag intent={intent}>{this.store.count} people selected</Tag>
-							</div>
+							</Stack>
 							{peopleMessage}
-						</div>
+						</Stack>
 					</FormGroup>
-				</div>
-				<div className="example stack">
+				</Example>
+				<Example>
 					<FormGroup label="Large input">
 						<InputGroup large={true} defaultValue="some value" intent={intent} disabled={this.state.disabled} />
 					</FormGroup>
-				</div>
+				</Example>
 			</FormGroup>
 		);
 	}

@@ -1,83 +1,8 @@
-main {
-	padding: 40px;
-	padding-top: 80px;
-}
-
-main .bp3-tabs.bp3-vertical > .bp3-tab-panel {
-	flex-grow: 1;
-}
 
 b, strong {
 	font-weight: bolder;
 }
 
-.stack {
-	display: flex;
-	flex-direction: row;
-	flex-wrap: nowrap;
-	align-items: start;
-}
-
-.stack.vertical {
-	flex-direction: column;
-}
-
-.stack.top,
-.example.stack {
-	align-items: flex-start;
-}
-
-.stack.middle {
-	align-items: center;
-}
-
-.stack.bottom {
-	align-items: flex-end;
-}
-
-.stack.centered {
-	justify-content: center;
-}
-
-.stack > .fill {
-	flex-grow: 1;
-	flex-shrink: 1;
-}
-
-.example {
-	padding: 10px 0;
-}
-
-.example + .example {
-	border-top: 1px solid #ddd;
-}
-
-.example .bp3-control {
-	margin-top: 0;
-	margin-bottom: 0;
-}
-
-.stack:not(.vertical) > * + * {
-	margin-left: 10px;
-}
-
-.stack.vertical > * + * {
-	margin-top: 10px;
-}
-
-.stack .bp3-button + .bp3-button,
-.stack .bp3-button + .bp3-popover-wrapper .bp3-button,
-.stack .bp3-popover-wrapper + .bp3-button {
-	margin-left: 5px;
-}
-
-.stack .bp3-button-group .bp3-button,
-.stack .bp3-button-group .bp3-button + .bp3-popover-wrapper .bp3-button,
-.stack .bp3-button-group .bp3-popover-wrapper + .bp3-button {
-	margin-left: 0;
-}
-
-.stack > .bp3-label,
 .bp3-form-group .stack > .bp3-label {
 	margin-bottom: 0;
 }
