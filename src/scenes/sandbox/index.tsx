@@ -18,7 +18,7 @@ import Selects from "./examples/Selects";
 
 function renderTab(tab: ISandboxTab) {
 	return (
-		<Tab key={tab.id + 'Tab'} id={tab.id} panel={<Card>{tab.view()}</Card>}>
+		<Tab key={tab.id + 'Tab'} id={tab.id} panel={<Card elevation={2}>{tab.view()}</Card>}>
 			<Link to={`/${tab.id}`} replace={true}>{tab.label}</Link>
 		</Tab>
 	);
