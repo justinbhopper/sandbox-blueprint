@@ -1,16 +1,22 @@
-import Stack from 'common/components/Stack';
+import Stack, { IStackProps } from 'common/components/Stack';
 import { css } from 'styled-components';
 
-const ExampleCss = css`
+const inlineCss = css`
+	display: block;
+`
+
+export interface IExampleProps extends IStackProps {
+	inline?: boolean;
+}
+
+const Example = Stack.extend<IExampleProps>`
+	padding: 10px 0;
+
 	& + & {
 		border-top: 1px solid #ddd;
 	}
-`
 
-const Example = Stack.extend`
-	padding: 10px 0;
-
-	${ExampleCss}
+	${props => props.inline ? inlineCss : ''}
 
 	> .bp3-control {
 		margin-top: 0;

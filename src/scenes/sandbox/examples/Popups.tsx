@@ -39,35 +39,35 @@ export class Popups extends React.Component<{}, IPopupsState> {
 				<Callout>
 					Hover over items to display the popups.  Some popups are custom styled, and some are using Balloon.css.
 				</Callout>
-				<Example>
+				<Example inline={true}>
 					<>Patient is suffering from </>
 					<Codeable description="Chronic Depression" system="ICD-10" code="90233-11" />.
 				</Example>
-				<Example>
+				<Example inline={true}>
 					<>Patient is suffering from </>
 					<Codeable description="Chronic Depression" system="ICD-10" code="90233-11">
 						depression
 					</Codeable>.
 				</Example>
-				<Example>
+				<Example inline={true}>
 					<>Patient is suffering from </>
 					<span data-balloon="This is a tip using Balloon.css!" data-balloon-pos="down">
 						depression
 					</span>.
 				</Example>
-				<Example>
+				<Example inline={true}>
 					<>Patient is suffering from depression. </>
 					<span data-balloon="This is a tip using Balloon.css!" data-balloon-pos="down">
 						<Icon title="" color="#5d49c8" icon="help" iconSize={14} />
 					</span>
 				</Example>
-				<Example>
+				<Example inline={true}>
 					<>Patient is suffering from </>
 					<Tooltip content="This is a tip using Blueprint!" position={Position.TOP} openOnTargetFocus={false}>
 						depression
 					</Tooltip>.
 				</Example>
-				<Example>
+				<Example inline={true}>
 					<FormGroup label="Last Name" labelFor="lastName" labelInfo="(required)"
 						helperText={<>Patient's family name. <Hint text="Input the patient's family name, also known as their sirname or last name." /></>}>
 						<InputGroup id="lastName" />
