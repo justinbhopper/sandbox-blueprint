@@ -50,6 +50,15 @@ export class Buttons extends React.Component<{}, IButtonsState> {
 					<Popover content={moreOptionsMenu} position={Position.BOTTOM_LEFT}>
 						<Button icon="menu" minimal={true} intent={intent} />
 					</Popover>
+					<Popover content={moreOptionsMenu} position={Position.BOTTOM_LEFT}>
+						<Button icon="menu" intent={intent} />
+					</Popover>
+				</Example>
+				<Example>
+					<ButtonGroup minimal={true}>
+						<Button text="Add Template" intent={intent} />
+						<Button text="Load Results" intent={intent} />
+					</ButtonGroup>
 				</Example>
 				<Example>
 					<ButtonGroup minimal={true}>
@@ -70,6 +79,7 @@ export class Buttons extends React.Component<{}, IButtonsState> {
 					</ButtonGroup>
 				</Example>
 				<Example vertical={false}>
+					<Button text="Add Template" minimal={true} icon="add" intent={intent} />
 					<Button text="Add Template" icon="add" intent={intent} />
 					<Button text="Load Results" icon="search" intent={intent} />
 					<Popover content={moreOptionsMenu} position={Position.BOTTOM}>

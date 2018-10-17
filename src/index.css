@@ -2,5 +2,8 @@ body {
 	margin: 0;
 	padding: 0;
 	background-color: rgb(240, 240, 240);
-	font-family: 'Lato', 'Helvetica Neue', Arial, Helvetica, sans-serif;
+}
+
+body, input, textarea, select, button {
+	font-family: 'Roboto', 'Helvetica Neue', Arial, Helvetica, sans-serif;
 }

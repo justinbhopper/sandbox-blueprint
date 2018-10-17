@@ -1,54 +1,26 @@
-import * as api from '@justinbhopper/cqrs-sandbox'
-import { v4 as uuid } from 'uuid'
 import { MissingResourceError } from "../../exceptions";
+import { IFilm } from './Film';
 
-export default (): api.IFilmsClient => {
-	let films: api.Film[] = allFilms.concat();
+export interface IFilmsClient {
+	getAll(): Promise<IFilm[]>;
+	getById(id: string): Promise<IFilm>;
+}
+
+export default (): IFilmsClient => {
+	const films: IFilm[] = allFilms.concat();
 
 	return {
-		async getAll(): Promise<api.Film[]> {
+		async getAll(): Promise<IFilm[]> {
 			return films.concat();
 		},
 	
-		async getById(id: string): Promise<api.Film> {
+		async getById(id: string): Promise<IFilm> {
 			const film = films.find(f => f.id === id);
 	
 			if (!film)
 				throw new MissingResourceError(`Film with id ${id} not found.`);
 				
 			return film;
-		},
-
-		async create(command: api.CreateFilmCommand): Promise<void> {
-			const film = new api.Film({
-				id: uuid(),
-				rank: command.rank || films.length + 1,
-				title: command.title!,
-				year: command.year!
-			});
-	
-			films.push(film);
-		},
-
-		async update(command: api.UpdateFilmCommand): Promise<void> {
-			const index = films.findIndex(f => f.id === command.id);
-			
-			if (index === -1)
-				throw new MissingResourceError(`Film with id ${command.id} not found.`);
-			
-			const film = films[index];
-			film.rank = command.rank;
-			film.title = command.title!;
-			film.year = command.year!;
-		},
-	
-		async delete(command: api.DeleteFilmCommand): Promise<void> {
-			const index = films.findIndex(f => f.id === command.filmId);
-			
-			if (index === -1)
-				throw new MissingResourceError(`Film with id ${command.filmId} not found.`);
-	
-			films = films.splice(index, 1);
 		}
 	};
 }
@@ -154,4 +126,4 @@ const allFilms = [
 	{ title: "Snatch", year: 2000 },
 	{ title: "3 Idiots", year: 2009 },
 	{ title: "Monty Python and the Holy Grail", year: 1975 },
-].map<api.Film>((m, index) => (new api.Film({ ...m, rank: index + 1, id: uuid() })));
+].map<IFilm>((m, index) => ({ ...m, rank: index + 1, id: String(index) }));

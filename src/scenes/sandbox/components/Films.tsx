@@ -1,23 +1,14 @@
 import { MenuItem } from "@blueprintjs/core";
 import { ItemPredicate, ItemRenderer } from "@blueprintjs/select";
-import * as api from '@justinbhopper/cqrs-sandbox';
 import * as React from "react";
 
-import filmsService from '../../../api/films/service'
+import filmsService, { IFilmsClient } from '../../../api/films/service'
 
-function createClient(): api.IFilmsClient {
-
-	// TODO: express service is not working in react-script, 
-	// so we will fake the calls by just providing a local service
-	return filmsService();
-
-	return new api.FilmsClient();
-}
-
+import { IFilm } from "api/films/Film";
 import { IAsyncStore } from "../../../common/components/AsyncStore";
 import { highlightText } from '../../../common/utils/menus'
 
-export const renderFilm: ItemRenderer<api.IFilm> = (film, { handleClick, modifiers, query }) => {
+export const renderFilm: ItemRenderer<IFilm> = (film, { handleClick, modifiers, query }) => {
 	if (!modifiers.matchesPredicate) {
 		return null;
 	}
@@ -33,18 +24,18 @@ export const renderFilm: ItemRenderer<api.IFilm> = (film, { handleClick, modifie
 	);
 };
 
-export const filterFilm: ItemPredicate<api.IFilm> = (query, film) => {
+export const filterFilm: ItemPredicate<IFilm> = (query, film) => {
 	return `${film.rank}. ${film.title.toLowerCase()} ${film.year}`.indexOf(query.toLowerCase()) >= 0;
 };
 
-export class FilmStore implements IAsyncStore<api.IFilm> {
-	private filmsClient: api.IFilmsClient;
+export class FilmStore implements IAsyncStore<IFilm> {
+	private filmsClient: IFilmsClient;
 
 	constructor() {
-		this.filmsClient = createClient();
+		this.filmsClient = filmsService();
 	}
 
-	public fetchAsync(): Promise<api.IFilm[]> {
+	public fetchAsync(): Promise<IFilm[]> {
 		return this.filmsClient.getAll();
 	}
 }

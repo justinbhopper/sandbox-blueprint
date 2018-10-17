@@ -5,8 +5,6 @@
 	"dependencies": {
 		"@blueprintjs/core": "^3.7.0",
 		"@blueprintjs/select": "^3.2.0",
-		"@justinbhopper/cqrs-sandbox": "^0.2.4",
-		"@types/uuid": "^3.4.4",
 		"chai": "^4.2.0",
 		"enzyme": "^3.7.0",
 		"enzyme-adapter-react-16": "^1.6.0",

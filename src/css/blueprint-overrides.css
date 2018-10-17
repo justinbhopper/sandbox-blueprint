@@ -1,4 +1,61 @@
 
+.bp3-button {
+	font-weight: 500;
+	letter-spacing: 0.02857em;
+	padding: 8px 16px;
+	transition: 
+		background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+		box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+		border 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+}
+
+.bp3-button.bp3-intent-primary {
+	background-color: #3d4252;
+	background-image: none;
+	box-shadow: none;
+	color: #fff;
+}
+
+.bp3-button.bp3-minimal.bp3-intent-primary,
+.bp3-button-group.bp3-minimal .bp3-button.bp3-intent-primary {
+	background-color: transparent;
+	color: #3d4252;
+}
+
+.bp3-button.bp3-minimal.bp3-intent-primary:hover,
+.bp3-button-group.bp3-minimal .bp3-button.bp3-intent-primary:hover {
+	background-color: rgba(61, 66, 82, 0.15);
+	color: #3d4252;
+}
+
+.bp3-button.bp3-intent-primary:hover {
+	background-color: #2c334a;
+}
+
+.bp3-menu-item.bp3-intent-primary {
+	color: #3d4252;
+}
+
+.bp3-menu-item.bp3-intent-primary:hover, 
+.bp3-submenu .bp3-popover-target.bp3-popover-open > .bp3-intent-primary.bp3-menu-item, 
+.bp3-menu-item.bp3-intent-primary.bp3-active {
+	background-color: #2c334a;
+}
+
+.bp3-button.bp3-intent-primary:disabled, 
+.bp3-button.bp3-intent-primary.bp3-disabled {
+	background-color: rgba(61, 66, 82, 0.15);
+}
+
+.bp3-button::before, .bp3-button > * {
+	margin-right: 10px;
+}
+
+.bp3-button-text {
+	display: inline-block;
+	line-height: 21px;
+}
+
 .bp3-callout {
 	margin: 10px 0;
 }
