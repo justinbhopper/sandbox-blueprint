@@ -17,7 +17,7 @@ import {
 
 import { MultiSelect, Omnibar, Select, Suggest } from '@blueprintjs/select'
 
-import { IFilm } from '@justinbhopper/cqrs-sandbox';
+import { IFilm } from 'api/films/Film';
 import Stack from 'common/components/Stack';
 import { AsyncSelect } from '../../../common/components/AsyncSelect';
 import { CancelToken } from '../../../common/components/CancelToken';
