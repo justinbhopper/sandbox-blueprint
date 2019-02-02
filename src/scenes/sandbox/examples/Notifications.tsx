@@ -10,7 +10,7 @@ import {
 	Tag
 } from '@blueprintjs/core';
 
-import Stack from 'common/components/Stack';
+import Stack from '../../../common/components/Stack';
 import BeforeUnload from '../../../common/components/BeforeUnload';
 import Notification from '../../../common/components/Notification'
 import { randomWords } from '../../../common/utils/words';

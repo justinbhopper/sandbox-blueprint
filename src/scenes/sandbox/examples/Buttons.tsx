@@ -11,7 +11,7 @@ import {
 	Position
 } from '@blueprintjs/core';
 
-import Stack from 'common/components/Stack';
+import Stack from '../../../common/components/Stack';
 import Example from '../components/Example';
 import IntentSelect from '../components/IntentSelect';
 

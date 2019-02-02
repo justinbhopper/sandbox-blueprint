@@ -4,7 +4,7 @@ import * as React from "react";
 
 import filmsService, { IFilmsClient } from '../../../api/films/service'
 
-import { IFilm } from "api/films/Film";
+import { IFilm } from "../../../api/films/Film";
 import { IAsyncStore } from "../../../common/components/AsyncStore";
 import { highlightText } from '../../../common/utils/menus'
 

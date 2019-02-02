@@ -11,7 +11,7 @@ import {
 import { observer } from 'mobx-react';
 import * as React from 'react';
 
-import Stack from 'common/components/Stack';
+import Stack from '../../../common/components/Stack';
 import { CancelToken, ignoreCancel } from '../../../common/components/CancelToken';
 import { delay } from '../../../common/utils/promises'
 import Example from '../components/Example';
