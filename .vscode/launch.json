@@ -2,6 +2,17 @@
 	"version": "0.2.0",
 	"configurations": [
 		{
+			"name": "Launch",
+			"type": "node",
+			"request": "launch",
+			"runtimeExecutable": "${workspaceRoot}/node_modules/.bin/react-scripts-ts",
+			"args": ["start"],
+			"cwd": "${workspaceRoot}",
+			"protocol": "inspector",
+			"console": "integratedTerminal",
+			"internalConsoleOptions": "neverOpen"
+		},
+		{
 			"name": "Debug Tests",
 			"type": "node",
 			"request": "launch",
